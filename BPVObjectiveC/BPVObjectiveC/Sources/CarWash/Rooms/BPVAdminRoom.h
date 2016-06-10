@@ -10,4 +10,7 @@
 
 @interface BPVAdminRoom : NSObject
 
+@property (nonatomic, retain) id director;
+@property (nonatomic, retain) id accountant;
+
 @end

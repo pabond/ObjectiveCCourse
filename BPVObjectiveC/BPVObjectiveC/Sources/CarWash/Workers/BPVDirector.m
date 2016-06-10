@@ -10,6 +10,13 @@
 
 @implementation BPVDirector
 
+- (instancetype)init {
+    self = [super init];
+    self.position = BPVWorkerPositionDirector;
+    
+    return self;
+}
+
 - (void)earnMoney {
     NSLog(@"Director earns money");
 }

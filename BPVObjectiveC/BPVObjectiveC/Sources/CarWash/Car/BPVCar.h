@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BPVCar : NSObject
+#import "BPVMoneyFlow.h"
+
+@interface BPVCar : NSObject <BPVMoneyFlow>
+
+@property (nonatomic, assign, getter=isClean) BOOL clean;
 
 @end

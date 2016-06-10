@@ -10,4 +10,10 @@
 
 @implementation BPVCarWashRoom
 
+- (void)dealloc {
+    self.car = nil;
+    
+    [super dealloc];
+}
+
 @end

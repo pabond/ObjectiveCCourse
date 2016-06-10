@@ -8,6 +8,22 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BPVWorker : NSObject
+#import "BPVMoneyFlow.h"
+
+typedef enum {
+    BPVWorkerPositionDirector,
+    BPVWorkerPositionAccountant,
+    BPVWorkerPositionWasher
+} BPVWorkerPosition;
+
+@interface BPVWorker : NSObject <BPVMoneyFlow>
+
+@property (nonatomic, readonly) NSArray             *workers;
+@property (nonatomic, assign)   BPVWorkerPosition   position;
+@property (nonatomic, assign)   uint8_t             experience;
+@property (nonatomic, copy)     NSString            *responsibility;
+
+- (void)addWorker:(id)worker;
+- (void)removeWorker:(id)worker;
 
 @end

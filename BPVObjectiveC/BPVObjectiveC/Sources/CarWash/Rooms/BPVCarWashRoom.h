@@ -10,4 +10,6 @@
 
 @interface BPVCarWashRoom : BPVAdminRoom
 
+@property (nonatomic, retain) id car;
+
 @end

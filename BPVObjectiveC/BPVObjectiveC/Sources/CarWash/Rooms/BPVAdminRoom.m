@@ -10,4 +10,11 @@
 
 @implementation BPVAdminRoom
 
+- (void)dealloc {
+    self.director = nil;
+    self.accountant = nil;
+    
+    [super dealloc];
+}
+
 @end
