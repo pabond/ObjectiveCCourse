@@ -18,10 +18,13 @@
 
 @implementation BPVWorker
 
+@synthesize money;
+
 @dynamic workers;
 
 - (void)dealloc {
     self.mutableWorkers = nil;
+    self.responsibility = nil;
     
     [super dealloc];
 }
@@ -47,6 +50,22 @@
     if (worker) {
         [self.mutableWorkers removeObject:worker];
     }
+}
+
+- (void)acceptMoney {
+    [self setMoney: self.money + kBPVCarWashPrice];
+}
+
+- (void)giveMoney {
+    [self setMoney: self.money + kBPVCarWashPrice];
+}
+
+- (void)setMoney:(NSUInteger)value {
+    _money += value;
+}
+
+- (NSUInteger)money {
+    return _money;
 }
 
 @end

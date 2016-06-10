@@ -14,4 +14,9 @@
 
 @property (nonatomic, assign, getter=isClean) BOOL clean;
 
+@property (nonatomic, readonly) NSArray *cars;
+
+- (void)addCar:(id)car;
+- (void)removeCar:(id)car;
+
 @end

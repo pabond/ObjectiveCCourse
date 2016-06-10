@@ -10,4 +10,9 @@
 
 @interface BPVBuilding : NSObject
 
+@property (nonatomic, readonly) NSArray *buildings;
+
+- (void)addBuilding:(id)building;
+- (void)removeBuilding:(id)building;
+
 @end

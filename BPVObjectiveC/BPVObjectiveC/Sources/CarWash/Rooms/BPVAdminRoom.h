@@ -10,7 +10,13 @@
 
 @interface BPVAdminRoom : NSObject
 
-@property (nonatomic, retain) id director;
-@property (nonatomic, retain) id accountant;
+@property (nonatomic, readonly) NSArray *workers;
+@property (nonatomic, readonly) NSArray *rooms;
+
+- (void)addRoom:(id)room;
+- (void)removeRoom:(id)room;
+
+- (void)addWorker:(id)worker;
+- (void)removeWorker:(id)worker;
 
 @end

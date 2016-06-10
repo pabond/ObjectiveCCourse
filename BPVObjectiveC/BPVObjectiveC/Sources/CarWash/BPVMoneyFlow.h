@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-extern const uint8_t kBPVCarWashPrice = 2;
+const uint8_t kBPVCarWashPrice = 2;
 
 @protocol BPVMoneyFlow <NSObject>
 

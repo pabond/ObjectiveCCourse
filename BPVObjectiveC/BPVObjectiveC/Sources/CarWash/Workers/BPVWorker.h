@@ -21,6 +21,7 @@ typedef enum {
 @property (nonatomic, readonly) NSArray             *workers;
 @property (nonatomic, assign)   BPVWorkerPosition   position;
 @property (nonatomic, assign)   uint8_t             experience;
+@property (nonatomic, assign)   NSUInteger          salary;
 @property (nonatomic, copy)     NSString            *responsibility;
 
 - (void)addWorker:(id)worker;
