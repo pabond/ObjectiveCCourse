@@ -10,13 +10,6 @@
 
 @implementation BPVWasher
 
-- (instancetype)init {
-    self = [super init];
-    self.position = BPVWorkerPositionWasher;
-    
-    return self;
-}
-
 - (void)washCar {
     NSLog(@"Washer washing car");
     NSLog(@"Car washed!");

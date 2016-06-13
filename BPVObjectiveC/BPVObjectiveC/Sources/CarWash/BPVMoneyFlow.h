@@ -8,13 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-const uint8_t kBPVCarWashPrice = 2;
+static const uint8_t kBPVCarWashPrice = 2;
 
 @protocol BPVMoneyFlow <NSObject>
 
 @property (nonatomic, assign) NSUInteger money;
 
-- (void)acceptMoney;
-- (void)giveMoney;
+- (void)acceptMoney:(NSUInteger)value;
+- (NSUInteger)giveMoney;
+- (void)takeMoney:(id<BPVMoneyFlow>)object;
 
 @end

@@ -10,6 +10,9 @@
 
 @implementation BPVCarWashRoom
 
+#pragma marc
+#pragma marc Deallocation
+
 - (void)dealloc {
     self.car = nil;
     

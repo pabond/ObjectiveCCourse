@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface BPVBuilding : NSObject
-
 @property (nonatomic, readonly) NSArray *buildings;
 
 - (void)addBuilding:(id)building;

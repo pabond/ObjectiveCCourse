@@ -10,13 +10,6 @@
 
 @implementation BPVAccountant
 
-- (instancetype)init {
-    self = [super init];
-    self.position = BPVWorkerPositionAccountant;
-    
-    return self;
-}
-
 - (void)countMoney {
     NSLog(@"Accountant counting money");
 }

@@ -18,31 +18,33 @@ int main(int argc, const char * argv[]) {
     @autoreleasepool {
         NSMutableArray *creatures = [NSMutableArray object];
         
-        BPVCreatureMale *creature1 = [BPVCreatureMale object];
-        creature1.name = @"Alex";
-        [creatures addObject: creature1];
+        BPVCreatureMale *creature = [BPVCreatureMale object];
+        creature.name = @"Alex";
+        [creatures addObject:creature];
         
-        BPVCreatureMale *creature2 = [BPVCreatureMale object];
-        creature2.name = @"Paul";
-        [creatures addObject: creature2];
+        creature = [BPVCreatureMale object];
+        creature.name = @"Paul";
+        [creatures addObject:creature];
         
-        BPVCreatureMale *creature3 = [BPVCreatureMale object];
-        creature3.name = @"Bob";
-        [creatures addObject: creature3];
+        creature = [BPVCreatureMale object];
+        creature.name = @"Bob";
+        [creatures addObject:creature];
         
-        BPVCreatureFemale *creature4 = [BPVCreatureFemale object];
-        creature4.name = @"Irene";
-        [creatures addObject: creature4];
+        creature = [BPVCreatureFemale object];
+        creature.name = @"Irene";
+        [creatures addObject:creature];
         
-        BPVCreatureFemale *creature5 = [BPVCreatureFemale object];
-        creature5.name = @"Alexandra";
-        [creatures addObject: creature5];
+        creature = [BPVCreatureFemale object];
+        creature.name = @"Alexandra";
+        [creatures addObject:creature];
         
-        NSLog(@"creatures = %@", creatures);
+        for (uint8_t iterations = 0; iterations < creatures.count - 1; iterations++) {
+            [creature addChild:creatures[iterations]];
+        }
         
         for (BPVCreature *creature in creatures) {
-            [creature sayHi];
             [creature performGenderSpecificOperation];
+            [creature allSayHi];
         }
     }
     

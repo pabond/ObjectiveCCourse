@@ -9,7 +9,7 @@
 #import "BPVAdminRoom.h"
 
 @interface BPVCarWashRoom : BPVAdminRoom
-
+@property (nonatomic, retain) id washer;
 @property (nonatomic, retain) id car;
 
 @end

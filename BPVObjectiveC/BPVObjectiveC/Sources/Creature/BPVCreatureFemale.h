@@ -10,12 +10,6 @@
 
 @interface BPVCreatureFemale : BPVCreature
 
-@property (nonatomic, readonly) NSArray *children;
-
 - (BPVCreature *)giveBirthToChildWithName:(NSString *)name;
-- (BPVCreature *)giveBirthToChild;
-
-- (void)addChild:(BPVCreature *)child;
-- (void)removeChild:(BPVCreature *)child;
 
 @end

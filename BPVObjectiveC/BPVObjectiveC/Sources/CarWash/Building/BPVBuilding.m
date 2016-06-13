@@ -9,9 +9,7 @@
 #import "BPVBuilding.h"
 
 #import "NSObject+BPVExtensions.h"
-
 @interface BPVBuilding ()
-
 @property (nonatomic, retain) NSMutableArray *mutableBuildings;
 
 @end
@@ -20,11 +18,17 @@
 
 @dynamic buildings;
 
+#pragma marc
+#pragma marc Deallocation
+
 - (void)dealloc {
     self.mutableBuildings = nil;
     
     [super dealloc];
 }
+
+#pragma marc
+#pragma marc Initialisation
 
 - (instancetype)init {
     self = [super init];
@@ -32,6 +36,9 @@
     
     return self;
 }
+
+#pragma marc
+#pragma marc Public Implementation
 
 - (NSArray *)buildings {
     return [[self.mutableBuildings copy] autorelease];
