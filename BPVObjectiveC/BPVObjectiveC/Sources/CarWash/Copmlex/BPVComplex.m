@@ -16,6 +16,7 @@
 #import "NSObject+BPVExtensions.h"
 
 @interface BPVComplex ()
+@property (nonatomic, retain) NSMutableArray *mutableCars;
 
 - (id)freeObject:(id)arrey withClass:(Class)cls;
 
@@ -23,16 +24,47 @@
 
 @implementation BPVComplex
 
+@dynamic cars;
+
+#pragma marc
+#pragma marc Initialisation/Deallocation
+
+- (void)dealloc {
+    self.adminBuilding = nil;
+    self.carWashBuilding = nil;
+    self.mutableCars = nil;
+        
+    [super dealloc];
+}
+
 - (instancetype)init {
     self = [super init];
     self.adminBuilding = [BPVBuilding object];
     self.carWashBuilding = [BPVBuilding object];
+    self.mutableCars = [NSMutableArray object];
     
     return self;
 }
 
 #pragma marc
 #pragma marc Public Implementation
+
+- (NSArray *)cars {
+    return [[self.mutableCars copy] autorelease];
+}
+
+- (void)addCar:(id)car {
+    if (car) {
+        [self.mutableCars addObject:car];
+    }
+}
+
+- (void)removeCar:(id)car {
+    if (car) {
+        [self.mutableCars removeObject:car];
+    }
+}
+
 
 - (void)washCar:(BPVCar *)car {
     if (car.isClean) {

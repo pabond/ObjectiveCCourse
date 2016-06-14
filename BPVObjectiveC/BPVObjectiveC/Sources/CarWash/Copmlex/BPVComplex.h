@@ -14,6 +14,10 @@
 @interface BPVComplex : NSObject
 @property (nonatomic, retain) BPVBuilding *adminBuilding;
 @property (nonatomic, retain) BPVBuilding *carWashBuilding;
+@property (nonatomic, readonly) NSArray *cars;
+
+- (void)addCar:(id)car;
+- (void)removeCar:(id)car;
 
 - (void)washCar:(BPVCar *)car;
 - (void)moneyflow:(id)object;

@@ -8,43 +8,43 @@
 
 #import <Foundation/Foundation.h>
 
-#import "BPVCreature.h"
-#import "BPVCreatureMale.h"
-#import "BPVCreatureFemale.h"
+#import "BPVComplex.h"
+#import "BPVAdminRoom.h"
+#import "BPVCarWashRoom.h"
+#import "BPVBuilding.h"
+#import "BPVDirector.h"
+#import "BPVAccountant.h"
+#import "BPVWasher.h"
+#import "BPVCar.h"
 
 #import "NSObject+BPVExtensions.h"
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
-        NSMutableArray *creatures = [NSMutableArray object];
+        BPVComplex *complex = [BPVComplex object];
+        BPVBuilding *adminBuilding = complex.adminBuilding;
+        BPVBuilding *carWashBuilding = complex.carWashBuilding;
         
-        BPVCreatureMale *creature = [BPVCreatureMale object];
-        creature.name = @"Alex";
-        [creatures addObject:creature];
+        BPVAdminRoom *adminRoom = [BPVAdminRoom object];
+        [adminBuilding addRoom:adminRoom];
         
-        creature = [BPVCreatureMale object];
-        creature.name = @"Paul";
-        [creatures addObject:creature];
-        
-        creature = [BPVCreatureMale object];
-        creature.name = @"Bob";
-        [creatures addObject:creature];
-        
-        creature = [BPVCreatureFemale object];
-        creature.name = @"Irene";
-        [creatures addObject:creature];
-        
-        creature = [BPVCreatureFemale object];
-        creature.name = @"Alexandra";
-        [creatures addObject:creature];
-        
-        for (uint8_t iterations = 0; iterations < creatures.count - 1; iterations++) {
-            [creature addChild:creatures[iterations]];
+        for (uint8_t iterations = 0; iterations < 10; iterations++) {
+            BPVCarWashRoom *carWashRoom = [BPVCarWashRoom object];
+            [carWashBuilding addRoom:carWashRoom];
+            
+            BPVWasher *washer = [BPVCarWashRoom object];
+            [carWashRoom addWorker:washer];
         }
         
-        for (BPVCreature *creature in creatures) {
-            [creature performGenderSpecificOperation];
-            [creature allSayHi];
+        BPVDirector *director = [BPVDirector object];
+        [adminRoom addWorker:director];
+        
+        BPVAccountant *accountant = [BPVAccountant object];
+        [adminRoom addWorker:accountant];
+        
+        for (uint8_t iterations = 0; iterations < 20; iterations++) {
+            BPVCar *car = [BPVCar object];
+            [complex addCar:car];
         }
     }
     
