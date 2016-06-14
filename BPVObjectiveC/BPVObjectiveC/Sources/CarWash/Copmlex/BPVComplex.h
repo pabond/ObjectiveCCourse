@@ -8,6 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+#import "BPVBuilding.h"
+#import "BPVCar.h"
+
 @interface BPVComplex : NSObject
+@property (nonatomic, retain) BPVBuilding *adminBuilding;
+@property (nonatomic, retain) BPVBuilding *carWashBuilding;
+
+- (void)washCar:(BPVCar *)car;
 
 @end

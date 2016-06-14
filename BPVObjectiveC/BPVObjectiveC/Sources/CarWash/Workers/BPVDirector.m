@@ -10,6 +10,8 @@
 
 @implementation BPVDirector
 
+@synthesize money = _money;
+
 - (void)earnMoney {
     NSLog(@"Director earns money");
 }

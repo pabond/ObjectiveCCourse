@@ -8,14 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+#import "BPVIsBusyObject.h"
 #import "BPVMoneyFlow.h"
 
-@interface BPVWorker : NSObject <BPVMoneyFlow>
-@property (nonatomic, readonly) NSArray     *workers;
+@interface BPVWorker : NSObject <BPVMoneyFlow, BPVIsBusyObject>
 @property (nonatomic, assign)   NSUInteger  experience;
 @property (nonatomic, assign)   NSUInteger  salary;
-
-- (void)addWorker:(id)worker;
-- (void)removeWorker:(id)worker;
 
 @end

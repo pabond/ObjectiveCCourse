@@ -35,7 +35,6 @@
 
 - (instancetype)init {
     self = [super init];
-    self.clean = NO;
     self.mutableCars = [NSMutableArray object];
         
     return self;
@@ -61,7 +60,7 @@
 }
 
 #pragma marc
-#pragma marc <MoneyFlow> Implementation
+#pragma marc MoneyFlow
 
 - (void)acceptMoney:(NSUInteger)value {
     self.money = self.money + value;
@@ -73,17 +72,6 @@
 
 - (void)takeMoney:(id<BPVMoneyFlow>)object {
     [self acceptMoney:[object giveMoney]];
-}
-
-#pragma marc
-#pragma marc <MoneyFlow> property accesors
-
-- (void)setMoney:(NSUInteger)value {
-    _money += value;
-}
-
-- (NSUInteger)money {
-    return _money;
 }
 
 @end

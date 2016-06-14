@@ -10,6 +10,8 @@
 
 @implementation BPVAccountant
 
+@synthesize money = _money;
+
 - (void)countMoney {
     NSLog(@"Accountant counting money");
 }

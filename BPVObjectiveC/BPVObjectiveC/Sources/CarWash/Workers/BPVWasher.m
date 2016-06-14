@@ -10,9 +10,12 @@
 
 @implementation BPVWasher
 
-- (void)washCar {
+@synthesize money = _money;
+
+- (void)washCar:(BPVCar *)car {
     NSLog(@"Washer washing car");
     NSLog(@"Car washed!");
+    car.clean = YES;
 }
 
 @end

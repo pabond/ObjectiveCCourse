@@ -8,13 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BPVAdminRoom : NSObject
-@property (nonatomic, retain) id director;
-@property (nonatomic, retain) id accountant;
+#import "BPVIsBusyObject.h"
 
-@property (nonatomic, readonly) NSArray *rooms;
+@interface BPVAdminRoom : NSObject <BPVIsBusyObject>
+@property (nonatomic, readonly) NSArray     *workers;
 
-- (void)addRoom:(id)room;
-- (void)removeRoom:(id)room;
+- (void)addWorker:(id)worker;
+- (void)removeWorker:(id)worker;
 
 @end

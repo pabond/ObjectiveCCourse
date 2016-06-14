@@ -11,19 +11,21 @@
 #import "NSObject+BPVExtensions.h"
 
 @interface BPVAdminRoom ()
-@property (nonatomic, retain) NSMutableArray *mutableRooms;
+@property (nonatomic, retain) NSMutableArray *mutableWorkers;
 
 @end
 
 @implementation BPVAdminRoom
 
-@dynamic rooms;
+@dynamic workers;
+
+@synthesize busy = _busy;
 
 #pragma marc
 #pragma marc Deallocation
 
 - (void)dealloc {
-    self.mutableRooms = nil;
+    self.mutableWorkers = nil;
     
     [super dealloc];
 }
@@ -33,7 +35,7 @@
 
 - (instancetype)init {
     self = [super init];
-    self.mutableRooms = [NSMutableArray object];
+    self.mutableWorkers = [NSMutableArray object];
     
     return self;
 }
@@ -41,19 +43,19 @@
 #pragma marc
 #pragma marc Public Implementation
 
-- (NSArray *)rooms {
-    return [[self.mutableRooms copy] autorelease];
+- (NSArray *)workers {
+    return [[self.mutableWorkers copy] autorelease];
 }
 
-- (void)addRoom:(id)room {
-    if (room) {
-        [self.mutableRooms addObject:room];
+- (void)addWorker:(id)worker {
+    if (worker) {
+        [self.mutableWorkers addObject:worker];
     }
 }
 
-- (void)removeRoom:(id)room {
-    if (room) {
-        [self.mutableRooms removeObject:room];
+- (void)removeWorker:(id)worker {
+    if (worker) {
+        [self.mutableWorkers removeObject:worker];
     }
 }
 

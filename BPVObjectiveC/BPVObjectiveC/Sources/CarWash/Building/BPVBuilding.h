@@ -9,9 +9,10 @@
 #import <Foundation/Foundation.h>
 
 @interface BPVBuilding : NSObject
-@property (nonatomic, readonly) NSArray *buildings;
+@property (nonatomic, readonly) NSArray *rooms;
 
-- (void)addBuilding:(id)building;
-- (void)removeBuilding:(id)building;
+- (void)addRoom:(id)room;
+- (void)removeRoom:(id)room;
+
 
 @end

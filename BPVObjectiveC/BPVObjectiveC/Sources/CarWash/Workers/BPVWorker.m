@@ -11,67 +11,16 @@
 #import "NSObject+BPVExtensions.h"
 
 @interface BPVWorker ()
-@property (nonatomic, retain) NSMutableArray *mutableWorkers;
 
 @end
 
 @implementation BPVWorker
 
 @synthesize money = _money;
-
-@dynamic workers;
-
-#pragma marc
-#pragma marc Deallocation
-
-- (void)dealloc {
-    self.mutableWorkers = nil;
-    
-    [super dealloc];
-}
+@synthesize busy = _busy;
 
 #pragma marc
-#pragma marc Initialisation
-
-- (instancetype)init {
-    self = [super init];
-    self.mutableWorkers = [NSMutableArray object];
-    
-    return self;
-}
-
-#pragma marc
-#pragma marc Public Implementation
-
-- (NSArray *)workers {
-    return [[self.mutableWorkers copy] autorelease];
-}
-
-- (void)addWorker:(id)worker {
-    if (worker) {
-        [self.mutableWorkers addObject:worker];
-    }
-}
-
-- (void)removeWorker:(id)worker {
-    if (worker) {
-        [self.mutableWorkers removeObject:worker];
-    }
-}
-
-#pragma marc
-#pragma marc <MoneyFlow> property accesors
-
-- (void)setMoney:(NSUInteger)value {
-    _money = value;
-}
-
-- (NSUInteger)money {
-    return _money;
-}
-
-#pragma marc
-#pragma marc <MoneyFlow> Implementation
+#pragma marc MoneyFlow
 
 - (void)acceptMoney:(NSUInteger)value {
     self.money = self.money + value;

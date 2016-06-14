@@ -9,20 +9,21 @@
 #import "BPVBuilding.h"
 
 #import "NSObject+BPVExtensions.h"
+
 @interface BPVBuilding ()
-@property (nonatomic, retain) NSMutableArray *mutableBuildings;
+@property (nonatomic, retain) NSMutableArray *mutableRooms;
 
 @end
 
 @implementation BPVBuilding
 
-@dynamic buildings;
+@dynamic rooms;
 
 #pragma marc
 #pragma marc Deallocation
 
 - (void)dealloc {
-    self.mutableBuildings = nil;
+    self.mutableRooms = nil;
     
     [super dealloc];
 }
@@ -32,7 +33,7 @@
 
 - (instancetype)init {
     self = [super init];
-    self.mutableBuildings = [NSMutableArray object];
+    self.mutableRooms = [NSMutableArray object];
     
     return self;
 }
@@ -40,19 +41,19 @@
 #pragma marc
 #pragma marc Public Implementation
 
-- (NSArray *)buildings {
-    return [[self.mutableBuildings copy] autorelease];
+- (NSArray *)rooms {
+    return [[self.mutableRooms copy] autorelease];
 }
 
-- (void)addBuilding:(id)building {
-    if (building) {
-        [self.mutableBuildings addObject:building];
+- (void)addRoom:(id)room {
+    if (room) {
+        [self.mutableRooms addObject:room];
     }
 }
 
-- (void)removeBuilding:(id)building {
-    if (building) {
-        [self.mutableBuildings removeObject:building];
+- (void)removeRoom:(id)room {
+    if (room) {
+        [self.mutableRooms removeObject:room];
     }
 }
 
