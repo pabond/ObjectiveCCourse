@@ -16,5 +16,6 @@
 @property (nonatomic, retain) BPVBuilding *carWashBuilding;
 
 - (void)washCar:(BPVCar *)car;
+- (void)moneyflow:(id)object;
 
 @end

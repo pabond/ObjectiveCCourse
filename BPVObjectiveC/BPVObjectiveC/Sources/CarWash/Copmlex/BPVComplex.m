@@ -31,6 +31,9 @@
     return self;
 }
 
+#pragma marc
+#pragma marc Public Implementation
+
 - (void)washCar:(BPVCar *)car {
     if (car.isClean) {
         return;
@@ -44,17 +47,20 @@
     washRoom.car = nil;
 }
 
-- (void)moneyflow:(BPVWasher *)washer {
+- (void)moneyflow:(id)object {
     BPVAdminRoom *adminRoom = [self freeObject:[self.adminBuilding rooms] withClass:[BPVAdminRoom class]];
     BPVAccountant *accountant = [self freeObject:adminRoom.workers withClass:[BPVAccountant class]];
     BPVDirector *director = [self freeObject:adminRoom.workers withClass:[BPVDirector class]];
     
-    [accountant takeMoney:washer];
+    [accountant takeMoney:object];
     [accountant countMoney];
     
     [director takeMoney:accountant];
     [director earnMoney];
 }
+
+#pragma marc
+#pragma marc Private Implementation
 
 - (id)freeObject:(id)arrey withClass:(Class)cls {
     for (id<BPVIsBusyObject> object in arrey) {
