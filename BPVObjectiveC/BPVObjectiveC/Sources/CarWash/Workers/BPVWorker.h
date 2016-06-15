@@ -8,11 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-#import "BPVIsBusyObject.h"
 #import "BPVMoneyFlow.h"
 
-@interface BPVWorker : NSObject <BPVMoneyFlow, BPVIsBusyObject>
+@interface BPVWorker : NSObject <BPVMoneyFlow>
 @property (nonatomic, assign)   NSUInteger  experience;
 @property (nonatomic, assign)   NSUInteger  salary;
+
+@property (nonatomic, assign, getter=isBusy) BOOL busy;
 
 @end

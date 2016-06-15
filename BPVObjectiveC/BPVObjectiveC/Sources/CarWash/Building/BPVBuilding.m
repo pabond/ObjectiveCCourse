@@ -8,6 +8,8 @@
 
 #import "BPVBuilding.h"
 
+#import "BPVAdminRoom.h"
+
 #import "NSObject+BPVExtensions.h"
 
 @interface BPVBuilding ()
@@ -52,9 +54,17 @@
 }
 
 - (void)removeRoom:(id)room {
-    if (room) {
-        [self.mutableRooms removeObject:room];
+    [self.mutableRooms removeObject:room];
+}
+
+- (id)freeRoomWithClass:(Class)cls {
+    for (BPVAdminRoom *room in self.mutableRooms) {
+        if (!room.full && [room isKindOfClass:cls]) {
+            return room;
+        }
     }
+    
+    return nil;
 }
 
 @end

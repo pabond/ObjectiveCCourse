@@ -16,10 +16,10 @@
 @property (nonatomic, retain) BPVBuilding *carWashBuilding;
 @property (nonatomic, readonly) NSArray *cars;
 
-- (void)addCar:(id)car;
+- (void)addCar:(BPVCar *)car;
 - (void)removeCar:(id)car;
 
+- (void)processCars;
 - (void)washCar:(BPVCar *)car;
-- (void)moneyflow:(id)object;
 
 @end

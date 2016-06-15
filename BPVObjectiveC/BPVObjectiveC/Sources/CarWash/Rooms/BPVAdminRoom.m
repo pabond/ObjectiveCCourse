@@ -8,6 +8,8 @@
 
 #import "BPVAdminRoom.h"
 
+#import "BPVWorker.h"
+
 #import "NSObject+BPVExtensions.h"
 
 @interface BPVAdminRoom ()
@@ -18,8 +20,6 @@
 @implementation BPVAdminRoom
 
 @dynamic workers;
-
-@synthesize busy = _busy;
 
 #pragma marc
 #pragma marc Deallocation
@@ -54,9 +54,17 @@
 }
 
 - (void)removeWorker:(id)worker {
-    if (worker) {
-        [self.mutableWorkers removeObject:worker];
+    [self.mutableWorkers removeObject:worker];
+}
+
+- (id)freeWorkerWithClass:(Class)cls {
+    for (BPVWorker *worker in self.mutableWorkers) {
+        if (!worker.isBusy && [worker isKindOfClass:cls]) {
+            return worker;
+        }
     }
+    
+    return nil;
 }
 
 @end

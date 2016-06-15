@@ -11,13 +11,11 @@
 #import "NSObject+BPVExtensions.h"
 
 @interface BPVWorker ()
+@property (nonatomic, assign) NSUInteger money;
 
 @end
 
 @implementation BPVWorker
-
-@synthesize money = _money;
-@synthesize busy = _busy;
 
 #pragma marc
 #pragma marc MoneyFlow
@@ -27,10 +25,13 @@
 }
 
 - (NSUInteger)giveMoney {
-    return self.money;;
+    NSUInteger money = self.money;
+    self.money = 0;
+    
+    return money;
 }
 
-- (void)takeMoney:(id<BPVMoneyFlow>)object {
+- (void)takeMoneyFromObject:(id<BPVMoneyFlow>)object {
     [self acceptMoney:[object giveMoney]];
 }
 

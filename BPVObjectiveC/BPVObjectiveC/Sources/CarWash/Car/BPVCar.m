@@ -10,6 +10,11 @@
 
 #import "NSObject+BPVExtensions.h"
 
+@interface BPVCar ()
+@property (nonatomic, assign) NSUInteger money;
+
+@end
+
 @implementation BPVCar
 
 @synthesize money = _money;
@@ -22,10 +27,13 @@
 }
 
 - (NSUInteger)giveMoney {
-    return self.money;;
+    NSUInteger money = self.money;
+    self.money = 0;
+    
+    return money;
 }
 
-- (void)takeMoney:(id<BPVMoneyFlow>)object {
+- (void)takeMoneyFromObject:(id<BPVMoneyFlow>)object {
     [self acceptMoney:[object giveMoney]];
 }
 

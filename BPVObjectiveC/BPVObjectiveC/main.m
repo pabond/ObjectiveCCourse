@@ -42,10 +42,14 @@ int main(int argc, const char * argv[]) {
         BPVAccountant *accountant = [BPVAccountant object];
         [adminRoom addWorker:accountant];
         
-        for (uint8_t iterations = 0; iterations < 20; iterations++) {
+        for (uint8_t iterations = 0; iterations < 40; iterations++) {
             BPVCar *car = [BPVCar object];
             [complex addCar:car];
         }
+        
+        [complex processCars];
+        
+        NSLog(@"%@", complex.cars);
     }
     
     return 0;

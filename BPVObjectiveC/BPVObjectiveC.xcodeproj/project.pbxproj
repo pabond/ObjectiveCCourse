@@ -65,7 +65,6 @@
 		2D7E0E551D0AD6D200620461 /* BPVCar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPVCar.h; sourceTree = "<group>"; };
 		2D7E0E561D0AD6D200620461 /* BPVCar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPVCar.m; sourceTree = "<group>"; };
 		2D7E0E581D0AF6B100620461 /* BPVMoneyFlow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPVMoneyFlow.h; sourceTree = "<group>"; };
-		2D7E0E591D0FFBD400620461 /* BPVIsBusyObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPVIsBusyObject.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,7 +122,6 @@
 				2D7E0E401D0AD4B800620461 /* Workers */,
 				2D7E0E541D0AD6D200620461 /* Car */,
 				2D7E0E581D0AF6B100620461 /* BPVMoneyFlow.h */,
-				2D7E0E591D0FFBD400620461 /* BPVIsBusyObject.h */,
 			);
 			path = CarWash;
 			sourceTree = "<group>";

@@ -8,12 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-#import "BPVIsBusyObject.h"
+@interface BPVAdminRoom : NSObject
+@property (nonatomic, readonly) NSArray *workers;
 
-@interface BPVAdminRoom : NSObject <BPVIsBusyObject>
-@property (nonatomic, readonly) NSArray     *workers;
+@property (nonatomic, assign, getter=isFull) BOOL full;
 
 - (void)addWorker:(id)worker;
 - (void)removeWorker:(id)worker;
+- (id)freeWorkerWithClass:(Class)cls;
 
 @end
