@@ -9,6 +9,9 @@
 #import "BPVAdminRoom.h"
 
 #import "BPVWorker.h"
+#import "BPVDirector.h"
+#import "BPVWasher.h"
+#import "BPVAccountant.h"
 
 #import "NSObject+BPVExtensions.h"
 
@@ -58,8 +61,8 @@
 }
 
 - (id)freeWorkerWithClass:(Class)cls {
-    for (BPVWorker *worker in self.mutableWorkers) {
-        if (!worker.isBusy && [worker isKindOfClass:cls]) {
+    for (BPVWorker *worker in self.workers) {
+        if (!worker.busy && [worker isKindOfClass:cls]) {
             return worker;
         }
     }

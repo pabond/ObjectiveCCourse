@@ -19,6 +19,15 @@
 
 @synthesize money = _money;
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.money = kBPVCarWashPrice;
+    }
+    return self;
+}
+
 #pragma marc
 #pragma marc MoneyFlow
 

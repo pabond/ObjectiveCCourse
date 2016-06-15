@@ -85,12 +85,14 @@
     [washer washCar:car];
     
     if (car.isClean) {
+        NSLog(@"Car(%@) washed", car);
+        
         [washer takeMoneyFromObject:car];
         
         BPVDirector *director = [adminRoom freeWorkerWithClass:[BPVDirector class]];
         BPVAccountant *accountant = [adminRoom freeWorkerWithClass:[BPVAccountant class]];
         
-        [accountant takeMoneyFromObject:car];
+        [accountant takeMoneyFromObject:washer];
         [accountant countMoney];
         
         [director takeMoneyFromObject:accountant];

@@ -28,11 +28,12 @@ int main(int argc, const char * argv[]) {
         BPVAdminRoom *adminRoom = [BPVAdminRoom object];
         [adminBuilding addRoom:adminRoom];
         
+        BPVCarWashRoom *carWashRoom;
         for (uint8_t iterations = 0; iterations < 10; iterations++) {
-            BPVCarWashRoom *carWashRoom = [BPVCarWashRoom object];
+            carWashRoom = [BPVCarWashRoom object];
             [carWashBuilding addRoom:carWashRoom];
             
-            BPVWasher *washer = [BPVCarWashRoom object];
+            BPVWasher *washer = [BPVWasher object];
             [carWashRoom addWorker:washer];
         }
         
@@ -49,7 +50,7 @@ int main(int argc, const char * argv[]) {
         
         [complex processCars];
         
-        NSLog(@"%@", complex.cars);
+        NSLog(@"At the end of the day director reseive %lu", (unsigned long)director.money);
     }
     
     return 0;

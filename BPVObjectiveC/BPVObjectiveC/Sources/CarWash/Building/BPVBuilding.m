@@ -58,7 +58,7 @@
 }
 
 - (id)freeRoomWithClass:(Class)cls {
-    for (BPVAdminRoom *room in self.mutableRooms) {
+    for (BPVAdminRoom *room in self.rooms) {
         if (!room.full && [room isKindOfClass:cls]) {
             return room;
         }

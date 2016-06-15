@@ -11,7 +11,9 @@
 @implementation BPVAccountant
 
 - (void)countMoney {
+    self.busy = YES;
     NSLog(@"Accountant counting money");
+    self.busy = NO;
 }
 
 @end

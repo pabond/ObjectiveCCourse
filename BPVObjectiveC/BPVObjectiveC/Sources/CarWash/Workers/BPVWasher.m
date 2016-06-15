@@ -11,9 +11,11 @@
 @implementation BPVWasher
 
 - (void)washCar:(BPVCar *)car {
+    self.busy = YES;
     NSLog(@"Washer washing car");
     NSLog(@"Car washed!");
     car.clean = YES;
+    self.busy = NO;
 }
 
 @end

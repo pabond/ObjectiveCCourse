@@ -13,7 +13,6 @@
 @interface BPVWorker : NSObject <BPVMoneyFlow>
 @property (nonatomic, assign)   NSUInteger  experience;
 @property (nonatomic, assign)   NSUInteger  salary;
-
-@property (nonatomic, assign, getter=isBusy) BOOL busy;
+@property (nonatomic, assign)   BOOL        busy;
 
 @end

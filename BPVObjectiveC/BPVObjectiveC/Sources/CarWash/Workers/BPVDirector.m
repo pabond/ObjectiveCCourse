@@ -11,7 +11,9 @@
 @implementation BPVDirector
 
 - (void)earnMoney {
+    self.busy = YES;
     NSLog(@"Director earns money");
+    self.busy = NO;
 }
 
 @end
