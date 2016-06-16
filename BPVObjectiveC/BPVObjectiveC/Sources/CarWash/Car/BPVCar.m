@@ -11,33 +11,35 @@
 #import "NSObject+BPVExtensions.h"
 
 @interface BPVCar ()
-@property (nonatomic, assign) NSUInteger money;
+@property (nonatomic, assign) NSUInteger selfMoney;
 
 @end
 
 @implementation BPVCar
 
-@synthesize money = _money;
+@dynamic money;
 
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
-    if (self) {
-        self.money = kBPVCarWashPrice;
-    }
+    self.selfMoney = kBPVCarWashPrice;
+    
     return self;
+}
+
+- (NSUInteger)money {
+    return self.selfMoney;
 }
 
 #pragma marc
 #pragma marc MoneyFlow
 
 - (void)acceptMoney:(NSUInteger)value {
-    self.money = self.money + value;
+    self.selfMoney += value;
 }
 
 - (NSUInteger)giveMoney {
     NSUInteger money = self.money;
-    self.money = 0;
+    self.selfMoney = 0;
     
     return money;
 }
