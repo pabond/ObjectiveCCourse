@@ -15,8 +15,12 @@
 
 #import "NSObject+BPVExtensions.h"
 
+static const NSUInteger kBPVWashersCount = 20;
+
 @interface BPVAdminRoom ()
 @property (nonatomic, retain) NSMutableArray *mutableWorkers;
+
+- (void)initWorkers;
 
 @end
 
@@ -24,8 +28,8 @@
 
 @dynamic workers;
 
-#pragma marc
-#pragma marc Deallocation
+#pragma mark -
+#pragma mark Deallocation
 
 - (void)dealloc {
     self.mutableWorkers = nil;
@@ -33,18 +37,28 @@
     [super dealloc];
 }
 
-#pragma marc
-#pragma marc Initialisation
+#pragma mark -
+#pragma mark Initialisation
 
 - (instancetype)init {
     self = [super init];
     self.mutableWorkers = [NSMutableArray object];
+    [self initWorkers];
     
     return self;
 }
 
-#pragma marc
-#pragma marc Public Implementation
+- (void)initWorkers {
+    for (NSUInteger iterator; iterator < kBPVWashersCount; iterator++) {
+        [self.mutableWorkers addObject:[BPVWasher object]];
+    }
+    
+    [self.mutableWorkers addObject:[BPVDirector object]];
+    [self.mutableWorkers addObject:[BPVAccountant object]];
+}
+
+#pragma mark -
+#pragma mark Public Implementation
 
 - (NSArray *)workers {
     return [[self.mutableWorkers copy] autorelease];

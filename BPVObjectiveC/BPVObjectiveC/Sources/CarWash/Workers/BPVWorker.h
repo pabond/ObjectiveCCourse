@@ -15,4 +15,6 @@
 @property (nonatomic, assign)   NSUInteger  salary;
 @property (nonatomic, assign)   BOOL        busy;
 
+- (void)processObject:(id)object;
+
 @end

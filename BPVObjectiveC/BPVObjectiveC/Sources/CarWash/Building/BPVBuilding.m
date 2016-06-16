@@ -9,11 +9,16 @@
 #import "BPVBuilding.h"
 
 #import "BPVAdminRoom.h"
+#import "BPVCarWashRoom.h"
 
 #import "NSObject+BPVExtensions.h"
 
+static const NSUInteger kBPVWashRoomsCount = 20;
+
 @interface BPVBuilding ()
 @property (nonatomic, retain) NSMutableArray *mutableRooms;
+
+- (void)initRooms;
 
 @end
 
@@ -21,8 +26,8 @@
 
 @dynamic rooms;
 
-#pragma marc
-#pragma marc Deallocation
+#pragma mark -
+#pragma mark Deallocation
 
 - (void)dealloc {
     self.mutableRooms = nil;
@@ -30,18 +35,27 @@
     [super dealloc];
 }
 
-#pragma marc
-#pragma marc Initialisation
+#pragma mark -
+#pragma mark Initialisation
 
 - (instancetype)init {
     self = [super init];
     self.mutableRooms = [NSMutableArray object];
+    [self initRooms];
     
     return self;
 }
 
-#pragma marc
-#pragma marc Public Implementation
+- (void)initRooms {
+    for (NSUInteger iterator = 0; iterator < kBPVWashRoomsCount; iterator++) {
+        self.mutableRooms[iterator] = [BPVCarWashRoom object];
+    }
+    
+    [self.mutableRooms addObject:[BPVAdminRoom object]];
+}
+
+#pragma mark -
+#pragma mark Public Implementation
 
 - (NSArray *)rooms {
     return [[self.mutableRooms copy] autorelease];
@@ -57,7 +71,7 @@
     [self.mutableRooms removeObject:room];
 }
 
-- (id)freeRoomWithClass:(Class)cls {
+- (id)roomWithClass:(Class)cls {
     for (BPVAdminRoom *room in self.rooms) {
         if (!room.full && [room isKindOfClass:cls]) {
             return room;
@@ -65,6 +79,15 @@
     }
     
     return nil;
+}
+
+- (id)workersWithClass:(Class)cls {
+    BPVAdminRoom *adminRoom = [self roomWithClass:BPV]
+    for (BPVWorker *worker in self.workers) {
+        if (!worker.busy && [worker :cls]) {
+            return worker;
+        }
+    }
 }
 
 @end

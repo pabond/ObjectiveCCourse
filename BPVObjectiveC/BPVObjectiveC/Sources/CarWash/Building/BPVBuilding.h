@@ -13,7 +13,7 @@
 
 - (void)addRoom:(id)room;
 - (void)removeRoom:(id)room;
-- (id)freeRoomWithClass:(Class)cls;
+- (id)workersWithClass:(Class)cls;
 
 
 @end

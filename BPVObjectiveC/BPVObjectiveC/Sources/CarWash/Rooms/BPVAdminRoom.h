@@ -15,6 +15,5 @@
 
 - (void)addWorker:(id)worker;
 - (void)removeWorker:(id)worker;
-- (id)freeWorkerWithClass:(Class)cls;
 
 @end

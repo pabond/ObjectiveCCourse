@@ -22,8 +22,8 @@
 
 @dynamic children;
 
-#pragma marc
-#pragma marc Deallocation
+#pragma mark -
+#pragma mark Deallocation
 
 - (void)dealloc {
     self.name = nil;
@@ -32,8 +32,8 @@
     [super dealloc];
 }
 
-#pragma marc
-#pragma marc Initialisation
+#pragma mark -
+#pragma mark Initialisation
 
 - (instancetype)init {
     self = [super init];
@@ -43,8 +43,8 @@
     return self;
 }
 
-#pragma marc
-#pragma marc Public Implementation
+#pragma mark -
+#pragma mark Public Implementation
 
 - (NSArray *)children {
     return [[self.mutableChildren copy] autorelease];
@@ -69,8 +69,8 @@
     NSLog(@"Sleep well!");
 }
 
-#pragma marc
-#pragma marc Private Implementation
+#pragma mark -
+#pragma mark Private Implementation
 
 - (void)sayHi {
     NSLog(@"Creature %@ says HI!", self.name);

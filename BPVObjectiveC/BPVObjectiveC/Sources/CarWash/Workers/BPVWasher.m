@@ -18,4 +18,9 @@
     self.busy = NO;
 }
 
+- (void)processObject:(id)object {
+    [self washCar:object];
+    [self takeMoneyFromObject:object];
+}
+
 @end

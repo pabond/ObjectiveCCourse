@@ -17,8 +17,8 @@
 
 @implementation BPVCreatureFemale
 
-#pragma marc
-#pragma marc Public Implementation
+#pragma mark -
+#pragma mark Public Implementation
 
 - (BPVCreature *)giveBirthToChildWithName:(NSString *)name {
     BPVCreature *child = [self giveBirthToChild];
@@ -31,8 +31,8 @@
     [self giveBirthToChildWithName:@"baby"];
 }
 
-#pragma marc
-#pragma marc Private Implementation
+#pragma mark -
+#pragma mark Private Implementation
 
 - (BPVCreature *)giveBirthToChild {
     BPVCreature *child = [BPVCreature object];

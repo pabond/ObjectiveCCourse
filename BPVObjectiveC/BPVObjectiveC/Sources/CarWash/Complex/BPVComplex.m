@@ -25,8 +25,8 @@
 
 @dynamic cars;
 
-#pragma marc
-#pragma marc Initialisation/Deallocation
+#pragma mark -
+#pragma mark Initialisation/Deallocation
 
 - (void)dealloc {
     self.adminBuilding = nil;
@@ -49,8 +49,8 @@
     self.mutableCars = [NSMutableArray object];
 }
 
-#pragma marc
-#pragma marc Public Implementation
+#pragma mark -
+#pragma mark Public Implementation
 
 - (NSArray *)cars {
     return [[self.mutableCars copy] autorelease];
@@ -79,28 +79,19 @@
     
     BPVAdminRoom *adminRoom = [self.adminBuilding freeRoomWithClass:[BPVAdminRoom class]];
     BPVCarWashRoom *washRoom = [self.carWashBuilding freeRoomWithClass:[BPVCarWashRoom class]];
+    
     BPVWasher *washer = [washRoom freeWorkerWithClass:[BPVWasher class]];
+    BPVDirector *director = [adminRoom freeWorkerWithClass:[BPVDirector class]];
+    BPVAccountant *accountant = [adminRoom freeWorkerWithClass:[BPVAccountant class]];
     
     washRoom.full = YES;
     washRoom.car = car;
-    [washer washCar:car];
-    
-    if (car.isClean) {
-        NSLog(@"Car(%@) washed", car);
+ 
+    [washer processObject:car];
+    [accountant processObject:washer];
+    [director processObject:accountant];
         
-        [washer takeMoneyFromObject:car];
-        
-        BPVDirector *director = [adminRoom freeWorkerWithClass:[BPVDirector class]];
-        BPVAccountant *accountant = [adminRoom freeWorkerWithClass:[BPVAccountant class]];
-        
-        [accountant takeMoneyFromObject:washer];
-        [accountant countMoney];
-        
-        [director takeMoneyFromObject:accountant];
-        [director earnMoney];
-        
-        [self removeCar:car];
-    }
+    [self removeCar:car];
     
     washRoom.car = nil;
     washRoom.full = NO;
