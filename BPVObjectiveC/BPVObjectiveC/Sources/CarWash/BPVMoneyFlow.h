@@ -13,8 +13,10 @@ static const uint8_t kBPVCarWashPrice = 2;
 @protocol BPVMoneyFlow <NSObject>
 @property (nonatomic, readonly) NSUInteger money;
 
-- (void)acceptMoney:(NSUInteger)value;
 - (NSUInteger)giveMoney;
+
+@optional
+- (void)acceptMoney:(NSUInteger)value;
 - (void)takeMoneyFromObject:(id<BPVMoneyFlow>)object;
 
 @end

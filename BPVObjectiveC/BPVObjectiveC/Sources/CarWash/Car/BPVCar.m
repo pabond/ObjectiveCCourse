@@ -19,12 +19,18 @@
 
 @dynamic money;
 
+#pragma marc
+#pragma marc Initialisation
+
 - (instancetype)init {
     self = [super init];
     self.selfMoney = kBPVCarWashPrice;
     
     return self;
 }
+
+#pragma marc
+#pragma marc accessors
 
 - (NSUInteger)money {
     return self.selfMoney;
@@ -33,19 +39,11 @@
 #pragma marc
 #pragma marc MoneyFlow
 
-- (void)acceptMoney:(NSUInteger)value {
-    self.selfMoney += value;
-}
-
 - (NSUInteger)giveMoney {
     NSUInteger money = self.money;
     self.selfMoney = 0;
     
     return money;
-}
-
-- (void)takeMoneyFromObject:(id<BPVMoneyFlow>)object {
-    [self acceptMoney:[object giveMoney]];
 }
 
 @end

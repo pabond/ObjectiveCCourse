@@ -81,6 +81,7 @@
     BPVCarWashRoom *washRoom = [self.carWashBuilding freeRoomWithClass:[BPVCarWashRoom class]];
     BPVWasher *washer = [washRoom freeWorkerWithClass:[BPVWasher class]];
     
+    washRoom.full = YES;
     washRoom.car = car;
     [washer washCar:car];
     
@@ -102,6 +103,7 @@
     }
     
     washRoom.car = nil;
+    washRoom.full = NO;
 }
 
 @end
