@@ -13,7 +13,8 @@
 
 - (void)addRoom:(id)room;
 - (void)removeRoom:(id)room;
-- (id)workersWithClass:(Class)cls;
+- (NSArray *)workersWithClass:(Class)cls;
+- (NSArray *)roomsWithClass:(Class)class;
 
 
 @end

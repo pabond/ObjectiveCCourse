@@ -11,9 +11,9 @@
 @interface BPVAdminRoom : NSObject
 @property (nonatomic, readonly) NSArray *workers;
 
-@property (nonatomic, assign, getter=isFull) BOOL full;
-
 - (void)addWorker:(id)worker;
 - (void)removeWorker:(id)worker;
+
+- (NSArray *)workersWithClass:(Class)cls;
 
 @end

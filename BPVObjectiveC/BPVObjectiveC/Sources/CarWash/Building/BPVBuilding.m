@@ -13,12 +13,8 @@
 
 #import "NSObject+BPVExtensions.h"
 
-static const NSUInteger kBPVWashRoomsCount = 20;
-
 @interface BPVBuilding ()
 @property (nonatomic, retain) NSMutableArray *mutableRooms;
-
-- (void)initRooms;
 
 @end
 
@@ -27,7 +23,7 @@ static const NSUInteger kBPVWashRoomsCount = 20;
 @dynamic rooms;
 
 #pragma mark -
-#pragma mark Deallocation
+#pragma mark Deallocation/Initialisation
 
 - (void)dealloc {
     self.mutableRooms = nil;
@@ -35,23 +31,11 @@ static const NSUInteger kBPVWashRoomsCount = 20;
     [super dealloc];
 }
 
-#pragma mark -
-#pragma mark Initialisation
-
 - (instancetype)init {
     self = [super init];
     self.mutableRooms = [NSMutableArray object];
-    [self initRooms];
-    
-    return self;
-}
 
-- (void)initRooms {
-    for (NSUInteger iterator = 0; iterator < kBPVWashRoomsCount; iterator++) {
-        self.mutableRooms[iterator] = [BPVCarWashRoom object];
-    }
-    
-    [self.mutableRooms addObject:[BPVAdminRoom object]];
+    return self;
 }
 
 #pragma mark -
@@ -71,23 +55,23 @@ static const NSUInteger kBPVWashRoomsCount = 20;
     [self.mutableRooms removeObject:room];
 }
 
-- (id)roomWithClass:(Class)cls {
-    for (BPVAdminRoom *room in self.rooms) {
-        if (!room.full && [room isKindOfClass:cls]) {
-            return room;
-        }
+- (NSArray *)roomsWithClass:(Class)class {
+    NSMutableArray *rooms = [NSMutableArray object];
+    for (BPVCarWashRoom *room in self.rooms) {
+        if ([rooms isMemberOfClass:class])
+            [rooms addObject:room];
     }
     
-    return nil;
+    return rooms;
 }
 
-- (id)workersWithClass:(Class)cls {
-    BPVAdminRoom *adminRoom = [self roomWithClass:BPV]
-    for (BPVWorker *worker in self.workers) {
-        if (!worker.busy && [worker :cls]) {
-            return worker;
-        }
+- (NSArray *)workersWithClass:(Class)class {
+    NSMutableArray *workers = [NSMutableArray object];
+    for (BPVAdminRoom *room in self.rooms) {
+        [workers addObjectsFromArray:[room workersWithClass:class]];
     }
+    
+    return [[workers copy] autorelease];
 }
 
 @end

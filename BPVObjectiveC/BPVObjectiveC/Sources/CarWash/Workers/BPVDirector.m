@@ -11,9 +11,7 @@
 @implementation BPVDirector
 
 - (void)earnMoney {
-    self.busy = YES;
-    NSLog(@"Director earns money");
-    self.busy = NO;
+    NSLog(@"Director earns money. Now director receive %lu", (unsigned long)self.money);
 }
 
 - (void)processObject:(id)object {

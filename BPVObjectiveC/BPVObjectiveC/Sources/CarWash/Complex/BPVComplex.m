@@ -9,15 +9,29 @@
 #import "BPVComplex.h"
 
 #import "BPVCarWashRoom.h"
+#import "BPVWorker.h"
 #import "BPVWasher.h"
 #import "BPVAccountant.h"
 #import "BPVDirector.h"
 #import "BPVCar.h"
 
+#import "BPVQueue.h"
+
 #import "NSObject+BPVExtensions.h"
 
+static const NSUInteger kBPVWashRoomsCount = 10;
+
 @interface BPVComplex ()
-@property (nonatomic, retain) NSMutableArray *mutableCars;
+@property (nonatomic, retain) NSMutableArray    *mutableCars;
+@property (nonatomic, retain) BPVBuilding       *adminBuilding;
+@property (nonatomic, retain) BPVBuilding       *carWashBuilding;
+@property (nonatomic, retain) BPVQueue          *queue;
+
+- (void)addCar:(BPVCar *)car;
+- (void)removeCar:(id)car;
+
+- (id)freeWorker:(NSArray *)workers;
+- (id)freeWashRoom:(NSArray *)rooms;
 
 @end
 
@@ -26,7 +40,7 @@
 @dynamic cars;
 
 #pragma mark -
-#pragma mark Initialisation/Deallocation
+#pragma mark Deallocation / Initialisation
 
 - (void)dealloc {
     self.adminBuilding = nil;
@@ -44,9 +58,16 @@
 }
 
 - (void)initInfrastructure {
+    self.mutableCars = [NSMutableArray object];
     self.adminBuilding = [BPVBuilding object];
     self.carWashBuilding = [BPVBuilding object];
-    self.mutableCars = [NSMutableArray object];
+    [self.adminBuilding addRoom:[BPVAdminRoom object]];
+    
+    for (NSUInteger iterator = 0; kBPVWashRoomsCount > iterator ; iterator++) {
+        [self.carWashBuilding addRoom:[BPVCarWashRoom object]];
+    }
+    
+    self.queue = [BPVQueue object];
 }
 
 #pragma mark -
@@ -56,9 +77,49 @@
     return [[self.mutableCars copy] autorelease];
 }
 
+- (void)washCars {
+    while (YES) {
+        BPVCar *car = [self.queue deQueueNext];
+        
+        if (!car) {
+            break;
+        }
+        
+        BPVBuilding *adminBuilding = self.adminBuilding;
+        BPVBuilding *carWashBuilding = self.carWashBuilding;
+        
+        BPVWasher *washer = [self freeWorker:[carWashBuilding workersWithClass:[BPVWasher class]]];
+        BPVDirector *director = [self freeWorker:[adminBuilding workersWithClass:[BPVDirector class]]];
+        BPVAccountant *accountant = [self freeWorker:[adminBuilding workersWithClass:[BPVAccountant class]]];
+        
+        washer.busy = YES;
+        director.busy = YES;
+        accountant.busy = YES;
+        
+        BPVCarWashRoom *washRoom = [self freeWashRoom:[carWashBuilding roomsWithClass:[BPVCarWashRoom class]]];
+        washRoom.car = car;
+        
+        [washer processObject:car];
+        [accountant processObject:washer];
+        [director processObject:accountant];
+        
+        washer.busy = NO;
+        director.busy = NO;
+        accountant.busy = NO;
+        
+        [self removeCar:car];
+        
+        washRoom.car = nil;
+    }
+}
+
+#pragma mark -
+#pragma mark Private Implementation
+
 - (void)addCar:(BPVCar *)car {
     if (car && !car.isClean) {
         [self.mutableCars addObject:car];
+        [self.queue inQueueObject:car];
     }
 }
 
@@ -66,35 +127,24 @@
     [self.mutableCars removeObject:car];
 }
 
-- (void)processCars {
-    while (self.cars.count) {
-        [self washCar:self.cars[0]];
+- (id)freeWorker:(NSArray *)workers {
+    for (BPVWorker *worker in workers) {
+        if (!worker.busy) {
+            return worker;
+        }
     }
+    
+    return nil;
 }
 
-- (void)washCar:(BPVCar *)car {
-    if (car.isClean) {
-        return;
+- (id)freeWashRoom:(NSArray *)rooms {
+    for (BPVCarWashRoom *room in rooms) {
+        if (!room.car) {
+            return room;
+        }
     }
     
-    BPVAdminRoom *adminRoom = [self.adminBuilding freeRoomWithClass:[BPVAdminRoom class]];
-    BPVCarWashRoom *washRoom = [self.carWashBuilding freeRoomWithClass:[BPVCarWashRoom class]];
-    
-    BPVWasher *washer = [washRoom freeWorkerWithClass:[BPVWasher class]];
-    BPVDirector *director = [adminRoom freeWorkerWithClass:[BPVDirector class]];
-    BPVAccountant *accountant = [adminRoom freeWorkerWithClass:[BPVAccountant class]];
-    
-    washRoom.full = YES;
-    washRoom.car = car;
- 
-    [washer processObject:car];
-    [accountant processObject:washer];
-    [director processObject:accountant];
-        
-    [self removeCar:car];
-    
-    washRoom.car = nil;
-    washRoom.full = NO;
+    return nil;
 }
 
 @end

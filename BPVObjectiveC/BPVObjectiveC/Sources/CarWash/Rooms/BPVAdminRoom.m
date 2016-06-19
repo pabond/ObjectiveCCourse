@@ -15,8 +15,6 @@
 
 #import "NSObject+BPVExtensions.h"
 
-static const NSUInteger kBPVWashersCount = 20;
-
 @interface BPVAdminRoom ()
 @property (nonatomic, retain) NSMutableArray *mutableWorkers;
 
@@ -29,16 +27,13 @@ static const NSUInteger kBPVWashersCount = 20;
 @dynamic workers;
 
 #pragma mark -
-#pragma mark Deallocation
+#pragma mark Deallocation / Initialisation
 
 - (void)dealloc {
     self.mutableWorkers = nil;
     
     [super dealloc];
 }
-
-#pragma mark -
-#pragma mark Initialisation
 
 - (instancetype)init {
     self = [super init];
@@ -49,12 +44,8 @@ static const NSUInteger kBPVWashersCount = 20;
 }
 
 - (void)initWorkers {
-    for (NSUInteger iterator; iterator < kBPVWashersCount; iterator++) {
-        [self.mutableWorkers addObject:[BPVWasher object]];
-    }
-    
-    [self.mutableWorkers addObject:[BPVDirector object]];
-    [self.mutableWorkers addObject:[BPVAccountant object]];
+    [self addWorker:[BPVDirector object]];
+    [self addWorker:[BPVAccountant object]];
 }
 
 #pragma mark -
@@ -74,14 +65,15 @@ static const NSUInteger kBPVWashersCount = 20;
     [self.mutableWorkers removeObject:worker];
 }
 
-- (id)freeWorkerWithClass:(Class)cls {
+- (NSArray *)workersWithClass:(Class)cls {
+    NSMutableArray *workers = [NSMutableArray array];
     for (BPVWorker *worker in self.workers) {
-        if (!worker.busy && [worker isKindOfClass:cls]) {
-            return worker;
+        if ([worker isMemberOfClass:cls]) {
+            [workers addObject:worker];
         }
     }
     
-    return nil;
+    return [[workers copy] autorelease];
 }
 
 @end

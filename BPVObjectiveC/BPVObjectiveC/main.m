@@ -9,48 +9,24 @@
 #import <Foundation/Foundation.h>
 
 #import "BPVComplex.h"
-#import "BPVAdminRoom.h"
-#import "BPVCarWashRoom.h"
-#import "BPVBuilding.h"
-#import "BPVDirector.h"
-#import "BPVAccountant.h"
-#import "BPVWasher.h"
 #import "BPVCar.h"
+#import "BPVDirector.h"
+#import "BPVBuilding.h"
 
 #import "NSObject+BPVExtensions.h"
+
+static const NSUInteger kBPVCarsCount = 40;
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         BPVComplex *complex = [BPVComplex object];
-        BPVBuilding *adminBuilding = complex.adminBuilding;
-        BPVBuilding *carWashBuilding = complex.carWashBuilding;
         
-        BPVAdminRoom *adminRoom = [BPVAdminRoom object];
-        [adminBuilding addRoom:adminRoom];
-        
-        BPVCarWashRoom *carWashRoom;
-        for (uint8_t iterations = 0; iterations < 10; iterations++) {
-            carWashRoom = [BPVCarWashRoom object];
-            [carWashBuilding addRoom:carWashRoom];
-            
-            BPVWasher *washer = [BPVWasher object];
-            [carWashRoom addWorker:washer];
-        }
-        
-        BPVDirector *director = [BPVDirector object];
-        [adminRoom addWorker:director];
-        
-        BPVAccountant *accountant = [BPVAccountant object];
-        [adminRoom addWorker:accountant];
-        
-        for (uint8_t iterations = 0; iterations < 40; iterations++) {
+        for (NSUInteger iterations = 0; kBPVCarsCount > iterations; iterations++) {
             BPVCar *car = [BPVCar object];
             [complex addCar:car];
         }
         
-        [complex processCars];
-        
-        NSLog(@"At the end of the day director reseive %lu", (unsigned long)director.money);
+        [complex washCars];
     }
     
     return 0;

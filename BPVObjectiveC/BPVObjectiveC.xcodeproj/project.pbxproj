@@ -20,8 +20,9 @@
 		2D7E0E4F1D0AD4B800620461 /* BPVWasher.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0E461D0AD4B800620461 /* BPVWasher.m */; };
 		2D7E0E501D0AD4B800620461 /* BPVWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0E481D0AD4B800620461 /* BPVWorker.m */; };
 		2D7E0E571D0AD6D200620461 /* BPVCar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0E561D0AD6D200620461 /* BPVCar.m */; };
-		2D7E0E631D12FCAC00620461 /* NSString+BPVExtentions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0E621D12FCAC00620461 /* NSString+BPVExtentions.m */; };
 		2D7E0E671D134B3900620461 /* BPVComplex.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0E661D134B3900620461 /* BPVComplex.m */; };
+		2D7E0E6B1D16ED2100620461 /* NSString+BPVExtentions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0E6A1D16ED2100620461 /* NSString+BPVExtentions.m */; };
+		2D7E0E6F1D170B5E00620461 /* BPVQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0E6E1D170B5E00620461 /* BPVQueue.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -64,10 +65,12 @@
 		2D7E0E551D0AD6D200620461 /* BPVCar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPVCar.h; sourceTree = "<group>"; };
 		2D7E0E561D0AD6D200620461 /* BPVCar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPVCar.m; sourceTree = "<group>"; };
 		2D7E0E581D0AF6B100620461 /* BPVMoneyFlow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPVMoneyFlow.h; sourceTree = "<group>"; };
-		2D7E0E611D12FCAC00620461 /* NSString+BPVExtentions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+BPVExtentions.h"; sourceTree = "<group>"; };
-		2D7E0E621D12FCAC00620461 /* NSString+BPVExtentions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+BPVExtentions.m"; sourceTree = "<group>"; };
 		2D7E0E651D134B3900620461 /* BPVComplex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPVComplex.h; sourceTree = "<group>"; };
 		2D7E0E661D134B3900620461 /* BPVComplex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPVComplex.m; sourceTree = "<group>"; };
+		2D7E0E691D16ED2100620461 /* NSString+BPVExtentions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+BPVExtentions.h"; sourceTree = "<group>"; };
+		2D7E0E6A1D16ED2100620461 /* NSString+BPVExtentions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+BPVExtentions.m"; sourceTree = "<group>"; };
+		2D7E0E6D1D170B5E00620461 /* BPVQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPVQueue.h; sourceTree = "<group>"; };
+		2D7E0E6E1D170B5E00620461 /* BPVQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPVQueue.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,8 +114,8 @@
 			children = (
 				2D7E0E0C1D0ACC2E00620461 /* Creature */,
 				2D7E0E081D0ACC2E00620461 /* CarWash */,
+				2D7E0E681D16ED2100620461 /* Alphabet */,
 				2D7E0E091D0ACC2E00620461 /* Category */,
-				2D7E0E601D12FC6C00620461 /* ABC */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -120,6 +123,7 @@
 		2D7E0E081D0ACC2E00620461 /* CarWash */ = {
 			isa = PBXGroup;
 			children = (
+				2D7E0E6C1D170B3600620461 /* Queue */,
 				2D7E0E641D134B3900620461 /* Complex */,
 				2D7E0E351D0AD4B800620461 /* Building */,
 				2D7E0E3B1D0AD4B800620461 /* Rooms */,
@@ -196,15 +200,6 @@
 			path = Car;
 			sourceTree = "<group>";
 		};
-		2D7E0E601D12FC6C00620461 /* ABC */ = {
-			isa = PBXGroup;
-			children = (
-				2D7E0E611D12FCAC00620461 /* NSString+BPVExtentions.h */,
-				2D7E0E621D12FCAC00620461 /* NSString+BPVExtentions.m */,
-			);
-			path = ABC;
-			sourceTree = "<group>";
-		};
 		2D7E0E641D134B3900620461 /* Complex */ = {
 			isa = PBXGroup;
 			children = (
@@ -212,6 +207,24 @@
 				2D7E0E661D134B3900620461 /* BPVComplex.m */,
 			);
 			path = Complex;
+			sourceTree = "<group>";
+		};
+		2D7E0E681D16ED2100620461 /* Alphabet */ = {
+			isa = PBXGroup;
+			children = (
+				2D7E0E691D16ED2100620461 /* NSString+BPVExtentions.h */,
+				2D7E0E6A1D16ED2100620461 /* NSString+BPVExtentions.m */,
+			);
+			path = Alphabet;
+			sourceTree = "<group>";
+		};
+		2D7E0E6C1D170B3600620461 /* Queue */ = {
+			isa = PBXGroup;
+			children = (
+				2D7E0E6D1D170B5E00620461 /* BPVQueue.h */,
+				2D7E0E6E1D170B5E00620461 /* BPVQueue.m */,
+			);
+			path = Queue;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -272,6 +285,7 @@
 			files = (
 				2D7E0E131D0ACC2E00620461 /* NSObject+BPVExtensions.m in Sources */,
 				2D7E0E491D0AD4B800620461 /* BPVBuilding.m in Sources */,
+				2D7E0E6F1D170B5E00620461 /* BPVQueue.m in Sources */,
 				2D7E0E4B1D0AD4B800620461 /* BPVAdminRoom.m in Sources */,
 				2D7E0E4E1D0AD4B800620461 /* BPVDirector.m in Sources */,
 				2D7E0E141D0ACC2E00620461 /* BPVCreature.m in Sources */,
@@ -279,7 +293,7 @@
 				2D7E0E671D134B3900620461 /* BPVComplex.m in Sources */,
 				2D7E0E161D0ACC2E00620461 /* BPVCreatureMale.m in Sources */,
 				2D7E0E011D0ACB1600620461 /* main.m in Sources */,
-				2D7E0E631D12FCAC00620461 /* NSString+BPVExtentions.m in Sources */,
+				2D7E0E6B1D16ED2100620461 /* NSString+BPVExtentions.m in Sources */,
 				2D7E0E571D0AD6D200620461 /* BPVCar.m in Sources */,
 				2D7E0E4D1D0AD4B800620461 /* BPVAccountant.m in Sources */,
 				2D7E0E4F1D0AD4B800620461 /* BPVWasher.m in Sources */,

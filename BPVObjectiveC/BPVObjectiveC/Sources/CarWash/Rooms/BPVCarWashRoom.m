@@ -7,16 +7,26 @@
 //
 
 #import "BPVCarWashRoom.h"
+#import "BPVWasher.h"
+
+#import "NSObject+BPVExtensions.h"
 
 @implementation BPVCarWashRoom
 
 #pragma mark - 
-#pragma mark Deallocation
+#pragma mark Deallocation / Initalisation
 
 - (void)dealloc {
     self.car = nil;
     
     [super dealloc];
+}
+
+- (instancetype)init {
+    self = [super init];
+    [self addWorker:[BPVWasher object]];
+    
+    return self;
 }
 
 @end

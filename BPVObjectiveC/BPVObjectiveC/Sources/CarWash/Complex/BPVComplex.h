@@ -9,17 +9,13 @@
 #import <Foundation/Foundation.h>
 
 #import "BPVBuilding.h"
-#import "BPVCar.h"
+
+@class BPVCar;
 
 @interface BPVComplex : NSObject
-@property (nonatomic, retain) BPVBuilding *adminBuilding;
-@property (nonatomic, retain) BPVBuilding *carWashBuilding;
 @property (nonatomic, readonly) NSArray *cars;
 
+- (void)washCars;
 - (void)addCar:(BPVCar *)car;
-- (void)removeCar:(id)car;
-
-- (void)processCars;
-- (void)washCar:(BPVCar *)car;
 
 @end

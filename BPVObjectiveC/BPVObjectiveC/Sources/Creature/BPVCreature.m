@@ -23,7 +23,7 @@
 @dynamic children;
 
 #pragma mark -
-#pragma mark Deallocation
+#pragma mark Deallocation / Initialisation
 
 - (void)dealloc {
     self.name = nil;
@@ -31,9 +31,6 @@
     
     [super dealloc];
 }
-
-#pragma mark -
-#pragma mark Initialisation
 
 - (instancetype)init {
     self = [super init];
