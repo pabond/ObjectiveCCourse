@@ -10,6 +10,15 @@
 
 @interface NSString (BPVExtentions)
 
-+ (NSString *)randomString;
++ (id)alfanumericAlphabet;
++ (id)numericAlphabet;
++ (id)lowercaseLetterAlphabet;
++ (id)uppercaseLetterAlphabet;
++ (id)letterAlphabet;
+
++ (id)alphabetWithUnicodeRange;
++ (id)randomString;
++ (id)randomStringWithLength:(NSUInteger)length;
++ (id)randomStringWithLength:(NSUInteger)length alphabet:(NSString *)alphabet;
 
 @end

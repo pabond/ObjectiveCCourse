@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-#import "BPVCar.h"
-
 @interface BPVQueue : NSObject
 @property (nonatomic, readonly) NSArray *queue;
 
