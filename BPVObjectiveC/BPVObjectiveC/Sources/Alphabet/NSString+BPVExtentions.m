@@ -12,34 +12,34 @@ static const NSUInteger kNSSrtingDefouldRandomStringLength = 30;
 
 @implementation NSString (BPVExtentions)
 
-+ (id)alfanumericAlphabet {
++ (instancetype)alfanumericAlphabet {
     NSMutableString *result = [NSMutableString stringWithString:[self letterAlphabet]];
     [result appendString:[self numericAlphabet]];
      
     return [self stringWithString:result];
 }
 
-+ (id)numericAlphabet {
++ (instancetype)numericAlphabet {
     return [self alphabetWithUnicodeRange:NSMakeRange('0', '9' - '0')];
 }
 
-+ (id)lowercaseLetterAlphabet {
++ (instancetype)lowercaseLetterAlphabet {
     return [self alphabetWithUnicodeRange:NSMakeRange('a', 'z' - 'a' + 1)];
 }
 
-+ (id)uppercaseLetterAlphabet {
++ (instancetype)uppercaseLetterAlphabet {
     return [self alphabetWithUnicodeRange:NSMakeRange('A', 'Z' - 'A' + 1)];
 }
 
 
-+ (id)letterAlphabet {
++ (instancetype)letterAlphabet {
     NSMutableString *result = [NSMutableString stringWithString:[self lowercaseLetterAlphabet]];
     [result appendString:[self uppercaseLetterAlphabet]];
     
     return [self stringWithString:result];
 }
 
-+ (id)alphabetWithUnicodeRange:(NSRange)range {
++ (instancetype)alphabetWithUnicodeRange:(NSRange)range {
     NSMutableString *result = [NSMutableString string];
     for (unichar character = range.location; character < NSMaxRange(range); character++) {
         [result appendFormat:@"%c", character];
@@ -48,15 +48,15 @@ static const NSUInteger kNSSrtingDefouldRandomStringLength = 30;
     return [self stringWithString:result];
 }
 
-+ (id)randomString {
++ (instancetype)randomString {
     return [self randomStringWithLength:arc4random_uniform(kNSSrtingDefouldRandomStringLength)];
 }
 
-+ (id)randomStringWithLength:(NSUInteger)length {
++ (instancetype)randomStringWithLength:(NSUInteger)length {
     return [self randomStringWithLength:length alphabet:[self alfanumericAlphabet]];
 }
 
-+ (id)randomStringWithLength:(NSUInteger)length alphabet:(NSString *)alphabet {
++ (instancetype)randomStringWithLength:(NSUInteger)length alphabet:(NSString *)alphabet {
     NSMutableString *result = [NSMutableString stringWithCapacity:length];
     NSUInteger alphabetLength = [alphabet length];
     
