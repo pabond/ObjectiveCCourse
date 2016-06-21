@@ -19,14 +19,13 @@
 
 #import "NSObject+BPVExtensions.h"
 
-static const NSUInteger kBPVWashRoomsCount = 10;
+static const NSUInteger kBPVWashRoomsCount  = 10;
+static const NSUInteger kBPVCarsCount       = 40;
 
 @interface BPVComplex ()
-@property (nonatomic, retain) BPVBuilding       *adminBuilding;
-@property (nonatomic, retain) BPVBuilding       *carWashBuilding;
-@property (nonatomic, retain) BPVQueue          *queue;
-
-- (void)addCar:(BPVCar *)car;
+@property (nonatomic, retain) BPVBuilding   *adminBuilding;
+@property (nonatomic, retain) BPVBuilding   *carWashBuilding;
+@property (nonatomic, retain) BPVQueue      *queue;
 
 - (id)freeWorker:(NSArray *)workers;
 - (id)freeWashRoom:(NSArray *)rooms;
@@ -68,8 +67,13 @@ static const NSUInteger kBPVWashRoomsCount = 10;
 #pragma mark Public Implementation
 
 - (void)washCars {
+    BPVQueue *carsQueue = self.queue;
+    for (NSUInteger count = 0; count < kBPVCarsCount; count++) {
+        [carsQueue inQueueObject:[BPVCar object]];
+    }
+    
     while (YES) {
-        BPVCar *car = [self.queue deQueueNext];
+        BPVCar *car = [carsQueue deQueueNext];
         
         if (!car) {
             break;
@@ -103,12 +107,6 @@ static const NSUInteger kBPVWashRoomsCount = 10;
 
 #pragma mark -
 #pragma mark Private Implementation
-
-- (void)addCar:(BPVCar *)car {
-    if (car && !car.isClean) {
-        [self.queue inQueueObject:car];
-    }
-}
 
 - (id)freeWorker:(NSArray *)workers {
     for (BPVWorker *worker in workers) {

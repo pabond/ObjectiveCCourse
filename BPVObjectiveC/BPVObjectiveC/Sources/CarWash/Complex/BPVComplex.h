@@ -15,6 +15,5 @@
 @interface BPVComplex : NSObject
 
 - (void)washCars;
-- (void)addCar:(BPVCar *)car;
 
 @end

@@ -15,17 +15,9 @@
 
 #import "NSObject+BPVExtensions.h"
 
-static const NSUInteger kBPVCarsCount = 40;
-
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         BPVComplex *complex = [BPVComplex object];
-        
-        for (NSUInteger iterations = 0; kBPVCarsCount > iterations; iterations++) {
-            BPVCar *car = [BPVCar object];
-            [complex addCar:car];
-        }
-        
         [complex washCars];
     }
     
