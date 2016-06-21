@@ -27,8 +27,6 @@ static const NSUInteger kBPVCarsCount       = 40;
 @property (nonatomic, retain) BPVBuilding   *carWashBuilding;
 @property (nonatomic, retain) BPVQueue      *queue;
 
-- (id)freeWashRoom:(NSArray *)rooms;
-
 @end
 
 @implementation BPVComplex
@@ -81,9 +79,10 @@ static const NSUInteger kBPVCarsCount       = 40;
         BPVBuilding *adminBuilding = self.adminBuilding;
         BPVBuilding *carWashBuilding = self.carWashBuilding;
         
-        NSPredicate *freeObjectsPredicate = [NSPredicate predicateWithBlock:^BOOL(BPVWorker *worker, NSDictionary *bindings) {
-            return !worker.busy;
-        }];
+        NSPredicate *freeObjectsPredicate = [NSPredicate predicateWithBlock:
+                                             ^BOOL(BPVWorker *worker, NSDictionary *bindings) {
+                                                 return !worker.busy;
+                                             }];
         
         BPVWasher *washer = [[[carWashBuilding workersWithClass:[BPVWasher class]] filteredArrayUsingPredicate:freeObjectsPredicate] firstObject];
         
@@ -95,7 +94,10 @@ static const NSUInteger kBPVCarsCount       = 40;
         director.busy = YES;
         accountant.busy = YES;
         
-        BPVCarWashRoom *washRoom = [self freeWashRoom:[carWashBuilding roomsWithClass:[BPVCarWashRoom class]]];
+        BPVCarWashRoom *washRoom = [[[carWashBuilding roomsWithClass:[BPVCarWashRoom class]] filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(BPVCarWashRoom *room, NSDictionary *bindings) {
+            return !room.car;
+        }]] firstObject];
+        
         washRoom.car = car;
         
         [washer processObject:car];
@@ -108,19 +110,6 @@ static const NSUInteger kBPVCarsCount       = 40;
         
         washRoom.car = nil;
     }
-}
-
-#pragma mark -
-#pragma mark Private Implementation
-
-- (id)freeWashRoom:(NSArray *)rooms {
-    for (BPVCarWashRoom *room in rooms) {
-        if (!room.car) {
-            return room;
-        }
-    }
-    
-    return nil;
 }
 
 @end
