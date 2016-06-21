@@ -27,7 +27,6 @@ static const NSUInteger kBPVCarsCount       = 40;
 @property (nonatomic, retain) BPVBuilding   *carWashBuilding;
 @property (nonatomic, retain) BPVQueue      *queue;
 
-- (id)freeWorker:(NSArray *)workers;
 - (id)freeWashRoom:(NSArray *)rooms;
 
 @end
@@ -82,9 +81,15 @@ static const NSUInteger kBPVCarsCount       = 40;
         BPVBuilding *adminBuilding = self.adminBuilding;
         BPVBuilding *carWashBuilding = self.carWashBuilding;
         
-        BPVWasher *washer = [self freeWorker:[carWashBuilding workersWithClass:[BPVWasher class]]];
-        BPVDirector *director = [self freeWorker:[adminBuilding workersWithClass:[BPVDirector class]]];
-        BPVAccountant *accountant = [self freeWorker:[adminBuilding workersWithClass:[BPVAccountant class]]];
+        NSPredicate *freeObjectsPredicate = [NSPredicate predicateWithBlock:^BOOL(BPVWorker *worker, NSDictionary *bindings) {
+            return !worker.busy;
+        }];
+        
+        BPVWasher *washer = [[[carWashBuilding workersWithClass:[BPVWasher class]] filteredArrayUsingPredicate:freeObjectsPredicate] firstObject];
+        
+        BPVDirector *director = [[[adminBuilding workersWithClass:[BPVDirector class]] filteredArrayUsingPredicate:freeObjectsPredicate] firstObject];
+        
+        BPVAccountant *accountant = [[[adminBuilding workersWithClass:[BPVAccountant class]] filteredArrayUsingPredicate:freeObjectsPredicate] firstObject];
         
         washer.busy = YES;
         director.busy = YES;
@@ -107,16 +112,6 @@ static const NSUInteger kBPVCarsCount       = 40;
 
 #pragma mark -
 #pragma mark Private Implementation
-
-- (id)freeWorker:(NSArray *)workers {
-    for (BPVWorker *worker in workers) {
-        if (!worker.busy) {
-            return worker;
-        }
-    }
-    
-    return nil;
-}
 
 - (id)freeWashRoom:(NSArray *)rooms {
     for (BPVCarWashRoom *room in rooms) {
