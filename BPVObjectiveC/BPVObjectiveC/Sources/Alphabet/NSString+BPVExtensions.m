@@ -60,7 +60,7 @@ static const NSUInteger kNSSrtingDefouldRandomStringLength = 30;
     NSMutableString *result = [NSMutableString stringWithCapacity:length];
     NSUInteger alphabetLength = [alphabet length];
     
-    for (NSUInteger iteration = 0; iteration < length; iteration++) {
+    for (NSUInteger index = 0; index < length; index++) {
         unichar resultChar = [alphabet characterAtIndex:arc4random_uniform((u_int32_t)alphabetLength)];
         [result appendFormat:@"%c", resultChar];
     }
@@ -68,5 +68,16 @@ static const NSUInteger kNSSrtingDefouldRandomStringLength = 30;
     return [self stringWithString:result];
 }
 
+- (NSArray *)symbols {
+    NSMutableArray *result = [NSMutableArray arrayWithCapacity:[self length]];
+    NSUInteger length = [self length];
+    
+    for (NSUInteger index = 0; index < length; index++) {
+        unichar resultChar = [self characterAtIndex:index];
+        [result addObject:[NSString stringWithFormat:@"%c", resultChar]];
+    }
+    
+    return [[result copy] autorelease];
+}
 
 @end

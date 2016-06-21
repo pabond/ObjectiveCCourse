@@ -10,4 +10,7 @@
 
 @interface BPVStringsAlphabet : BPVAlphabet
 
+- (instancetype)initWithStrings:(NSArray *)string;
+
+
 @end

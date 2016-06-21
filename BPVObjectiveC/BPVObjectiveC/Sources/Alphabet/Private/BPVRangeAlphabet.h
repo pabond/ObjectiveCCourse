@@ -10,4 +10,6 @@
 
 @interface BPVRangeAlphabet : BPVAlphabet
 
+- (instancetype)initWithRange:(NSRange)range;
+
 @end

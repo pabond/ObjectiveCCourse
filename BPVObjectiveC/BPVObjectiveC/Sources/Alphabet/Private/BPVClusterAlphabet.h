@@ -10,4 +10,6 @@
 
 @interface BPVClusterAlphabet : BPVAlphabet
 
+- (instancetype)initWithAlphabets:(NSArray *)alphabets;
+
 @end
