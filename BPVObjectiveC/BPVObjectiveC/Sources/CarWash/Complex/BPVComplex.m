@@ -53,10 +53,17 @@ static const NSUInteger kBPVCarsCount       = 40;
     self.queue = [BPVQueue object];
     self.adminBuilding = [BPVBuilding object];
     self.carWashBuilding = [BPVBuilding object];
-    [self.adminBuilding addRoom:[BPVAdminRoom object]];
+    
+    BPVAdminRoom *adminRoom = [BPVAdminRoom object];
+    [self.adminBuilding addRoom:adminRoom];
+    
+    [adminRoom addWorker:[BPVDirector object]];
+    [adminRoom addWorker:[BPVAccountant object]];
     
     for (NSUInteger iterator = 0; kBPVWashRoomsCount > iterator ; iterator++) {
-        [self.carWashBuilding addRoom:[BPVCarWashRoom object]];
+        BPVCarWashRoom *carWashRoom = [BPVCarWashRoom object];
+        [self.carWashBuilding addRoom:carWashRoom];
+        [carWashRoom addWorker:[BPVWasher object]];
     }
 }
 
@@ -94,9 +101,11 @@ static const NSUInteger kBPVCarsCount       = 40;
         director.busy = YES;
         accountant.busy = YES;
         
-        BPVCarWashRoom *washRoom = [[[carWashBuilding roomsWithClass:[BPVCarWashRoom class]] filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(BPVCarWashRoom *room, NSDictionary *bindings) {
-            return !room.car;
-        }]] firstObject];
+        BPVCarWashRoom *washRoom = [[[carWashBuilding roomsWithClass:[BPVCarWashRoom class]]
+                                     filteredArrayUsingPredicate:
+                                     [NSPredicate predicateWithBlock:^BOOL(BPVCarWashRoom *room, NSDictionary *bindings) {
+                                        return !room.car;
+                                    }]] firstObject];
         
         washRoom.car = car;
         

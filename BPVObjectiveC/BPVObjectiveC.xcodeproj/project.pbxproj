@@ -24,6 +24,9 @@
 		2D7E0E6B1D16ED2100620461 /* NSString+BPVExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0E6A1D16ED2100620461 /* NSString+BPVExtensions.m */; };
 		2D7E0E6F1D170B5E00620461 /* BPVQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0E6E1D170B5E00620461 /* BPVQueue.m */; };
 		2D7E0E751D1843F000620461 /* BPVAlphabet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0E741D1843F000620461 /* BPVAlphabet.m */; };
+		2D7E0E791D197BD000620461 /* BPVRangeAlphabet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0E781D197BD000620461 /* BPVRangeAlphabet.m */; };
+		2D7E0E7C1D197F6800620461 /* BPVClusterAlphabet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0E7B1D197F6800620461 /* BPVClusterAlphabet.m */; };
+		2D7E0E7F1D19809000620461 /* BPVStringsAlphabet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0E7E1D19809000620461 /* BPVStringsAlphabet.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -74,6 +77,12 @@
 		2D7E0E6E1D170B5E00620461 /* BPVQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPVQueue.m; sourceTree = "<group>"; };
 		2D7E0E731D1843F000620461 /* BPVAlphabet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPVAlphabet.h; sourceTree = "<group>"; };
 		2D7E0E741D1843F000620461 /* BPVAlphabet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPVAlphabet.m; sourceTree = "<group>"; };
+		2D7E0E771D197BD000620461 /* BPVRangeAlphabet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPVRangeAlphabet.h; sourceTree = "<group>"; };
+		2D7E0E781D197BD000620461 /* BPVRangeAlphabet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPVRangeAlphabet.m; sourceTree = "<group>"; };
+		2D7E0E7A1D197F6800620461 /* BPVClusterAlphabet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPVClusterAlphabet.h; sourceTree = "<group>"; };
+		2D7E0E7B1D197F6800620461 /* BPVClusterAlphabet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPVClusterAlphabet.m; sourceTree = "<group>"; };
+		2D7E0E7D1D19809000620461 /* BPVStringsAlphabet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPVStringsAlphabet.h; sourceTree = "<group>"; };
+		2D7E0E7E1D19809000620461 /* BPVStringsAlphabet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPVStringsAlphabet.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -215,6 +224,7 @@
 		2D7E0E681D16ED2100620461 /* Alphabet */ = {
 			isa = PBXGroup;
 			children = (
+				2D7E0E761D197A0C00620461 /* Private */,
 				2D7E0E691D16ED2100620461 /* NSString+BPVExtensions.h */,
 				2D7E0E6A1D16ED2100620461 /* NSString+BPVExtensions.m */,
 				2D7E0E731D1843F000620461 /* BPVAlphabet.h */,
@@ -230,6 +240,19 @@
 				2D7E0E6E1D170B5E00620461 /* BPVQueue.m */,
 			);
 			path = Queue;
+			sourceTree = "<group>";
+		};
+		2D7E0E761D197A0C00620461 /* Private */ = {
+			isa = PBXGroup;
+			children = (
+				2D7E0E771D197BD000620461 /* BPVRangeAlphabet.h */,
+				2D7E0E781D197BD000620461 /* BPVRangeAlphabet.m */,
+				2D7E0E7A1D197F6800620461 /* BPVClusterAlphabet.h */,
+				2D7E0E7B1D197F6800620461 /* BPVClusterAlphabet.m */,
+				2D7E0E7D1D19809000620461 /* BPVStringsAlphabet.h */,
+				2D7E0E7E1D19809000620461 /* BPVStringsAlphabet.m */,
+			);
+			path = Private;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -298,12 +321,15 @@
 				2D7E0E671D134B3900620461 /* BPVComplex.m in Sources */,
 				2D7E0E161D0ACC2E00620461 /* BPVCreatureMale.m in Sources */,
 				2D7E0E011D0ACB1600620461 /* main.m in Sources */,
+				2D7E0E7C1D197F6800620461 /* BPVClusterAlphabet.m in Sources */,
 				2D7E0E6B1D16ED2100620461 /* NSString+BPVExtensions.m in Sources */,
 				2D7E0E571D0AD6D200620461 /* BPVCar.m in Sources */,
 				2D7E0E4D1D0AD4B800620461 /* BPVAccountant.m in Sources */,
 				2D7E0E4F1D0AD4B800620461 /* BPVWasher.m in Sources */,
 				2D7E0E151D0ACC2E00620461 /* BPVCreatureFemale.m in Sources */,
+				2D7E0E791D197BD000620461 /* BPVRangeAlphabet.m in Sources */,
 				2D7E0E751D1843F000620461 /* BPVAlphabet.m in Sources */,
+				2D7E0E7F1D19809000620461 /* BPVStringsAlphabet.m in Sources */,
 				2D7E0E501D0AD4B800620461 /* BPVWorker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

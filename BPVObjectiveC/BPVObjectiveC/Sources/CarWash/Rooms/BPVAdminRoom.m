@@ -18,8 +18,6 @@
 @interface BPVAdminRoom ()
 @property (nonatomic, retain) NSMutableArray *mutableWorkers;
 
-- (void)initWorkers;
-
 @end
 
 @implementation BPVAdminRoom
@@ -38,14 +36,8 @@
 - (instancetype)init {
     self = [super init];
     self.mutableWorkers = [NSMutableArray object];
-    [self initWorkers];
     
     return self;
-}
-
-- (void)initWorkers {
-    [self addWorker:[BPVDirector object]];
-    [self addWorker:[BPVAccountant object]];
 }
 
 #pragma mark -

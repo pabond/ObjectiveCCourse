@@ -47,15 +47,15 @@
 
 - (id)deQueueNext {
     NSMutableArray *queue = self.carsQueue;
-    if (queue.count) {
-        id nextObject = queue[0];
-        [[nextObject retain] autorelease];
-        [queue removeObjectAtIndex:0];
-        
-        return nextObject;
+    if (!queue.count) {
+        return nil;
     }
     
-    return nil;
+    id nextObject = queue[0];
+    [[nextObject retain] autorelease];
+    [queue removeObject:nextObject];
+    
+    return nextObject;
 }
 
 @end

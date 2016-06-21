@@ -14,19 +14,11 @@
 @implementation BPVCarWashRoom
 
 #pragma mark - 
-#pragma mark Deallocation / Initalisation
+#pragma mark Deallocation
 
 - (void)dealloc {
     self.car = nil;
     
     [super dealloc];
 }
-
-- (instancetype)init {
-    self = [super init];
-    [self addWorker:[BPVWasher object]];
-    
-    return self;
-}
-
 @end
