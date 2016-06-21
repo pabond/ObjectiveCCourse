@@ -12,5 +12,4 @@
 
 - (instancetype)initWithStrings:(NSArray *)string;
 
-
 @end

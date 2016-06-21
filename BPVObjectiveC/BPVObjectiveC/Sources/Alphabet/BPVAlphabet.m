@@ -38,12 +38,6 @@
 #pragma mark -
 #pragma mark Deallocation / Initialisation
 
-- (instancetype)init {
-    [self doesNotRecognizeSelector:_cmd];
-
-    return nil;
-}
-
 - (instancetype)initWithRange:(NSRange)range {
     [self release];
     
@@ -69,15 +63,19 @@
 #pragma mark Public Implementation
 
 - (NSUInteger)count {
+    [self doesNotRecognizeSelector:_cmd];
+    
     return 0;
 }
 
 - (NSString *)stringAtIndex:(NSUInteger)index {
+    [self doesNotRecognizeSelector:_cmd];
+
     return nil;
 }
 
 - (NSString *)objectAtIndexedSubscript:(NSUInteger)index {
-    return nil;
+    return [self stringAtIndex:index];
 }
 
 #pragma mark -

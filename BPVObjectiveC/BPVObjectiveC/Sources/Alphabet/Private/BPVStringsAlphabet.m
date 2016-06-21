@@ -10,4 +10,8 @@
 
 @implementation BPVStringsAlphabet
 
+- (instancetype)initWithStrings:(NSArray *)string {
+    return nil;
+}
+
 @end

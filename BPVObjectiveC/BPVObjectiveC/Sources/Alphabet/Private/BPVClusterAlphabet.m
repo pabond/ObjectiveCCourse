@@ -10,4 +10,8 @@
 
 @implementation BPVClusterAlphabet
 
+- (instancetype)initWithAlphabets:(NSArray *)alphabets {
+    return nil;
+}
+
 @end
