@@ -10,9 +10,9 @@
 
 #import "BPVCarWashRoom.h"
 #import "BPVWorker.h"
-#import "BPVWasher.h"
-#import "BPVAccountant.h"
 #import "BPVDirector.h"
+#import "BPVAccountant.h"
+#import "BPVWasher.h"
 #import "BPVCar.h"
 
 #import "BPVQueue.h"
@@ -22,13 +22,11 @@
 static const NSUInteger kBPVWashRoomsCount = 10;
 
 @interface BPVComplex ()
-@property (nonatomic, retain) NSMutableArray    *mutableCars;
 @property (nonatomic, retain) BPVBuilding       *adminBuilding;
 @property (nonatomic, retain) BPVBuilding       *carWashBuilding;
 @property (nonatomic, retain) BPVQueue          *queue;
 
 - (void)addCar:(BPVCar *)car;
-- (void)removeCar:(id)car;
 
 - (id)freeWorker:(NSArray *)workers;
 - (id)freeWashRoom:(NSArray *)rooms;
@@ -37,15 +35,13 @@ static const NSUInteger kBPVWashRoomsCount = 10;
 
 @implementation BPVComplex
 
-@dynamic cars;
-
 #pragma mark -
 #pragma mark Deallocation / Initialisation
 
 - (void)dealloc {
     self.adminBuilding = nil;
     self.carWashBuilding = nil;
-    self.mutableCars = nil;
+    self.queue = nil;
         
     [super dealloc];
 }
@@ -58,7 +54,7 @@ static const NSUInteger kBPVWashRoomsCount = 10;
 }
 
 - (void)initInfrastructure {
-    self.mutableCars = [NSMutableArray object];
+    self.queue = [BPVQueue object];
     self.adminBuilding = [BPVBuilding object];
     self.carWashBuilding = [BPVBuilding object];
     [self.adminBuilding addRoom:[BPVAdminRoom object]];
@@ -66,16 +62,10 @@ static const NSUInteger kBPVWashRoomsCount = 10;
     for (NSUInteger iterator = 0; kBPVWashRoomsCount > iterator ; iterator++) {
         [self.carWashBuilding addRoom:[BPVCarWashRoom object]];
     }
-    
-    self.queue = [BPVQueue object];
 }
 
 #pragma mark -
 #pragma mark Public Implementation
-
-- (NSArray *)cars {
-    return [[self.mutableCars copy] autorelease];
-}
 
 - (void)washCars {
     while (YES) {
@@ -107,8 +97,6 @@ static const NSUInteger kBPVWashRoomsCount = 10;
         director.busy = NO;
         accountant.busy = NO;
         
-        [self removeCar:car];
-        
         washRoom.car = nil;
     }
 }
@@ -118,13 +106,8 @@ static const NSUInteger kBPVWashRoomsCount = 10;
 
 - (void)addCar:(BPVCar *)car {
     if (car && !car.isClean) {
-        [self.mutableCars addObject:car];
         [self.queue inQueueObject:car];
     }
-}
-
-- (void)removeCar:(id)car {
-    [self.mutableCars removeObject:car];
 }
 
 - (id)freeWorker:(NSArray *)workers {

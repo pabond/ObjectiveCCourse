@@ -1,5 +1,5 @@
 //
-//  NSString+BPVExtentions.h
+//  NSString+BPVExtensions.h
 //  BPVObjectiveC
 //
 //  Created by Bondar Pavel on 6/16/16.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSString (BPVExtentions)
+@interface NSString (BPVExtensions)
 
 + (instancetype)alfanumericAlphabet;
 + (instancetype)numericAlphabet;

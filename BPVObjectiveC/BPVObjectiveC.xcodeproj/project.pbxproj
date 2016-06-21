@@ -21,7 +21,7 @@
 		2D7E0E501D0AD4B800620461 /* BPVWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0E481D0AD4B800620461 /* BPVWorker.m */; };
 		2D7E0E571D0AD6D200620461 /* BPVCar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0E561D0AD6D200620461 /* BPVCar.m */; };
 		2D7E0E671D134B3900620461 /* BPVComplex.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0E661D134B3900620461 /* BPVComplex.m */; };
-		2D7E0E6B1D16ED2100620461 /* NSString+BPVExtentions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0E6A1D16ED2100620461 /* NSString+BPVExtentions.m */; };
+		2D7E0E6B1D16ED2100620461 /* NSString+BPVExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0E6A1D16ED2100620461 /* NSString+BPVExtensions.m */; };
 		2D7E0E6F1D170B5E00620461 /* BPVQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0E6E1D170B5E00620461 /* BPVQueue.m */; };
 		2D7E0E751D1843F000620461 /* BPVAlphabet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0E741D1843F000620461 /* BPVAlphabet.m */; };
 /* End PBXBuildFile section */
@@ -68,8 +68,8 @@
 		2D7E0E581D0AF6B100620461 /* BPVMoneyFlow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPVMoneyFlow.h; sourceTree = "<group>"; };
 		2D7E0E651D134B3900620461 /* BPVComplex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPVComplex.h; sourceTree = "<group>"; };
 		2D7E0E661D134B3900620461 /* BPVComplex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPVComplex.m; sourceTree = "<group>"; };
-		2D7E0E691D16ED2100620461 /* NSString+BPVExtentions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+BPVExtentions.h"; sourceTree = "<group>"; };
-		2D7E0E6A1D16ED2100620461 /* NSString+BPVExtentions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+BPVExtentions.m"; sourceTree = "<group>"; };
+		2D7E0E691D16ED2100620461 /* NSString+BPVExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+BPVExtensions.h"; sourceTree = "<group>"; };
+		2D7E0E6A1D16ED2100620461 /* NSString+BPVExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+BPVExtensions.m"; sourceTree = "<group>"; };
 		2D7E0E6D1D170B5E00620461 /* BPVQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPVQueue.h; sourceTree = "<group>"; };
 		2D7E0E6E1D170B5E00620461 /* BPVQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPVQueue.m; sourceTree = "<group>"; };
 		2D7E0E731D1843F000620461 /* BPVAlphabet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPVAlphabet.h; sourceTree = "<group>"; };
@@ -215,8 +215,8 @@
 		2D7E0E681D16ED2100620461 /* Alphabet */ = {
 			isa = PBXGroup;
 			children = (
-				2D7E0E691D16ED2100620461 /* NSString+BPVExtentions.h */,
-				2D7E0E6A1D16ED2100620461 /* NSString+BPVExtentions.m */,
+				2D7E0E691D16ED2100620461 /* NSString+BPVExtensions.h */,
+				2D7E0E6A1D16ED2100620461 /* NSString+BPVExtensions.m */,
 				2D7E0E731D1843F000620461 /* BPVAlphabet.h */,
 				2D7E0E741D1843F000620461 /* BPVAlphabet.m */,
 			);
@@ -298,7 +298,7 @@
 				2D7E0E671D134B3900620461 /* BPVComplex.m in Sources */,
 				2D7E0E161D0ACC2E00620461 /* BPVCreatureMale.m in Sources */,
 				2D7E0E011D0ACB1600620461 /* main.m in Sources */,
-				2D7E0E6B1D16ED2100620461 /* NSString+BPVExtentions.m in Sources */,
+				2D7E0E6B1D16ED2100620461 /* NSString+BPVExtensions.m in Sources */,
 				2D7E0E571D0AD6D200620461 /* BPVCar.m in Sources */,
 				2D7E0E4D1D0AD4B800620461 /* BPVAccountant.m in Sources */,
 				2D7E0E4F1D0AD4B800620461 /* BPVWasher.m in Sources */,

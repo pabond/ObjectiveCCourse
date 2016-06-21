@@ -11,7 +11,7 @@
 #import "NSObject+BPVExtensions.h"
 
 @interface BPVQueue ()
-@property (nonatomic, retain) NSMutableArray *mutableQueue;
+@property (nonatomic, retain) NSMutableArray *carsQueue;
 
 @end
 
@@ -19,26 +19,38 @@
 
 @dynamic queue;
 
+#pragma mark -
+#pragma mark Deallocation / Initialisation
+
+- (void)dealloc {
+    self.carsQueue = nil;
+    
+    [super dealloc];
+}
+
 - (instancetype)init {
     self = [super init];
-    self.mutableQueue = [NSMutableArray object];
+    self.carsQueue = [NSMutableArray object];
     
     return self;
 }
 
 - (NSArray *)queue {
-    return [[self.mutableQueue copy] autorelease];
+    return [[self.carsQueue copy] autorelease];
 }
 
 - (void)inQueueObject:(id)object {
-    [self.mutableQueue addObject:object];
+    if (object) {
+        [self.carsQueue addObject:object];
+    }
 }
 
 - (id)deQueueNext {
-    if (self.queue.count) {
-        id nextObject = self.mutableQueue[0];
+    NSMutableArray *queue = self.carsQueue;
+    if (queue.count) {
+        id nextObject = queue[0];
         [[nextObject retain] autorelease];
-        [self.mutableQueue removeObjectAtIndex:0];
+        [queue removeObjectAtIndex:0];
         
         return nextObject;
     }

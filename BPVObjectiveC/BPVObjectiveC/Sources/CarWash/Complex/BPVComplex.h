@@ -13,7 +13,6 @@
 @class BPVCar;
 
 @interface BPVComplex : NSObject
-@property (nonatomic, readonly) NSArray *cars;
 
 - (void)washCars;
 - (void)addCar:(BPVCar *)car;

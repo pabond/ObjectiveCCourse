@@ -18,7 +18,7 @@
 }
 
 - (id)objectAtIndex:(NSUInteger)index {
-    
+    return nil;
 }
 
 @end
