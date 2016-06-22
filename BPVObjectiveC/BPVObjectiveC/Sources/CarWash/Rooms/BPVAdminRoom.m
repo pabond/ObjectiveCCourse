@@ -57,10 +57,10 @@
     [self.mutableWorkers removeObject:worker];
 }
 
-- (NSArray *)workersWithClass:(Class)cls {
+- (NSArray *)workersWithClass:(Class)class {
     NSMutableArray *workers = [NSMutableArray array];
     for (BPVWorker *worker in self.workers) {
-        if ([worker isMemberOfClass:cls]) {
+        if ([worker isMemberOfClass:class]) {
             [workers addObject:worker];
         }
     }

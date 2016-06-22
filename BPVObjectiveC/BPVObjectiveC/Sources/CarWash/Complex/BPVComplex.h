@@ -10,10 +10,8 @@
 
 #import "BPVBuilding.h"
 
-@class BPVCar;
-
 @interface BPVComplex : NSObject
 
-- (void)washCars;
+- (void)washCar:(id)car;
 
 @end

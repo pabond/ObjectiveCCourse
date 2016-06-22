@@ -10,8 +10,9 @@
 
 @interface BPVQueue : NSObject
 @property (nonatomic, readonly) NSArray *queue;
+@property (nonatomic, readonly) NSUInteger objectsCount;
 
-- (void)inQueueObject:(id)object;
-- (id)deQueueNext;
+- (void)enqueueObject:(id)object;
+- (id)dequeueObject;
 
 @end

@@ -10,15 +10,18 @@
 
 #import "BPVComplex.h"
 #import "BPVCar.h"
-#import "BPVDirector.h"
-#import "BPVBuilding.h"
 
 #import "NSObject+BPVExtensions.h"
+
+static const NSUInteger kBPVCarsCount = 40;
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         BPVComplex *complex = [BPVComplex object];
-        [complex washCars];
+        
+        for (NSUInteger count = 0; count < kBPVCarsCount; count++) {
+            [complex washCar:[BPVCar object]];
+        }
     }
     
     return 0;

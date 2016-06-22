@@ -8,10 +8,8 @@
 
 #import "BPVWorker.h"
 
-#import "BPVCar.h"
-
 @interface BPVWasher : BPVWorker
 
-- (void)washCar:(BPVCar *)car;
+- (void)washCar:(id)car;
 
 @end

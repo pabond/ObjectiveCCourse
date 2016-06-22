@@ -8,6 +8,8 @@
 
 #import "BPVWasher.h"
 
+#import "BPVCar.h"
+
 @implementation BPVWasher
 
 - (void)washCar:(BPVCar *)car {
@@ -19,6 +21,7 @@
 - (void)processObject:(id)object {
     [self washCar:object];
     [self takeMoneyFromObject:object];
+    self.busy = NO;
 }
 
 @end
