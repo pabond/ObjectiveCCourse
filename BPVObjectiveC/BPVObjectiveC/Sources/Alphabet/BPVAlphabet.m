@@ -78,14 +78,4 @@
     return [self stringAtIndex:index];
 }
 
-#pragma mark -
-#pragma mark Public Implementation
-
-- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state
-                                  objects:(id  _Nonnull *)buffer
-                                    count:(NSUInteger)length
-{
-    return 0;
-}
-
 @end
