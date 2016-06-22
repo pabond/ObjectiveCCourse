@@ -19,12 +19,17 @@
 
 #import "NSObject+BPVExtensions.h"
 
-static const NSUInteger kBPVWashRoomsCount  = 10;
+static const NSUInteger kBPVWashRoomsCount  = 20;
+static const NSUInteger kBPVWashersCount  = 20;
 
 @interface BPVComplex ()
 @property (nonatomic, retain) BPVBuilding   *carWashBuilding;
 @property (nonatomic, retain) BPVBuilding   *adminBuilding;
 @property (nonatomic, retain) BPVQueue      *queue;
+
+- (void)initInfrastructure;
+- (void) initRooms;
+- (void)initWorkers;
 
 @end
 
@@ -53,15 +58,24 @@ static const NSUInteger kBPVWashRoomsCount  = 10;
     self.adminBuilding = [BPVBuilding object];
     self.carWashBuilding = [BPVBuilding object];
     
-    BPVAdminRoom *adminRoom = [BPVAdminRoom object];
-    [self.adminBuilding addRoom:adminRoom];
-    
+    [self initRooms];
+    [self initWorkers];
+}
+
+- (void) initRooms {
+    [self.adminBuilding addRoom:[BPVAdminRoom object]];
+    for (NSUInteger iterator = 0; kBPVWashRoomsCount > iterator ; iterator++) {
+        [self.carWashBuilding addRoom:[BPVCarWashRoom object]];
+    }
+}
+
+- (void)initWorkers {
+    BPVAdminRoom *adminRoom = [[self.adminBuilding rooms] firstObject];
     [adminRoom addWorker:[BPVDirector object]];
     [adminRoom addWorker:[BPVAccountant object]];
     
-    for (NSUInteger iterator = 0; kBPVWashRoomsCount > iterator ; iterator++) {
-        BPVCarWashRoom *carWashRoom = [BPVCarWashRoom object];
-        [self.carWashBuilding addRoom:carWashRoom];
+    BPVCarWashRoom *carWashRoom = [[self.carWashBuilding rooms] firstObject];
+    for (NSUInteger iterator = 0; kBPVWashersCount > iterator; iterator++) {
         [carWashRoom addWorker:[BPVWasher object]];
     }
 }
