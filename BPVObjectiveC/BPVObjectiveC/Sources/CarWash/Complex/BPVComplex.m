@@ -18,6 +18,7 @@
 #import "BPVQueue.h"
 
 #import "NSObject+BPVExtensions.h"
+#import "NSArray+BPVExtensions.h"
 
 static const NSUInteger kBPVWashRoomsCount  = 20;
 static const NSUInteger kBPVWashersCount  = 20;
@@ -30,6 +31,15 @@ static const NSUInteger kBPVWashersCount  = 20;
 - (void)initInfrastructure;
 - (void) initRooms;
 - (void)initWorkers;
+
+- (id)freeWasher;
+- (id)freeAccountant;
+- (id)freeDirector;
+
+- (id)reservedFreeWorkerWithClass:(Class)class;
+- (BPVBuilding *)buildingForWorkerWithClass:(Class)class;
+
+- (BPVCarWashRoom *)freeCarWashRoom;
 
 @end
 
@@ -95,7 +105,6 @@ static const NSUInteger kBPVWashersCount  = 20;
         BPVAccountant *accountant = [self reservedFreeWorkerWithClass:[BPVAccountant class]];
             
         BPVCarWashRoom *washRoom = [self freeCarWashRoom];
-        
         washRoom.car = car;
         
         [washer processObject:car];
@@ -106,9 +115,21 @@ static const NSUInteger kBPVWashersCount  = 20;
     }
 }
 
+- (id)freeWasher {
+    return [self reservedFreeWorkerWithClass:[BPVWasher class]];
+}
+
+- (id)freeAccountant {
+    return [self reservedFreeWorkerWithClass:[BPVAccountant class]];
+}
+
+- (id)freeDirector {
+    return [self reservedFreeWorkerWithClass:[BPVDirector class]];
+}
+
 - (id)reservedFreeWorkerWithClass:(Class)class {
     NSArray *workres = [[self buildingForWorkerWithClass:class] workersWithClass:class];
-    BPVWorker *freeWorker = [[workres filteredArrayUsingPredicate:[self freeWorkerPredicate]] firstObject];
+    BPVWorker *freeWorker = [[workres filteredUsingBlock:^BOOL(BPVWorker *worker) { return !worker.busy; }] firstObject];
     
     freeWorker.busy = YES;
     
@@ -119,15 +140,10 @@ static const NSUInteger kBPVWashersCount  = 20;
     return [class isSubclassOfClass:[BPVWasher class]] ? self.carWashBuilding : self.adminBuilding;
 }
 
-- (NSPredicate *)freeWorkerPredicate {
-    return [NSPredicate predicateWithBlock:^BOOL(BPVWorker *worker, NSDictionary *bindings) { return !worker.busy; }];
-}
-
 - (BPVCarWashRoom *)freeCarWashRoom {
     NSArray *rooms = [self.carWashBuilding roomsWithClass:[BPVCarWashRoom class]];
-    BPVCarWashRoom * freeWashRoom = [[rooms filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(BPVCarWashRoom *room, NSDictionary *bindings) { return !room.car; }]] firstObject];
     
-    return freeWashRoom;
+    return [[rooms filteredUsingBlock:^BOOL(BPVCarWashRoom *room) { return !room.car; }] firstObject];
 }
 
 @end

@@ -27,6 +27,7 @@
 		2D7E0E791D197BD000620461 /* BPVRangeAlphabet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0E781D197BD000620461 /* BPVRangeAlphabet.m */; };
 		2D7E0E7C1D197F6800620461 /* BPVClusterAlphabet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0E7B1D197F6800620461 /* BPVClusterAlphabet.m */; };
 		2D7E0E7F1D19809000620461 /* BPVStringsAlphabet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0E7E1D19809000620461 /* BPVStringsAlphabet.m */; };
+		2D7E0E821D1AA0AE00620461 /* NSArray+BPVExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0E811D1AA0AE00620461 /* NSArray+BPVExtensions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -83,6 +84,8 @@
 		2D7E0E7B1D197F6800620461 /* BPVClusterAlphabet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPVClusterAlphabet.m; sourceTree = "<group>"; };
 		2D7E0E7D1D19809000620461 /* BPVStringsAlphabet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPVStringsAlphabet.h; sourceTree = "<group>"; };
 		2D7E0E7E1D19809000620461 /* BPVStringsAlphabet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPVStringsAlphabet.m; sourceTree = "<group>"; };
+		2D7E0E801D1AA0AE00620461 /* NSArray+BPVExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+BPVExtensions.h"; sourceTree = "<group>"; };
+		2D7E0E811D1AA0AE00620461 /* NSArray+BPVExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+BPVExtensions.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +154,8 @@
 			children = (
 				2D7E0E0A1D0ACC2E00620461 /* NSObject+BPVExtensions.h */,
 				2D7E0E0B1D0ACC2E00620461 /* NSObject+BPVExtensions.m */,
+				2D7E0E801D1AA0AE00620461 /* NSArray+BPVExtensions.h */,
+				2D7E0E811D1AA0AE00620461 /* NSArray+BPVExtensions.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -312,6 +317,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D7E0E131D0ACC2E00620461 /* NSObject+BPVExtensions.m in Sources */,
+				2D7E0E821D1AA0AE00620461 /* NSArray+BPVExtensions.m in Sources */,
 				2D7E0E491D0AD4B800620461 /* BPVBuilding.m in Sources */,
 				2D7E0E6F1D170B5E00620461 /* BPVQueue.m in Sources */,
 				2D7E0E4B1D0AD4B800620461 /* BPVAdminRoom.m in Sources */,
