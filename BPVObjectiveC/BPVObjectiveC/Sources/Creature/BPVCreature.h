@@ -9,12 +9,15 @@
 #import <Foundation/Foundation.h>
 
 @interface BPVCreature : NSObject
-
 @property (nonatomic, copy)     NSString  *name;
 @property (nonatomic, assign)   NSInteger age;
-@property (nonatomic, assign)   float     waight;
+@property (nonatomic, assign)   float     weight;
+@property (nonatomic, readonly) NSArray   *children;
 
-- (void)sayHi;
+- (void)allSayHi;
 - (void)performGenderSpecificOperation;
+
+- (void)addChild:(BPVCreature *)child;
+- (void)removeChild:(BPVCreature *)child;
 
 @end

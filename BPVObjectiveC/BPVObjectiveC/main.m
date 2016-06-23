@@ -8,41 +8,19 @@
 
 #import <Foundation/Foundation.h>
 
-#import "BPVCreature.h"
-#import "BPVCreatureMale.h"
-#import "BPVCreatureFemale.h"
+#import "BPVComplex.h"
+#import "BPVCar.h"
 
 #import "NSObject+BPVExtensions.h"
 
+static const NSUInteger kBPVCarsCount = 40;
+
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
-        NSMutableArray *creatures = [NSMutableArray object];
+        BPVComplex *complex = [BPVComplex object];
         
-        BPVCreatureMale *creature1 = [BPVCreatureMale object];
-        creature1.name = @"Alex";
-        [creatures addObject: creature1];
-        
-        BPVCreatureMale *creature2 = [BPVCreatureMale object];
-        creature2.name = @"Paul";
-        [creatures addObject: creature2];
-        
-        BPVCreatureMale *creature3 = [BPVCreatureMale object];
-        creature3.name = @"Bob";
-        [creatures addObject: creature3];
-        
-        BPVCreatureFemale *creature4 = [BPVCreatureFemale object];
-        creature4.name = @"Irene";
-        [creatures addObject: creature4];
-        
-        BPVCreatureFemale *creature5 = [BPVCreatureFemale object];
-        creature5.name = @"Alexandra";
-        [creatures addObject: creature5];
-        
-        NSLog(@"creatures = %@", creatures);
-        
-        for (BPVCreature *creature in creatures) {
-            [creature sayHi];
-            [creature performGenderSpecificOperation];
+        for (NSUInteger count = 0; count < kBPVCarsCount; count++) {
+            [complex washCar:[BPVCar object]];
         }
     }
     
@@ -50,14 +28,24 @@ int main(int argc, const char * argv[]) {
 }
 
 /*
- Задание 2.
- Условие:
- Дано существо из задания 1.
- Задание:
- 1. Убрать переменную пол из существа, а также умение воевать и рожать детей;
- 2. Вместо нее создать наследников существа: мужское и женское существо;
- 3. Мужское существо умеет воевать, женское - рожать детей;
- 4. Создать метод performGenderSpecificOperation у родительского существа, который ничего не делает, мужское существо по вызову этого метода идет воевать, женское рожает детей;
- 5. Создать массив существ, в котором бы лежали только мужчины и женщины, пройтись по нему через for (Creature *creature in creatures) и вызвать метод performGenderSpecificOperation, которой, в зависимости от пола существа приведет либо к войне, либо к родам -> Подчеркнуть, что это - полиморфизм, значит, охуенно.
- 6. Заменить alloc init autorelease на NSOBject категорию с методом object
- */
+ Задание 4.
+ Написать расширения для строки, которая бы генерировалась случайным образом.
+ ТРебования:
+ 1. должна быть расширяемой
+ 2. должна быть удобной
+ 3. должна предоставлять возможность работать с разными наборами символов
+ 
+ // контроллирующий класс более высокого уровня
+ // Kiwi
+ // блок, синтаксис блока
+ // __block переменная
+ // NSFastEnumeration
+ 
+ Задание 5.
+ Написать класс, реализующий обертку над алфавитом или набором символов
+ Требования:
+ 1. не должен быть наследником nsarray
+ 2. может быть динамическим или работать с набором символов
+ 3. должен быть кластерным классом
+ 4. должен уметь NSFastEnumeration
+*/
