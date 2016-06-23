@@ -13,5 +13,6 @@
 @property (nonatomic, readonly) NSUInteger count;
 
 - (instancetype)initWithAlphabets:(NSArray *)alphabets;
+- (NSString *)stringAtIndex:(NSUInteger)index;
 
 @end

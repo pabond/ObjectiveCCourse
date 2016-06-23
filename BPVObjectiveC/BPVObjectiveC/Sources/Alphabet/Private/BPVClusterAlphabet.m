@@ -47,4 +47,25 @@
     self.count = count;
 }
 
+#pragma mark -
+#pragma mark Public implementations
+
+- (NSString *)stringAtIndex:(NSUInteger)index {
+    NSUInteger count = self.count;
+    if  (index < count) {
+        NSUInteger iteratedIndex = index;
+        
+        for (BPVAlphabet *alphabet in self.alphabets) {
+            count = alphabet.count;
+            if (iteratedIndex < count) {
+                return alphabet[iteratedIndex];
+            }
+            
+            iteratedIndex -= count;
+        }
+    }
+    
+    return nil;
+}
+
 @end
