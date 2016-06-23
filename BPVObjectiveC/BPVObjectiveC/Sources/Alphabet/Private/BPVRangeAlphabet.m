@@ -8,10 +8,39 @@
 
 #import "BPVRangeAlphabet.h"
 
+@interface BPVRangeAlphabet ()
+@property (nonatomic, assign) NSRange range;
+
+@end
+
 @implementation BPVRangeAlphabet
 
+#pragma mark -
+#pragma mark Deallocation / Initialisation
+
 - (instancetype)initWithRange:(NSRange)range {
-    return nil;
+    self = [super init];
+    if (self) {
+        self.range = range;
+    }
+    
+    return self;
 }
+
+#pragma mark -
+#pragma mark Accessors
+
+- (NSUInteger)count {
+    return self.range.length;
+}
+
+#pragma mark -
+#pragma mark Public Inplementation
+
+
+- (NSString *)stringAtIndex:(NSUInteger)index {
+    return [NSString stringWithFormat:@"%c", (unichar)(self.range.location + index)];
+}
+
 
 @end

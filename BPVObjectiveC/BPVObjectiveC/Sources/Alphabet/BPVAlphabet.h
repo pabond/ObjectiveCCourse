@@ -25,4 +25,10 @@
 
 - (NSString *)objectAtIndexedSubscript:(NSUInteger)index;
 
+- (NSString *)string;
+
+- (NSUInteger) countByEnumeratingWithState:(NSFastEnumerationState *)state
+                                   objects:(id)buffer
+                                     count:(NSUInteger)len;
+
 @end

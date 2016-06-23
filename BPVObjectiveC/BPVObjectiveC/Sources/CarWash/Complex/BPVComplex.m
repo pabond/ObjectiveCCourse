@@ -100,9 +100,9 @@ static const NSUInteger kBPVWashersCount  = 20;
     BPVCar *car = nil;
     while ((car = [carsQueue dequeueObject])) {
         
-        BPVWasher *washer = [self reservedFreeWorkerWithClass:[BPVWasher class]];
-        BPVDirector *director = [self reservedFreeWorkerWithClass:[BPVDirector class]];
-        BPVAccountant *accountant = [self reservedFreeWorkerWithClass:[BPVAccountant class]];
+        BPVWasher *washer = [self freeWasher];
+        BPVDirector *director = [self freeDirector];
+        BPVAccountant *accountant = [self freeAccountant];
             
         BPVCarWashRoom *washRoom = [self freeCarWashRoom];
         washRoom.car = car;

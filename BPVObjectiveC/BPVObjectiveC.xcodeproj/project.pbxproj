@@ -8,46 +8,47 @@
 
 /* Begin PBXBuildFile section */
 		2D7E0F211D1AE00300620461 /* BPVAlphabet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0EEA1D1AE00300620461 /* BPVAlphabet.m */; };
-		2D7E0F221D1AE00300620461 /* BPVAlphabet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0EEA1D1AE00300620461 /* BPVAlphabet.m */; };
+		2D7E0F221D1AE00300620461 /* BPVAlphabet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0EEA1D1AE00300620461 /* BPVAlphabet.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2D7E0F231D1AE00300620461 /* NSString+BPVExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0EEC1D1AE00300620461 /* NSString+BPVExtensions.m */; };
-		2D7E0F241D1AE00300620461 /* NSString+BPVExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0EEC1D1AE00300620461 /* NSString+BPVExtensions.m */; };
+		2D7E0F241D1AE00300620461 /* NSString+BPVExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0EEC1D1AE00300620461 /* NSString+BPVExtensions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2D7E0F251D1AE00300620461 /* BPVClusterAlphabet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0EEF1D1AE00300620461 /* BPVClusterAlphabet.m */; };
-		2D7E0F261D1AE00300620461 /* BPVClusterAlphabet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0EEF1D1AE00300620461 /* BPVClusterAlphabet.m */; };
+		2D7E0F261D1AE00300620461 /* BPVClusterAlphabet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0EEF1D1AE00300620461 /* BPVClusterAlphabet.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2D7E0F271D1AE00300620461 /* BPVRangeAlphabet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0EF11D1AE00300620461 /* BPVRangeAlphabet.m */; };
-		2D7E0F281D1AE00300620461 /* BPVRangeAlphabet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0EF11D1AE00300620461 /* BPVRangeAlphabet.m */; };
+		2D7E0F281D1AE00300620461 /* BPVRangeAlphabet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0EF11D1AE00300620461 /* BPVRangeAlphabet.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2D7E0F291D1AE00300620461 /* BPVStringsAlphabet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0EF31D1AE00300620461 /* BPVStringsAlphabet.m */; };
-		2D7E0F2A1D1AE00300620461 /* BPVStringsAlphabet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0EF31D1AE00300620461 /* BPVStringsAlphabet.m */; };
+		2D7E0F2A1D1AE00300620461 /* BPVStringsAlphabet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0EF31D1AE00300620461 /* BPVStringsAlphabet.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2D7E0F2B1D1AE00300620461 /* BPVBuilding.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0EF81D1AE00300620461 /* BPVBuilding.m */; };
-		2D7E0F2C1D1AE00300620461 /* BPVBuilding.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0EF81D1AE00300620461 /* BPVBuilding.m */; };
+		2D7E0F2C1D1AE00300620461 /* BPVBuilding.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0EF81D1AE00300620461 /* BPVBuilding.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2D7E0F2D1D1AE00300620461 /* BPVCar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0EFB1D1AE00300620461 /* BPVCar.m */; };
-		2D7E0F2E1D1AE00300620461 /* BPVCar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0EFB1D1AE00300620461 /* BPVCar.m */; };
+		2D7E0F2E1D1AE00300620461 /* BPVCar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0EFB1D1AE00300620461 /* BPVCar.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2D7E0F2F1D1AE00300620461 /* BPVComplex.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0EFE1D1AE00300620461 /* BPVComplex.m */; };
-		2D7E0F301D1AE00300620461 /* BPVComplex.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0EFE1D1AE00300620461 /* BPVComplex.m */; };
+		2D7E0F301D1AE00300620461 /* BPVComplex.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0EFE1D1AE00300620461 /* BPVComplex.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2D7E0F311D1AE00300620461 /* BPVQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0F011D1AE00300620461 /* BPVQueue.m */; };
-		2D7E0F321D1AE00300620461 /* BPVQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0F011D1AE00300620461 /* BPVQueue.m */; };
+		2D7E0F321D1AE00300620461 /* BPVQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0F011D1AE00300620461 /* BPVQueue.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2D7E0F331D1AE00300620461 /* BPVAdminRoom.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0F041D1AE00300620461 /* BPVAdminRoom.m */; };
-		2D7E0F341D1AE00300620461 /* BPVAdminRoom.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0F041D1AE00300620461 /* BPVAdminRoom.m */; };
+		2D7E0F341D1AE00300620461 /* BPVAdminRoom.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0F041D1AE00300620461 /* BPVAdminRoom.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2D7E0F351D1AE00300620461 /* BPVCarWashRoom.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0F061D1AE00300620461 /* BPVCarWashRoom.m */; };
-		2D7E0F361D1AE00300620461 /* BPVCarWashRoom.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0F061D1AE00300620461 /* BPVCarWashRoom.m */; };
+		2D7E0F361D1AE00300620461 /* BPVCarWashRoom.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0F061D1AE00300620461 /* BPVCarWashRoom.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2D7E0F371D1AE00300620461 /* BPVAccountant.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0F091D1AE00300620461 /* BPVAccountant.m */; };
-		2D7E0F381D1AE00300620461 /* BPVAccountant.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0F091D1AE00300620461 /* BPVAccountant.m */; };
+		2D7E0F381D1AE00300620461 /* BPVAccountant.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0F091D1AE00300620461 /* BPVAccountant.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2D7E0F391D1AE00300620461 /* BPVDirector.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0F0B1D1AE00300620461 /* BPVDirector.m */; };
-		2D7E0F3A1D1AE00300620461 /* BPVDirector.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0F0B1D1AE00300620461 /* BPVDirector.m */; };
+		2D7E0F3A1D1AE00300620461 /* BPVDirector.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0F0B1D1AE00300620461 /* BPVDirector.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2D7E0F3B1D1AE00300620461 /* BPVWasher.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0F0D1D1AE00300620461 /* BPVWasher.m */; };
-		2D7E0F3C1D1AE00300620461 /* BPVWasher.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0F0D1D1AE00300620461 /* BPVWasher.m */; };
+		2D7E0F3C1D1AE00300620461 /* BPVWasher.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0F0D1D1AE00300620461 /* BPVWasher.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2D7E0F3D1D1AE00300620461 /* BPVWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0F0F1D1AE00300620461 /* BPVWorker.m */; };
-		2D7E0F3E1D1AE00300620461 /* BPVWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0F0F1D1AE00300620461 /* BPVWorker.m */; };
+		2D7E0F3E1D1AE00300620461 /* BPVWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0F0F1D1AE00300620461 /* BPVWorker.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2D7E0F3F1D1AE00300620461 /* NSArray+BPVExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0F121D1AE00300620461 /* NSArray+BPVExtensions.m */; };
-		2D7E0F401D1AE00300620461 /* NSArray+BPVExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0F121D1AE00300620461 /* NSArray+BPVExtensions.m */; };
+		2D7E0F401D1AE00300620461 /* NSArray+BPVExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0F121D1AE00300620461 /* NSArray+BPVExtensions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2D7E0F411D1AE00300620461 /* NSObject+BPVExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0F141D1AE00300620461 /* NSObject+BPVExtensions.m */; };
-		2D7E0F421D1AE00300620461 /* NSObject+BPVExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0F141D1AE00300620461 /* NSObject+BPVExtensions.m */; };
+		2D7E0F421D1AE00300620461 /* NSObject+BPVExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0F141D1AE00300620461 /* NSObject+BPVExtensions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2D7E0F431D1AE00300620461 /* BPVCreature.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0F171D1AE00300620461 /* BPVCreature.m */; };
-		2D7E0F441D1AE00300620461 /* BPVCreature.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0F171D1AE00300620461 /* BPVCreature.m */; };
+		2D7E0F441D1AE00300620461 /* BPVCreature.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0F171D1AE00300620461 /* BPVCreature.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2D7E0F451D1AE00300620461 /* BPVCreatureFemale.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0F191D1AE00300620461 /* BPVCreatureFemale.m */; };
-		2D7E0F461D1AE00300620461 /* BPVCreatureFemale.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0F191D1AE00300620461 /* BPVCreatureFemale.m */; };
+		2D7E0F461D1AE00300620461 /* BPVCreatureFemale.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0F191D1AE00300620461 /* BPVCreatureFemale.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2D7E0F471D1AE00300620461 /* BPVCreatureMale.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0F1B1D1AE00300620461 /* BPVCreatureMale.m */; };
-		2D7E0F481D1AE00300620461 /* BPVCreatureMale.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0F1B1D1AE00300620461 /* BPVCreatureMale.m */; };
+		2D7E0F481D1AE00300620461 /* BPVCreatureMale.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0F1B1D1AE00300620461 /* BPVCreatureMale.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2D7E0F491D1AE09A00620461 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0EE61D1AE00300620461 /* main.m */; };
+		2D7E0F4E1D1AE96400620461 /* BPVAlphabetSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0F4D1D1AE96400620461 /* BPVAlphabetSpec.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		EC7AFA3119F75DEAA4DEFE6C /* libPods-ObjectiveCTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EEAF618C12477490D1782A7 /* libPods-ObjectiveCTests.a */; };
 /* End PBXBuildFile section */
 
@@ -109,6 +110,7 @@
 		2D7E0F191D1AE00300620461 /* BPVCreatureFemale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPVCreatureFemale.m; sourceTree = "<group>"; };
 		2D7E0F1A1D1AE00300620461 /* BPVCreatureMale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPVCreatureMale.h; sourceTree = "<group>"; };
 		2D7E0F1B1D1AE00300620461 /* BPVCreatureMale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPVCreatureMale.m; sourceTree = "<group>"; };
+		2D7E0F4D1D1AE96400620461 /* BPVAlphabetSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPVAlphabetSpec.m; sourceTree = "<group>"; };
 		49FF2E6285CB975692737E08 /* Pods-ObjectiveCTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ObjectiveCTests/Pods-ObjectiveCTests.debug.xcconfig"; sourceTree = "<group>"; };
 		58C5E08252656B7E6D831DCE /* Pods-ObjectiveCTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ObjectiveCTests/Pods-ObjectiveCTests.release.xcconfig"; sourceTree = "<group>"; };
 		5EEAF618C12477490D1782A7 /* libPods-ObjectiveCTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ObjectiveCTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -334,6 +336,7 @@
 		2D7E0F4A1D1AE29F00620461 /* Specs */ = {
 			isa = PBXGroup;
 			children = (
+				2D7E0F4D1D1AE96400620461 /* BPVAlphabetSpec.m */,
 			);
 			path = Specs;
 			sourceTree = "<group>";
@@ -538,6 +541,7 @@
 				2D7E0F421D1AE00300620461 /* NSObject+BPVExtensions.m in Sources */,
 				2D7E0F261D1AE00300620461 /* BPVClusterAlphabet.m in Sources */,
 				2D7E0F401D1AE00300620461 /* NSArray+BPVExtensions.m in Sources */,
+				2D7E0F4E1D1AE96400620461 /* BPVAlphabetSpec.m in Sources */,
 				2D7E0F341D1AE00300620461 /* BPVAdminRoom.m in Sources */,
 				2D7E0F221D1AE00300620461 /* BPVAlphabet.m in Sources */,
 				2D7E0F281D1AE00300620461 /* BPVRangeAlphabet.m in Sources */,

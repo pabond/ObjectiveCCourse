@@ -10,7 +10,7 @@
 
 @interface NSString (BPVExtensions)
 
-+ (instancetype)alfanumericAlphabet;
++ (instancetype)alphanumericAlphabet;
 + (instancetype)numericAlphabet;
 + (instancetype)lowercaseLetterAlphabet;
 + (instancetype)uppercaseLetterAlphabet;

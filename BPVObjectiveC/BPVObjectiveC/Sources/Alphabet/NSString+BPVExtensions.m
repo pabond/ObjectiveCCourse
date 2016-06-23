@@ -12,7 +12,7 @@ static const NSUInteger kNSSrtingDefouldRandomStringLength = 30;
 
 @implementation NSString (BPVExtentions)
 
-+ (instancetype)alfanumericAlphabet {
++ (instancetype)alphanumericAlphabet {
     NSMutableString *result = [NSMutableString stringWithString:[self letterAlphabet]];
     [result appendString:[self numericAlphabet]];
      
@@ -20,7 +20,7 @@ static const NSUInteger kNSSrtingDefouldRandomStringLength = 30;
 }
 
 + (instancetype)numericAlphabet {
-    return [self alphabetWithUnicodeRange:NSMakeRange('0', '9' - '0')];
+    return [self alphabetWithUnicodeRange:NSMakeRange('0', '9' - '0' + 1)];
 }
 
 + (instancetype)lowercaseLetterAlphabet {
@@ -53,7 +53,7 @@ static const NSUInteger kNSSrtingDefouldRandomStringLength = 30;
 }
 
 + (instancetype)randomStringWithLength:(NSUInteger)length {
-    return [self randomStringWithLength:length alphabet:[self alfanumericAlphabet]];
+    return [self randomStringWithLength:length alphabet:[self alphanumericAlphabet]];
 }
 
 + (instancetype)randomStringWithLength:(NSUInteger)length alphabet:(NSString *)alphabet {

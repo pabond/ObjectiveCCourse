@@ -9,6 +9,7 @@
 #import "BPVAlphabet.h"
 
 @interface BPVRangeAlphabet : BPVAlphabet
+@property (nonatomic, readonly) NSRange range;
 
 - (instancetype)initWithRange:(NSRange)range;
 

@@ -78,4 +78,13 @@
     return [self stringAtIndex:index];
 }
 
+- (NSString *)string {
+    NSMutableString *string = [NSMutableString stringWithCapacity:self.count];
+    for (NSString *symbols in self) {
+        [string appendString:symbols];
+    }
+    
+    return [[string copy] autorelease];
+}
+
 @end

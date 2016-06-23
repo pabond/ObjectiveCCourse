@@ -9,7 +9,8 @@
 #import "BPVAlphabet.h"
 
 @interface BPVStringsAlphabet : BPVAlphabet
+@property (nonatomic, readonly) NSArray *strings;
 
-- (instancetype)initWithStrings:(NSArray *)string;
+- (instancetype)initWithStrings:(NSArray *)strings;
 
 @end
