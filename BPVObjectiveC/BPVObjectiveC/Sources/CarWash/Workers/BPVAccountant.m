@@ -15,6 +15,7 @@
 }
 
 - (void)processObject:(id)object {
+    self.busy = YES;
     [self takeMoneyFromObject:object];
     [self countMoney];
     self.busy = NO;

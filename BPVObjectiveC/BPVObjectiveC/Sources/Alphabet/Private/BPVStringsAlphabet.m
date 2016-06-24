@@ -10,4 +10,16 @@
 
 @implementation BPVStringsAlphabet
 
+- (instancetype)initWithStrings:(NSArray *)strings {
+    return nil;
+}
+
+- (NSUInteger)count {
+    return 0;
+}
+
+- (NSString *)stringAtIndex:(NSUInteger)index {
+    return nil;
+}
+
 @end

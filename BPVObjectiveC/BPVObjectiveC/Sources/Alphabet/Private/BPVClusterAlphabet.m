@@ -10,5 +10,16 @@
 
 @implementation BPVClusterAlphabet
 
+- (instancetype)initWithAlphabets:(NSArray *)alphabets {
+    return nil;
+}
+
+- (NSUInteger)count {
+    return 0;
+}
+
+- (NSString *)stringAtIndex:(NSUInteger)index {
+    return nil;
+}
 
 @end

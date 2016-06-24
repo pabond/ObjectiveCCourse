@@ -29,7 +29,7 @@ static const NSUInteger kBPVWashersCount  = 20;
 @property (nonatomic, retain) BPVQueue      *queue;
 
 - (void)initInfrastructure;
-- (void) initRooms;
+- (void)initRooms;
 - (void)initWorkers;
 
 - (id)freeWasher;
@@ -72,7 +72,7 @@ static const NSUInteger kBPVWashersCount  = 20;
     [self initWorkers];
 }
 
-- (void) initRooms {
+- (void)initRooms {
     [self.adminBuilding addRoom:[BPVAdminRoom object]];
     for (NSUInteger iterator = 0; kBPVWashRoomsCount > iterator ; iterator++) {
         [self.carWashBuilding addRoom:[BPVCarWashRoom object]];
@@ -128,8 +128,9 @@ static const NSUInteger kBPVWashersCount  = 20;
 }
 
 - (id)reservedFreeWorkerWithClass:(Class)class {
-    NSArray *workres = [[self buildingForWorkerWithClass:class] workersWithClass:class];
-    BPVWorker *freeWorker = [[workres filteredUsingBlock:^BOOL(BPVWorker *worker) { return !worker.busy; }] firstObject];
+    NSArray *workes = [[self buildingForWorkerWithClass:class] workersWithClass:class];
+    workes = [workes filteredUsingBlock:^BOOL(BPVWorker *worker) { return !worker.busy; }];
+    BPVWorker *freeWorker = [workes firstObject];
     
     freeWorker.busy = YES;
     
@@ -142,8 +143,9 @@ static const NSUInteger kBPVWashersCount  = 20;
 
 - (BPVCarWashRoom *)freeCarWashRoom {
     NSArray *rooms = [self.carWashBuilding roomsWithClass:[BPVCarWashRoom class]];
+    rooms = [rooms filteredUsingBlock:^BOOL(BPVCarWashRoom *room) { return !room.car; }];
     
-    return [[rooms filteredUsingBlock:^BOOL(BPVCarWashRoom *room) { return !room.car; }] firstObject];
+    return [rooms firstObject];
 }
 
 @end

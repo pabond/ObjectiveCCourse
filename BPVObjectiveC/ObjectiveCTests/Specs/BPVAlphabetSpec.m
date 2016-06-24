@@ -57,7 +57,8 @@ describe(@"BPVAlphabet", ^{
     
     context(@"cluster alphabet test", ^{
         beforeAll(^{
-            clusterAlphabet = [BPVClusterAlphabet alphabethWithStrings:[NSArray array]];
+            NSArray *objects = @[stringsAlphabet, stringsAlphabet, stringsAlphabet];
+            clusterAlphabet = [BPVClusterAlphabet alphabethWithStrings:objects];
         });
         
         it(@"class: BPVClustarAlphabet kind", ^{
