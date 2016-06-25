@@ -11,7 +11,7 @@
 @implementation BPVStringsAlphabet
 
 - (instancetype)initWithStrings:(NSArray *)strings {
-    return nil;
+    return [super initWithStrings:strings];
 }
 
 - (NSUInteger)count {

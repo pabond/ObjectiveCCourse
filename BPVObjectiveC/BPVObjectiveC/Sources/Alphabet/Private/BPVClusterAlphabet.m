@@ -8,18 +8,56 @@
 
 #import "BPVClusterAlphabet.h"
 
+@interface BPVClusterAlphabet ()
+@property (nonatomic, retain) NSArray *alphabets;
+@property (nonatomic, assign) NSUInteger count;
+
+- (void)initCountWithAlphabets:(NSArray *)alphabets;
+
+@end
+
 @implementation BPVClusterAlphabet
 
-- (instancetype)initWithAlphabets:(NSArray *)alphabets {
-    return nil;
+#pragma mark -
+#pragma mark Deallocations / Initialisations
+
+- (void)dealloc {
+    self.alphabets = nil;
+    
+    [super dealloc];
 }
 
-- (NSUInteger)count {
-    return 0;
+- (instancetype)initWithAlphabets:(NSArray *)alphabets {
+    self = [super init];
+    if (self) {
+        self.alphabets = alphabets;
+        [self initCountWithAlphabets:alphabets];
+    }
+    
+    return self;
+}
+
+- (void)initCountWithAlphabets:(NSArray *)alphabets {
+    NSUInteger count = 0;
+    NSArray *alphabetAtIndex = nil;
+    for (NSInteger index = 0; index < alphabets.count; index++) {
+        alphabetAtIndex = alphabets[index];
+        count += alphabetAtIndex.count;
+    }
+    
+    self.count = count;
 }
 
 - (NSString *)stringAtIndex:(NSUInteger)index {
+    for (BPVAlphabet *alphabet in self.alphabets) {
+        if (index < alphabet.count) {
+            return alphabet[index];
+        }
+    }
+    
     return nil;
 }
+
+//should be called parrent fast enumeration
 
 @end

@@ -77,17 +77,30 @@
 }
 
 - (NSString *)string {
-    NSString *string = [NSString string];
+    NSMutableString *string = [NSMutableString string];
     for (NSString *symbols in self) {
-        [string stringByAppendingString:symbols];
+        [string appendString:symbols];
     }
     
-    return string;
+    return [[string copy] autorelease];
 }
 
-- (NSUInteger) countByEnumeratingWithState:(NSFastEnumerationState *)state
-                                   objects:(id[])buffer
-                                     count:(NSUInteger)len {
+- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state
+                                  objects:(id[])buffer
+                                    count:(NSUInteger)length {
+    /*
+     typedef struct {
+     unsigned long state;
+     id __unsafe_unretained __nullable * __nullable itemsPtr;
+     unsigned long * __nullable mutationsPtr;
+     unsigned long extra[5];
+     } NSFastEnumerationState;
+     
+     @protocol NSFastEnumeration
+     */
+    {
+       
+    }
     
     return 0;
 }
