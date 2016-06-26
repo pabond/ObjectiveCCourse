@@ -9,7 +9,7 @@
 #import "BPVRangeAlphabet.h"
 
 @interface BPVRangeAlphabet ()
-@property (nonatomic, readwrite) NSRange range;
+@property (nonatomic, assign) NSRange range;
 
 @end
 
@@ -20,6 +20,7 @@
     if (self) {
         self.range = range;
     }
+    
     return self;
 }
 

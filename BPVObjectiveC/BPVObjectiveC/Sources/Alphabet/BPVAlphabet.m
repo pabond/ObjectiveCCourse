@@ -87,7 +87,7 @@
 
 - (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state
                                   objects:(id[])buffer
-                                    count:(NSUInteger)length {
+                                    count:(NSUInteger)length
     /*
      typedef struct {
      unsigned long state;
@@ -98,12 +98,25 @@
      
      @protocol NSFastEnumeration
      */
-    {
-       
+{
+    NSUInteger stackCount = state->extra[1] + length;
+    NSUInteger count = self.count;
+    NSUInteger maxCount = stackCount < count ? stackCount : count;
+    length = maxCount - state->extra[1];
+    
+    if (length) {
+        for (NSUInteger index = 0; index < maxCount; index++) {
+            buffer[index] = self[index + state->extra[1]];
+        }
     }
     
-    return 0;
+    state->itemsPtr = buffer;
+    
+    state->extra[1] += length;
+    
+    return length;
 }
+
 
 @end
 
