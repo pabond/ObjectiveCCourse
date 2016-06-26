@@ -15,6 +15,9 @@
 
 @implementation BPVRangeAlphabet
 
+#pragma mark -
+#pragma mark Deallocation/Initialisation
+
 - (instancetype)initWithRange:(NSRange)range {
     self = [super init];
     if (self) {
@@ -23,6 +26,9 @@
     
     return self;
 }
+
+#pragma mark -
+#pragma mark Public Implementation
 
 - (NSUInteger)count {
     return self.range.length;

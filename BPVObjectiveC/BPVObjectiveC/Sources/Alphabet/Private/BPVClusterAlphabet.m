@@ -48,10 +48,20 @@
     self.count = count;
 }
 
+#pragma mark -
+#pragma mark Public Implementation
+
 - (NSString *)stringAtIndex:(NSUInteger)index {
-    for (BPVAlphabet *alphabet in self.alphabets) {
-        if (index < alphabet.count) {
-            return alphabet[index];
+    if (index < self.count) {
+        NSUInteger count = 0;
+        NSUInteger counter = index;
+        for (BPVAlphabet *alphabet in self.alphabets) {
+            count += [alphabet count];
+            if (index < count) {
+                index = count - (count - index - 1);
+                
+                return alphabet[counter];
+            }
         }
     }
     

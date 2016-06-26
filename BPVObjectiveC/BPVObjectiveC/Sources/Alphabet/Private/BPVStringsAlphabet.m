@@ -16,6 +16,9 @@
 
 @implementation BPVStringsAlphabet
 
+#pragma mark -
+#pragma mark Deallocation/Initialisation
+
 - (void)dealloc {
     self.strings = nil;
     
@@ -31,6 +34,9 @@
     
     return self;
 }
+
+#pragma mark -
+#pragma mark Public Implementation
 
 - (NSString *)stringAtIndex:(NSUInteger)index {
     return self.strings[index];
