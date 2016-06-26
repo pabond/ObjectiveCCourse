@@ -54,13 +54,12 @@
 - (NSString *)stringAtIndex:(NSUInteger)index {
     if (index < self.count) {
         NSUInteger count = 0;
-        NSUInteger counter = index;
         for (BPVAlphabet *alphabet in self.alphabets) {
             count += [alphabet count];
             if (index < count) {
-                index = count - (count - index - 1);
+                index = count - (count - index);
                 
-                return alphabet[counter];
+                return alphabet[index];
             }
         }
     }
