@@ -67,6 +67,15 @@
     return nil;
 }
 
+- (NSString *)string {
+    NSMutableString *string = [NSMutableString stringWithCapacity:self.count];
+    for (BPVAlphabet *alphabet in self.alphabets) {
+        [string appendString:[alphabet string]];
+    }
+    
+    return [[string copy] autorelease];
+}
+
 //should be called parrent fast enumeration
 
 @end

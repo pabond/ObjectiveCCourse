@@ -280,14 +280,14 @@
 		2D7E0FE81D20463100620461 /* Workers */ = {
 			isa = PBXGroup;
 			children = (
-				2D7E0FE91D20463100620461 /* BPVAccountant.h */,
-				2D7E0FEA1D20463100620461 /* BPVAccountant.m */,
-				2D7E0FEB1D20463100620461 /* BPVDirector.h */,
-				2D7E0FEC1D20463100620461 /* BPVDirector.m */,
-				2D7E0FED1D20463100620461 /* BPVWasher.h */,
-				2D7E0FEE1D20463100620461 /* BPVWasher.m */,
 				2D7E0FEF1D20463100620461 /* BPVWorker.h */,
 				2D7E0FF01D20463100620461 /* BPVWorker.m */,
+				2D7E0FEB1D20463100620461 /* BPVDirector.h */,
+				2D7E0FEC1D20463100620461 /* BPVDirector.m */,
+				2D7E0FE91D20463100620461 /* BPVAccountant.h */,
+				2D7E0FEA1D20463100620461 /* BPVAccountant.m */,
+				2D7E0FED1D20463100620461 /* BPVWasher.h */,
+				2D7E0FEE1D20463100620461 /* BPVWasher.m */,
 			);
 			path = Workers;
 			sourceTree = "<group>";

@@ -14,11 +14,9 @@
     NSLog(@"Accountant counting money");
 }
 
-- (void)processObject:(id)object {
-    self.busy = YES;
+- (void)performWorkWithObject:(id)object {
     [self takeMoneyFromObject:object];
     [self countMoney];
-    self.busy = NO;
 }
 
 @end

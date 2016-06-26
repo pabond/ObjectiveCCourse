@@ -16,5 +16,6 @@
 @property (nonatomic, assign)   BOOL        busy;
 
 - (void)processObject:(id)object;
+- (void)performWorkWithObject:(id)object;
 
 @end

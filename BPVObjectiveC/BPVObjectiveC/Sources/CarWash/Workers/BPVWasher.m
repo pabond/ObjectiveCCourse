@@ -18,11 +18,9 @@
     car.clean = YES;
 }
 
-- (void)processObject:(id)object {
-    self.busy = YES;
+- (void)performWorkWithObject:(id)object {
     [self washCar:object];
     [self takeMoneyFromObject:object];
-    self.busy = NO;
 }
 
 @end

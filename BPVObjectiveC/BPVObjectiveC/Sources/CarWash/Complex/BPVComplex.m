@@ -128,9 +128,9 @@ static const NSUInteger kBPVWashersCount  = 20;
 }
 
 - (id)reservedFreeWorkerWithClass:(Class)class {
-    NSArray *workes = [[self buildingForWorkerWithClass:class] workersWithClass:class];
-    workes = [workes filteredUsingBlock:^BOOL(BPVWorker *worker) { return !worker.busy; }];
-    BPVWorker *freeWorker = [workes firstObject];
+    NSArray *workers = [[self buildingForWorkerWithClass:class] workersWithClass:class];
+    workers = [workers filteredUsingBlock:^BOOL(BPVWorker *worker) { return !worker.busy; }];
+    BPVWorker *freeWorker = [workers firstObject];
     
     freeWorker.busy = YES;
     

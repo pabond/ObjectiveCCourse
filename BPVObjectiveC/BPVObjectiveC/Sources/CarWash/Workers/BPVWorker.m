@@ -36,7 +36,13 @@
 }
 
 - (void)processObject:(id)object {
-    NSLog(@"process object in super");
+    self.busy = YES;
+    [self performWorkWithObject:object];
+    self.busy = NO;
+}
+
+- (void)performWorkWithObject:(id)object {
+    NSLog(@"Selector:\"performWorkWithObject\" should be launched in child classes");
 }
 
 @end
