@@ -16,7 +16,7 @@
 @implementation BPVRangeAlphabet
 
 #pragma mark -
-#pragma mark Deallocation / Initialisation
+#pragma mark Deallocation/Initialisation
 
 - (instancetype)initWithRange:(NSRange)range {
     self = [super init];
@@ -28,19 +28,14 @@
 }
 
 #pragma mark -
-#pragma mark Accessors
+#pragma mark Public Implementation
 
 - (NSUInteger)count {
     return self.range.length;
 }
 
-#pragma mark -
-#pragma mark Public Inplementation
-
-
 - (NSString *)stringAtIndex:(NSUInteger)index {
     return [NSString stringWithFormat:@"%c", (unichar)(self.range.location + index)];
 }
-
 
 @end

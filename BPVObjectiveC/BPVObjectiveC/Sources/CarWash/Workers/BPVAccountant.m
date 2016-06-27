@@ -14,10 +14,16 @@
     NSLog(@"Accountant counting money");
 }
 
-- (void)processObject:(id)object {
+- (void)performWorkWithObject:(id)object {
     [self takeMoneyFromObject:object];
     [self countMoney];
-    self.busy = NO;
+}
+
+#pragma mark -
+#pragma mark BPVMoneyFlow
+
+- (void)workerDidFinishProcessingObject:(id)worker {
+    [self processObject:worker];
 }
 
 @end

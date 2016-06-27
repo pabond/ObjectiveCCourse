@@ -14,10 +14,16 @@
     NSLog(@"Director earns money. Now director receive %lu", (unsigned long)self.money);
 }
 
-- (void)processObject:(id)object {
+- (void)performWorkWithObject:(id)object {
     [self takeMoneyFromObject:object];
     [self earnMoney];
-    self.busy = NO;
+}
+
+#pragma mark -
+#pragma mark BPVMoneyFlow
+
+- (void)workerDidFinishProcessingObject:(id)worker {
+    [self processObject:worker];
 }
 
 @end

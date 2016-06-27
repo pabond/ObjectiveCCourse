@@ -10,14 +10,14 @@
 
 @interface BPVStringsAlphabet ()
 @property (nonatomic, retain) NSArray *strings;
+@property (nonatomic, assign) NSUInteger count;
 
 @end
 
 @implementation BPVStringsAlphabet
 
 #pragma mark -
-#pragma mark Deallocation / Initialisation
-
+#pragma mark Deallocation/Initialisation
 
 - (void)dealloc {
     self.strings = nil;
@@ -29,35 +29,26 @@
     self = [super init];
     if (self) {
         self.strings = strings;
+        self.count = [self.strings count];
     }
     
     return self;
 }
 
 #pragma mark -
-#pragma mark Accessors
-
-- (NSUInteger)count {
-    return self.strings.count;
-}
-
-#pragma mark -
-#pragma mark Public
+#pragma mark Public Implementation
 
 - (NSString *)stringAtIndex:(NSUInteger)index {
     return self.strings[index];
 }
 
-#pragma mark -
-#pragma mark NSFastEnumeration
+
 
 - (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state
-                                  objects:(id [])buffer
+                                  objects:(id[])buffer
                                     count:(NSUInteger)len
 {
-    return [self.strings countByEnumeratingWithState:state
-                                             objects:buffer
-                                               count:len];
+    return [self.strings countByEnumeratingWithState:state objects:buffer count:len];
 }
 
 @end

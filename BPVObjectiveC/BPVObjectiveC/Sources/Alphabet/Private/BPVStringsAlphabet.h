@@ -10,7 +10,6 @@
 
 @interface BPVStringsAlphabet : BPVAlphabet
 @property (nonatomic, readonly) NSArray *strings;
-
-- (instancetype)initWithStrings:(NSArray *)strings;
+@property (nonatomic, readonly) NSUInteger count;
 
 @end

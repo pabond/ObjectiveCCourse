@@ -39,12 +39,43 @@
 
 - (void)initCountWithAlphabets:(NSArray *)alphabets {
     NSUInteger count = 0;
-    
-    for (BPVAlphabet *alphabet in alphabets) {
-        count += alphabet.count;
+    NSArray *alphabetAtIndex = nil;
+    for (NSInteger index = 0; index < alphabets.count; index++) {
+        alphabetAtIndex = alphabets[index];
+        count += alphabetAtIndex.count;
     }
     
     self.count = count;
 }
+
+#pragma mark -
+#pragma mark Public Implementation
+
+- (NSString *)stringAtIndex:(NSUInteger)index {
+    if (index < self.count) {
+        NSUInteger count = 0;
+        for (BPVAlphabet *alphabet in self.alphabets) {
+            count += [alphabet count];
+            if (index < count) {
+                index = count - (count - index);
+                
+                return alphabet[index];
+            }
+        }
+    }
+    
+    return nil;
+}
+
+- (NSString *)string {
+    NSMutableString *string = [NSMutableString stringWithCapacity:self.count];
+    for (BPVAlphabet *alphabet in self.alphabets) {
+        [string appendString:[alphabet string]];
+    }
+    
+    return [[string copy] autorelease];
+}
+
+//should be called parrent fast enumeration
 
 @end

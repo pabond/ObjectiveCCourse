@@ -12,6 +12,4 @@
 @property (nonatomic, readonly) NSArray *alphabets;
 @property (nonatomic, readonly) NSUInteger count;
 
-- (instancetype)initWithAlphabets:(NSArray *)alphabets;
-
 @end

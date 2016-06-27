@@ -20,19 +20,19 @@
 #pragma mark Class Methods Implementation
 
 + (instancetype)alphabethWithRange:(NSRange)range {
-    return [[[BPVRangeAlphabet alloc] initWithRange:range] autorelease];
+    return [[[self alloc] initWithRange:range] autorelease];
 }
 
 + (instancetype)alphabethWithStrings:(NSArray *)strings {
-    return [[[BPVStringsAlphabet alloc] initWithStrings:strings] autorelease];
+    return [[[self alloc] initWithStrings:strings] autorelease];
 }
 
 + (instancetype)alphabethWithAlphabets:(NSArray *)alphabets {
-    return [[[BPVClusterAlphabet alloc] initWithStrings:alphabets] autorelease];
+    return [[[self alloc] initWithAlphabets:alphabets] autorelease];
 }
 
 + (instancetype)alphabethWithSymbols:(NSString *)string {
-    return [self alphabethWithStrings:[string symbols]];
+    return [[[self alloc] initWithString:string] autorelease];
 }
 
 #pragma mark -
@@ -44,33 +44,35 @@
     return [[BPVRangeAlphabet alloc] initWithRange:range];
 }
 
+- (instancetype)initWithStrings:(NSArray *)strings {
+    [self release];
+    
+    return [[BPVStringsAlphabet alloc] initWithAlphabets:strings];
+}
+
 - (instancetype)initWithAlphabets:(NSArray *)alphabets {
     [self release];
     
     return [[BPVClusterAlphabet alloc] initWithAlphabets:alphabets];
 }
 
-- (instancetype)initWithStrings:(NSArray *)strings {
-    [self release];
-    
-    return [[BPVStringsAlphabet alloc] initWithStrings:strings];
-}
 - (instancetype)initWithSymbols:(NSString *)string {
     return [self initWithStrings:[string symbols]];
 }
 
 #pragma mark -
 #pragma mark Public Implementation
-
+// should be overwritten
 - (NSUInteger)count {
     [self doesNotRecognizeSelector:_cmd];
     
     return 0;
 }
 
+// should be overwritten
 - (NSString *)stringAtIndex:(NSUInteger)index {
     [self doesNotRecognizeSelector:_cmd];
-
+    
     return nil;
 }
 
@@ -79,7 +81,7 @@
 }
 
 - (NSString *)string {
-    NSMutableString *string = [NSMutableString stringWithCapacity:self.count];
+    NSMutableString *string = [NSMutableString string];
     for (NSString *symbols in self) {
         [string appendString:symbols];
     }
@@ -87,4 +89,38 @@
     return [[string copy] autorelease];
 }
 
+- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state
+                                  objects:(id[])buffer
+                                    count:(NSUInteger)length
+    /*
+     typedef struct {
+     unsigned long state;
+     id __unsafe_unretained __nullable * __nullable itemsPtr;
+     unsigned long * __nullable mutationsPtr;
+     unsigned long extra[5];
+     } NSFastEnumerationState;
+     
+     @protocol NSFastEnumeration
+     */
+{
+    NSUInteger stackCount = state->extra[1] + length;
+    NSUInteger count = self.count;
+    NSUInteger maxCount = stackCount < count ? stackCount : count;
+    length = maxCount - state->extra[1];
+    
+    if (length) {
+        for (NSUInteger index = 0; index < maxCount; index++) {
+            buffer[index] = self[index + state->extra[1]];
+        }
+    }
+    
+    state->itemsPtr = buffer;
+    
+    state->extra[1] += length;
+    
+    return length;
+}
+
+
 @end
+
