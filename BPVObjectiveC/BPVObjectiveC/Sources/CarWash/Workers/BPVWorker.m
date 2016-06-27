@@ -11,11 +11,17 @@
 #import "NSObject+BPVExtensions.h"
 
 @interface BPVWorker ()
-@property (nonatomic, assign) NSUInteger money;
+@property (nonatomic, assign) NSUInteger    money;
 
 @end
 
 @implementation BPVWorker
+
+- (void)dealloc {
+    self.delegatingObject = nil;
+    
+    [super dealloc];
+}
 
 #pragma mark -
 #pragma mark BPVMoneyFlow
@@ -38,6 +44,7 @@
 - (void)processObject:(id)object {
     self.busy = YES;
     [self performWorkWithObject:object];
+    [self.delegate workerDidFinishProcessingObject:self];
     self.busy = NO;
 }
 

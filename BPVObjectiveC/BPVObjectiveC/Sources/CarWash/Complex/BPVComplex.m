@@ -81,12 +81,21 @@ static const NSUInteger kBPVWashersCount  = 20;
 
 - (void)initWorkers {
     BPVAdminRoom *adminRoom = [[self.adminBuilding rooms] firstObject];
-    [adminRoom addWorker:[BPVDirector object]];
-    [adminRoom addWorker:[BPVAccountant object]];
+    BPVDirector *director = [BPVDirector object];
+    BPVAccountant *accountant = [BPVAccountant object];
+    
+    accountant.delegate = director;
+    director.delegatingObject = accountant;
+    
+    [adminRoom addWorker:accountant];
+    [adminRoom addWorker:director];
     
     BPVCarWashRoom *carWashRoom = [[self.carWashBuilding rooms] firstObject];
     for (NSUInteger iterator = 0; kBPVWashersCount > iterator; iterator++) {
-        [carWashRoom addWorker:[BPVWasher object]];
+        BPVWasher *washer = [BPVWasher object];
+        [carWashRoom addWorker:washer];
+        washer.delegate = accountant;
+        accountant.delegatingObject = washer;
     }
 }
 
@@ -101,15 +110,11 @@ static const NSUInteger kBPVWashersCount  = 20;
     while ((car = [carsQueue dequeueObject])) {
         
         BPVWasher *washer = [self freeWasher];
-        BPVDirector *director = [self freeDirector];
-        BPVAccountant *accountant = [self freeAccountant];
             
         BPVCarWashRoom *washRoom = [self freeCarWashRoom];
         washRoom.car = car;
         
         [washer processObject:car];
-        [accountant processObject:washer];
-        [director processObject:accountant];
         
         washRoom.car = nil;
     }

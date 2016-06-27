@@ -8,12 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+#import "BPVWorkersDelegate.h"
 #import "BPVMoneyFlow.h"
 
 @interface BPVWorker : NSObject <BPVMoneyFlow>
 @property (nonatomic, assign)   NSUInteger  experience;
 @property (nonatomic, assign)   NSUInteger  salary;
 @property (nonatomic, assign)   BOOL        busy;
+
+@property (nonatomic, assign)   id<BPVWorkersDelegate>  delegate;
+@property (nonatomic, retain)   id                      delegatingObject;
 
 - (void)processObject:(id)object;
 - (void)performWorkWithObject:(id)object;

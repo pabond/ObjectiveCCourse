@@ -110,6 +110,7 @@
 		2D7E0FFA1D20463100620461 /* BPVCreatureFemale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPVCreatureFemale.m; sourceTree = "<group>"; };
 		2D7E0FFB1D20463100620461 /* BPVCreatureMale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPVCreatureMale.h; sourceTree = "<group>"; };
 		2D7E0FFC1D20463100620461 /* BPVCreatureMale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPVCreatureMale.m; sourceTree = "<group>"; };
+		2DE716CE1D2100AF00562950 /* BPVWorkersDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPVWorkersDelegate.h; sourceTree = "<group>"; };
 		49FF2E6285CB975692737E08 /* Pods-ObjectiveCTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ObjectiveCTests/Pods-ObjectiveCTests.debug.xcconfig"; sourceTree = "<group>"; };
 		58C5E08252656B7E6D831DCE /* Pods-ObjectiveCTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ObjectiveCTests/Pods-ObjectiveCTests.release.xcconfig"; sourceTree = "<group>"; };
 		5EEAF618C12477490D1782A7 /* libPods-ObjectiveCTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ObjectiveCTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -220,9 +221,10 @@
 			isa = PBXGroup;
 			children = (
 				2D7E0FD61D20463100620461 /* BPVMoneyFlow.h */,
+				2DE716CE1D2100AF00562950 /* BPVWorkersDelegate.h */,
+				2D7E0FDD1D20463100620461 /* Complex */,
 				2D7E0FD71D20463100620461 /* Building */,
 				2D7E0FDA1D20463100620461 /* Car */,
-				2D7E0FDD1D20463100620461 /* Complex */,
 				2D7E0FE01D20463100620461 /* Queue */,
 				2D7E0FE31D20463100620461 /* Rooms */,
 				2D7E0FE81D20463100620461 /* Workers */,
