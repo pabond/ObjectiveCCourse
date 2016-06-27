@@ -64,11 +64,15 @@
 #pragma mark Public Implementation
 // should be overwritten
 - (NSUInteger)count {
+    [self doesNotRecognizeSelector:_cmd];
+    
     return 0;
 }
 
 // should be overwritten
 - (NSString *)stringAtIndex:(NSUInteger)index {
+    [self doesNotRecognizeSelector:_cmd];
+    
     return nil;
 }
 
