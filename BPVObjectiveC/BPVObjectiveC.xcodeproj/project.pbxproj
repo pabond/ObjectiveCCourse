@@ -52,6 +52,14 @@
 		2DE716DB1D2272B600562950 /* BPVObservableObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE716DA1D2272B600562950 /* BPVObservableObject.m */; };
 		2DE716DC1D2272B600562950 /* BPVObservableObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE716DA1D2272B600562950 /* BPVObservableObject.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2DE716DE1D227D9000562950 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2D7E0FC01D20461C00620461 /* Info.plist */; };
+		2DE716E21D22C0CD00562950 /* BPVReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE716E11D22C0CD00562950 /* BPVReference.m */; };
+		2DE716E31D22C0CD00562950 /* BPVReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE716E11D22C0CD00562950 /* BPVReference.m */; };
+		2DE716E61D22C0F000562950 /* BPVAssingReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE716E51D22C0F000562950 /* BPVAssingReference.m */; };
+		2DE716E71D22C0F000562950 /* BPVAssingReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE716E51D22C0F000562950 /* BPVAssingReference.m */; };
+		2DE716EA1D22C10000562950 /* BPVCopyReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE716E91D22C10000562950 /* BPVCopyReference.m */; };
+		2DE716EB1D22C10000562950 /* BPVCopyReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE716E91D22C10000562950 /* BPVCopyReference.m */; };
+		2DE716EE1D22C13100562950 /* BPVRetainReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE716ED1D22C13100562950 /* BPVRetainReference.m */; };
+		2DE716EF1D22C13100562950 /* BPVRetainReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE716ED1D22C13100562950 /* BPVRetainReference.m */; };
 		9C6DF33F32A0D137E49399EC /* libPods-ObjectiveCTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EEAF618C12477490D1782A7 /* libPods-ObjectiveCTests.a */; };
 /* End PBXBuildFile section */
 
@@ -117,6 +125,14 @@
 		2DE716D21D2168AA00562950 /* BPVWorkersDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPVWorkersDelegate.h; sourceTree = "<group>"; };
 		2DE716D91D2272B600562950 /* BPVObservableObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPVObservableObject.h; sourceTree = "<group>"; };
 		2DE716DA1D2272B600562950 /* BPVObservableObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPVObservableObject.m; sourceTree = "<group>"; };
+		2DE716E01D22C0CD00562950 /* BPVReference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPVReference.h; sourceTree = "<group>"; };
+		2DE716E11D22C0CD00562950 /* BPVReference.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPVReference.m; sourceTree = "<group>"; };
+		2DE716E41D22C0F000562950 /* BPVAssingReference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPVAssingReference.h; sourceTree = "<group>"; };
+		2DE716E51D22C0F000562950 /* BPVAssingReference.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPVAssingReference.m; sourceTree = "<group>"; };
+		2DE716E81D22C10000562950 /* BPVCopyReference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPVCopyReference.h; sourceTree = "<group>"; };
+		2DE716E91D22C10000562950 /* BPVCopyReference.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPVCopyReference.m; sourceTree = "<group>"; };
+		2DE716EC1D22C13100562950 /* BPVRetainReference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPVRetainReference.h; sourceTree = "<group>"; };
+		2DE716ED1D22C13100562950 /* BPVRetainReference.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPVRetainReference.m; sourceTree = "<group>"; };
 		49FF2E6285CB975692737E08 /* Pods-ObjectiveCTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ObjectiveCTests/Pods-ObjectiveCTests.debug.xcconfig"; sourceTree = "<group>"; };
 		58C5E08252656B7E6D831DCE /* Pods-ObjectiveCTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ObjectiveCTests/Pods-ObjectiveCTests.release.xcconfig"; sourceTree = "<group>"; };
 		5EEAF618C12477490D1782A7 /* libPods-ObjectiveCTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ObjectiveCTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -190,6 +206,7 @@
 		2D7E0FC81D20463100620461 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				2DE716DF1D22C0B400562950 /* Reference */,
 				2D7E0FC91D20463100620461 /* Alphabet */,
 				2D7E0FD51D20463100620461 /* CarWash */,
 				2D7E0FF11D20463100620461 /* Category */,
@@ -366,6 +383,21 @@
 			path = BPVObservableObject;
 			sourceTree = "<group>";
 		};
+		2DE716DF1D22C0B400562950 /* Reference */ = {
+			isa = PBXGroup;
+			children = (
+				2DE716E01D22C0CD00562950 /* BPVReference.h */,
+				2DE716E11D22C0CD00562950 /* BPVReference.m */,
+				2DE716E41D22C0F000562950 /* BPVAssingReference.h */,
+				2DE716E51D22C0F000562950 /* BPVAssingReference.m */,
+				2DE716E81D22C10000562950 /* BPVCopyReference.h */,
+				2DE716E91D22C10000562950 /* BPVCopyReference.m */,
+				2DE716EC1D22C13100562950 /* BPVRetainReference.h */,
+				2DE716ED1D22C13100562950 /* BPVRetainReference.m */,
+			);
+			path = Reference;
+			sourceTree = "<group>";
+		};
 		403D26315F435E94D2E417E3 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -528,18 +560,22 @@
 				2D7E10021D20463100620461 /* BPVAlphabet.m in Sources */,
 				2DE716DB1D2272B600562950 /* BPVObservableObject.m in Sources */,
 				2D7E10161D20463100620461 /* BPVCarWashRoom.m in Sources */,
+				2DE716E21D22C0CD00562950 /* BPVReference.m in Sources */,
 				2D7E101A1D20463100620461 /* BPVDirector.m in Sources */,
 				2D7E10141D20463100620461 /* BPVAdminRoom.m in Sources */,
 				2D7E10241D20463100620461 /* BPVCreature.m in Sources */,
 				2D7E10001D20463100620461 /* main.m in Sources */,
+				2DE716EE1D22C13100562950 /* BPVRetainReference.m in Sources */,
 				2D7E10181D20463100620461 /* BPVAccountant.m in Sources */,
 				2D7E10221D20463100620461 /* NSObject+BPVExtensions.m in Sources */,
 				2D7E101C1D20463100620461 /* BPVWasher.m in Sources */,
 				2D7E10061D20463100620461 /* BPVClusterAlphabet.m in Sources */,
 				2D7E10261D20463100620461 /* BPVCreatureFemale.m in Sources */,
 				2D7E10281D20463100620461 /* BPVCreatureMale.m in Sources */,
+				2DE716EA1D22C10000562950 /* BPVCopyReference.m in Sources */,
 				2D7E10121D20463100620461 /* BPVQueue.m in Sources */,
 				2D7E10081D20463100620461 /* BPVRangeAlphabet.m in Sources */,
+				2DE716E61D22C0F000562950 /* BPVAssingReference.m in Sources */,
 				2D7E10201D20463100620461 /* NSArray+BPVExtensions.m in Sources */,
 				2D7E10041D20463100620461 /* NSString+BPVExtensions.m in Sources */,
 				2D7E100C1D20463100620461 /* BPVBuilding.m in Sources */,
@@ -557,18 +593,22 @@
 				2D7E10171D20463100620461 /* BPVCarWashRoom.m in Sources */,
 				2DE716DC1D2272B600562950 /* BPVObservableObject.m in Sources */,
 				2D7E101B1D20463100620461 /* BPVDirector.m in Sources */,
+				2DE716E31D22C0CD00562950 /* BPVReference.m in Sources */,
 				2D7E10151D20463100620461 /* BPVAdminRoom.m in Sources */,
 				2D7E10251D20463100620461 /* BPVCreature.m in Sources */,
 				2D7E10191D20463100620461 /* BPVAccountant.m in Sources */,
 				2DE716D71D2271D900562950 /* BPVAlphabet.m in Sources */,
+				2DE716EF1D22C13100562950 /* BPVRetainReference.m in Sources */,
 				2D7E10231D20463100620461 /* NSObject+BPVExtensions.m in Sources */,
 				2D7E101D1D20463100620461 /* BPVWasher.m in Sources */,
 				2DE716CB1D204E1100562950 /* BPVClusterAlphabet.m in Sources */,
 				2D7E10271D20463100620461 /* BPVCreatureFemale.m in Sources */,
 				2D7E10291D20463100620461 /* BPVCreatureMale.m in Sources */,
 				2D7E10131D20463100620461 /* BPVQueue.m in Sources */,
+				2DE716EB1D22C10000562950 /* BPVCopyReference.m in Sources */,
 				2D7E10091D20463100620461 /* BPVRangeAlphabet.m in Sources */,
 				2D7E10211D20463100620461 /* NSArray+BPVExtensions.m in Sources */,
+				2DE716E71D22C0F000562950 /* BPVAssingReference.m in Sources */,
 				2D575B8A1D20489E00C347D5 /* BPVAlphabetSpec.m in Sources */,
 				2D7E100D1D20463100620461 /* BPVBuilding.m in Sources */,
 				2DE716CC1D204E1600562950 /* NSString+BPVExtensions.m in Sources */,

@@ -8,6 +8,8 @@
 
 #import "BPVObservableObject.h"
 
+#import "BPVAssingReference.h"
+
 @interface BPVObservableObject ()
 @property (nonatomic, retain) NSMutableSet    *mutableObserverSet;
 
@@ -42,22 +44,28 @@
 #pragma mark - Accessors
 
 - (NSSet *)observerSet {
-    return [[[self mutableObserverSet] copy] autorelease];
+    NSMutableSet *observerSet = self.mutableObserverSet;
+    NSMutableSet *set = [NSMutableSet setWithCapacity:[observerSet count]];
+    for (BPVReference *reference in observerSet) {
+        [set addObject:reference.target];
+    }
+    
+    return [[set copy] autorelease];
 }
 
 #pragma mark -
 #pragma mark - Public implementations
 
 - (void)addObserver:(id)observer {
-    [self.mutableObserverSet addObject:observer];
+    [self.mutableObserverSet addObject:[BPVAssingReference referenceWithTarget:observer]];
 }
 
 - (void)removeObserver:(NSObject *)observer {
-    [self.mutableObserverSet removeObject:observer];
+    [self.mutableObserverSet removeObject:[BPVAssingReference referenceWithTarget:observer]];
 }
 
 - (BOOL)containsObserver:(id)object {
-    return [self.mutableObserverSet containsObject:object];
+    return [self.mutableObserverSet containsObject:[BPVAssingReference referenceWithTarget:object]];
 }
 
 - (void)setState:(NSUInteger)state {
@@ -83,9 +91,9 @@
 
 - (void)notifyOfStateChangeWithSelector:(SEL)selector object:(id)object {
     NSMutableSet *observerSet = self.mutableObserverSet;
-    for (id observer in observerSet) {
-        if ([observerSet respondsToSelector:selector]) {
-            [observer performSelector:selector withObject:object];
+    for (BPVReference *reference in observerSet) {
+        if ([reference.target respondsToSelector:selector]) {
+            [reference.target performSelector:selector withObject:object];
         }
     }
 }
