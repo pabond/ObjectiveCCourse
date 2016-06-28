@@ -49,7 +49,7 @@ describe(@"BPVAlphabet", ^{
         });
         
         it(@"contain 3 strings", ^{
-            [[theValue([rangeAlphabet count]) should] equal:theValue(4)];
+            [[rangeAlphabet should] haveCountOf:(3)];
         });
     });
     

@@ -17,12 +17,6 @@
 
 @implementation BPVWorker
 
-- (void)dealloc {
-    self.delegatingObject = nil;
-    
-    [super dealloc];
-}
-
 #pragma mark -
 #pragma mark BPVMoneyFlow
 

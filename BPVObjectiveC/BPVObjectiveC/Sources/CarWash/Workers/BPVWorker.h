@@ -17,7 +17,6 @@
 @property (nonatomic, assign)   BOOL        busy;
 
 @property (nonatomic, assign)   id<BPVWorkersDelegate>  delegate;
-@property (nonatomic, retain)   id                      delegatingObject;
 
 - (void)processObject:(id)object;
 - (void)performWorkWithObject:(id)object;

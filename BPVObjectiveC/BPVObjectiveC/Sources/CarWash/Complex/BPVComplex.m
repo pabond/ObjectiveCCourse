@@ -41,6 +41,9 @@ static const NSUInteger kBPVWashersCount  = 20;
 
 - (BPVCarWashRoom *)freeCarWashRoom;
 
+- (void)removeWorkersDelegates;
+- (NSArray *)allWorkers;
+
 @end
 
 @implementation BPVComplex
@@ -85,7 +88,6 @@ static const NSUInteger kBPVWashersCount  = 20;
     BPVAccountant *accountant = [BPVAccountant object];
     
     accountant.delegate = director;
-    director.delegatingObject = accountant;
     
     [adminRoom addWorker:accountant];
     [adminRoom addWorker:director];
@@ -95,7 +97,6 @@ static const NSUInteger kBPVWashersCount  = 20;
         BPVWasher *washer = [BPVWasher object];
         [carWashRoom addWorker:washer];
         washer.delegate = accountant;
-        accountant.delegatingObject = washer;
     }
 }
 
@@ -115,9 +116,25 @@ static const NSUInteger kBPVWashersCount  = 20;
         washRoom.car = car;
         
         [washer processObject:car];
-        
         washRoom.car = nil;
     }
+    
+    [self removeWorkersDelegates];
+}
+
+- (void)removeWorkersDelegates {
+    for (BPVWorker *worker in [self allWorkers]) {
+        worker.delegate = nil;
+    }
+}
+
+- (NSArray *)allWorkers {
+    NSMutableArray *workers = [NSMutableArray array];
+    [workers addObjectsFromArray:[self.adminBuilding workersWithClass:[BPVAccountant class]]];
+    [workers addObjectsFromArray:[self.adminBuilding workersWithClass:[BPVDirector class]]];
+    [workers addObjectsFromArray:[self.carWashBuilding workersWithClass:[BPVWasher class]]];
+    
+    return [[workers copy] autorelease];
 }
 
 - (id)freeWasher {

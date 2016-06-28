@@ -12,6 +12,7 @@
 @property (nonatomic, retain) NSMutableSet    *mutableObserverSet;
 
 - (void)notifyOfStateChangeWithSelector:(SEL)selector;
+- (void)notifyOfStateChangeWithSelector:(SEL)selector object:(id)object;
 
 @end
 
@@ -77,10 +78,14 @@
 }
 
 - (void)notifyOfStateChangeWithSelector:(SEL)selector {
+    [self notifyOfStateChangeWithSelector:selector object:self];
+}
+
+- (void)notifyOfStateChangeWithSelector:(SEL)selector object:(id)object {
     NSMutableSet *observerSet = self.mutableObserverSet;
     for (id observer in observerSet) {
         if ([observerSet respondsToSelector:selector]) {
-            [observer performSelector:selector withObject:self];
+            [observer performSelector:selector withObject:object];
         }
     }
 }
