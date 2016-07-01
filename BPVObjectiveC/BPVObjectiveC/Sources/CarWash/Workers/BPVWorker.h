@@ -11,6 +11,12 @@
 #import "BPVWorkersDelegate.h"
 #import "BPVMoneyFlow.h"
 
+typedef enum {
+    BPVWorkerStateFree,
+    BPVWorkerStateBusy,
+    BPVWorkerStatePending
+} BPVWorkerState;
+
 @interface BPVWorker : NSObject <BPVMoneyFlow>
 @property (nonatomic, assign)   NSUInteger  experience;
 @property (nonatomic, assign)   NSUInteger  salary;
