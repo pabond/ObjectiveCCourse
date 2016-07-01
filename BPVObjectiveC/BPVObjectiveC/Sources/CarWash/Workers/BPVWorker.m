@@ -18,6 +18,10 @@
 @implementation BPVWorker
 
 #pragma mark -
+#pragma mark Accessors
+
+
+#pragma mark -
 #pragma mark BPVMoneyFlow
 
 - (void)acceptMoney:(NSUInteger)value {
@@ -35,6 +39,13 @@
     [self acceptMoney:[object giveMoney]];
 }
 
+- (void)performWorkWithObject:(id)object {
+    NSLog(@"Selector:\"performWorkWithObject\" should be launched in child classes");
+}
+
+#pragma mark -
+#pragma mark Public methods
+
 - (void)processObject:(id)object {
     self.busy = YES;
     [self performWorkWithObject:object];
@@ -42,8 +53,24 @@
     self.busy = NO;
 }
 
-- (void)performWorkWithObject:(id)object {
-    NSLog(@"Selector:\"performWorkWithObject\" should be launched in child classes");
+#pragma mark -
+#pragma mark Owerloaded parent method
+
+- (SEL)selectorForState:(NSUInteger)state {
+    switch (state) {
+        case BPVWorkerStateFree:
+            return @selector(workerDidBecomeFree:);
+            
+        case BPVWorkerStatePending:
+            return @selector(workerDidFinishProcessing:object:);
+            
+        case BPVWorkerStateBusy:
+            return @selector(workerStartProcessing:object:);
+            
+        default:
+            return [super selectorForState:state];
+    }
 }
+
 
 @end

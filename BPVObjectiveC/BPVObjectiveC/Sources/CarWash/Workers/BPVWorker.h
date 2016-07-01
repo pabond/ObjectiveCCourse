@@ -8,16 +8,28 @@
 
 #import <Foundation/Foundation.h>
 
+#import "BPVObservableObject.h"
+
 #import "BPVWorkersDelegate.h"
 #import "BPVMoneyFlow.h"
 
-typedef enum {
+typedef NS_ENUM(uint8_t, BPVWorkerState) {
     BPVWorkerStateFree,
     BPVWorkerStateBusy,
     BPVWorkerStatePending
-} BPVWorkerState;
+};
 
-@interface BPVWorker : NSObject <BPVMoneyFlow>
+@protocol BPVWorkersObserver <NSObject>
+
+@optional
+- (void)workerDidFinishProcessing:(id)worker object:(id)object;
+- (void)workerDidBecomeFree:(id)worker;
+- (void)workerStartProcessing:(id)worker object:(id)object;
+
+
+@end
+
+@interface BPVWorker : BPVObservableObject <BPVMoneyFlow>
 @property (nonatomic, assign)   NSUInteger  experience;
 @property (nonatomic, assign)   NSUInteger  salary;
 @property (nonatomic, assign)   BOOL        busy;
