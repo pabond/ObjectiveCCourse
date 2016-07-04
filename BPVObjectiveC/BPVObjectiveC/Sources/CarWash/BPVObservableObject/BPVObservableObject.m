@@ -56,6 +56,12 @@
     }
 }
 
+- (void)addObservers:(NSArray *)observers {
+    for (id observer in observers) {
+        [self addObserver:observer];
+    }
+}
+
 - (void)removeObserver:(NSObject *)observer {
     [self.observersTable removeObject:observer];
 }

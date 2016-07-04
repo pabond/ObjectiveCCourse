@@ -19,10 +19,6 @@
     [self earnMoney];
 }
 
-- (void)finishProcessing {
-    self.state = BPVWorkerStateFree;
-}
-
 #pragma mark -
 #pragma mark BPVMoneyFlow
 

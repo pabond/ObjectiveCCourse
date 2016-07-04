@@ -48,12 +48,12 @@
 
 - (void)processObject:(id)object {
     [self performWorkWithObject:object];
-    [self.delegate workerDidFinishProcessingObject:self];
+    self.state = BPVWorkerStatePending;
     [self finishProcessing];
 }
 
 - (void)finishProcessing {
-    self.state = BPVWorkerStatePending;
+    self.state = BPVWorkerStateFree;
 }
 
 #pragma mark -

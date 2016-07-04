@@ -89,7 +89,7 @@ static const NSUInteger kBPVWashersCount  = 20;
     BPVDirector *director = [BPVDirector object];
     BPVAccountant *accountant = [BPVAccountant object];
     
-    accountant.delegate = director;
+    [accountant addObserver:director];
     
     [adminRoom addWorker:accountant];
     [adminRoom addWorker:director];
@@ -98,7 +98,7 @@ static const NSUInteger kBPVWashersCount  = 20;
     for (NSUInteger iterator = 0; kBPVWashersCount > iterator; iterator++) {
         BPVWasher *washer = [BPVWasher object];
         [carWashRoom addWorker:washer];
-        washer.delegate = accountant;
+        [washer addObservers:@[accountant, self]];
     }
 }
 
@@ -113,7 +113,10 @@ static const NSUInteger kBPVWashersCount  = 20;
     while ((car = [carsQueue dequeueObject])) {
         
         BPVWasher *washer = [self freeWasher];
-            
+        if (!washer) {
+            [carsQueue enqueueObject:car];
+        }
+        
         BPVCarWashRoom *washRoom = [self freeCarWashRoom];
         washRoom.car = car;
         
@@ -170,6 +173,13 @@ static const NSUInteger kBPVWashersCount  = 20;
     rooms = [rooms filteredUsingBlock:^BOOL(BPVCarWashRoom *room) { return !room.car; }];
     
     return [rooms firstObject];
+}
+
+#pragma mark -
+#pragma mark BPVWorkersDelegate
+
+- (void)workerDidBecomeFree:(id)worker {
+    
 }
 
 @end

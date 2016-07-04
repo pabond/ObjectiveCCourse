@@ -13,6 +13,7 @@
 @property (nonatomic, readonly) NSSet       *observersSet;
 
 - (void)addObserver:(id)observer;
+- (void)addObservers:(NSArray *)observers;
 - (void)removeObserver:(NSObject *)observer;
 - (BOOL)containsObserver:(id)object;
 
