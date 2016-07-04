@@ -86,6 +86,10 @@
     [object selectorForState:state];
 }
 
+- (void)removeObservers {
+    self.observersTable = nil;
+}
+
 #pragma mark - 
 #pragma mark - Private implementations
 

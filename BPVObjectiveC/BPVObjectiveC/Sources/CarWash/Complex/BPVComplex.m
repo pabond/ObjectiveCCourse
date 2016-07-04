@@ -43,7 +43,7 @@ static const NSUInteger kBPVWashersCount  = 20;
 
 - (BPVCarWashRoom *)freeCarWashRoom;
 
-- (void)removeWorkersDelegates;
+- (void)removeWorkersObservers;
 - (NSArray *)allWorkers;
 
 @end
@@ -57,6 +57,8 @@ static const NSUInteger kBPVWashersCount  = 20;
     self.adminBuilding = nil;
     self.carWashBuilding = nil;
     self.queue = nil;
+    
+    [self removeWorkersObservers];
         
     [super dealloc];
 }
@@ -108,28 +110,24 @@ static const NSUInteger kBPVWashersCount  = 20;
 - (void)washCar:(BPVCar *)carToWash {
     BPVQueue *carsQueue = self.queue;
     [carsQueue enqueueObject:carToWash];
+    
+    BPVWasher *washer = nil;
+    BPVCarWashRoom *washRoom = nil;
 
     BPVCar *car = nil;
     while ((car = [carsQueue dequeueObject])) {
+        washer = [self freeWasher];
+        washRoom = [self freeCarWashRoom];
         
-        BPVWasher *washer = [self freeWasher];
-        if (!washer) {
-            [carsQueue enqueueObject:car];
-        }
-        
-        BPVCarWashRoom *washRoom = [self freeCarWashRoom];
         washRoom.car = car;
-        
         [washer processObject:car];
         washRoom.car = nil;
     }
-    
-    [self removeWorkersDelegates];
 }
 
-- (void)removeWorkersDelegates {
+- (void)removeWorkersObservers {
     for (BPVWorker *worker in [self allWorkers]) {
-        worker.delegate = nil;
+        [worker removeObservers];
     }
 }
 
@@ -156,10 +154,8 @@ static const NSUInteger kBPVWashersCount  = 20;
 
 - (id)reservedFreeWorkerWithClass:(Class)class {
     NSArray *workers = [[self buildingForWorkerWithClass:class] workersWithClass:class];
-    workers = [workers filteredUsingBlock:^BOOL(BPVWorker *worker) { return !worker.busy; }];
+    workers = [workers filteredUsingBlock:^BOOL(BPVWorker *worker) { return BPVWorkerStateFree == worker.state; }];
     BPVWorker *freeWorker = [workers firstObject];
-    
-    freeWorker.busy = YES;
     
     return freeWorker;
 }
@@ -178,7 +174,7 @@ static const NSUInteger kBPVWashersCount  = 20;
 #pragma mark -
 #pragma mark BPVWorkersDelegate
 
-- (void)workerDidBecomeFree:(id)worker {
+- (void)workerDidBecomeFree:(BPVWorker *)worker {
     
 }
 

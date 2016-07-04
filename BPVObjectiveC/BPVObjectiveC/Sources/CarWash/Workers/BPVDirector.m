@@ -8,6 +8,8 @@
 
 #import "BPVDirector.h"
 
+#import "BPVAccountant.h"
+
 @implementation BPVDirector
 
 - (void)earnMoney {
@@ -29,8 +31,8 @@
 #pragma mark -
 #pragma mark BPVWorkersDelegate
 
-- (void)workerDidBecomeReadyForProcessing:(id)washer {
-    [self processObject:washer];
+- (void)workerDidBecomeReadyForProcessing:(id)accountant {
+    [self processObject:accountant];
 }
 
 @end
