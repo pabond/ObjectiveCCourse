@@ -8,7 +8,7 @@
 
 #import "BPVWorker.h"
 
-@interface BPVDirector : BPVWorker <BPVWorkersDelegate>
+@interface BPVDirector : BPVWorker <BPVWorkersDelegate, BPVWorkersObserver>
 
 - (void)earnMoney;
 

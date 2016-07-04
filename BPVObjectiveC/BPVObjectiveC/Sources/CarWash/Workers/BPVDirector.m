@@ -19,11 +19,22 @@
     [self earnMoney];
 }
 
+- (void)finishProcessing {
+    self.state = BPVWorkerStateFree;
+}
+
 #pragma mark -
 #pragma mark BPVMoneyFlow
 
 - (void)workerDidFinishProcessingObject:(id)worker {
     [self processObject:worker];
+}
+
+#pragma mark -
+#pragma mark BPVWorkersDelegate
+
+- (void)workerDidBecomeReadyForProcessing:(id)washer {
+    [self processObject:washer];
 }
 
 @end

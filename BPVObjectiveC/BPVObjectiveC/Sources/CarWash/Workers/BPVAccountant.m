@@ -26,4 +26,12 @@
     [self processObject:worker];
 }
 
+#pragma mark -
+#pragma mark BPVWorkersDelegate
+
+- (void)workerDidBecomeReadyForProcessing:(id)washer {
+    [self processObject:washer];
+}
+
 @end
+

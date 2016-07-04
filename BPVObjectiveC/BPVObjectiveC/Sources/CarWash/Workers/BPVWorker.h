@@ -22,10 +22,9 @@ typedef NS_ENUM(uint8_t, BPVWorkerState) {
 @protocol BPVWorkersObserver <NSObject>
 
 @optional
-- (void)workerDidFinishProcessing:(id)worker object:(id)object;
+- (void)workerDidBecomeReadyForProcessing:(id)worker;
 - (void)workerDidBecomeFree:(id)worker;
-- (void)workerStartProcessing:(id)worker object:(id)object;
-
+- (void)workerDidBecomeBusy:(id)worker;
 
 @end
 
@@ -38,5 +37,7 @@ typedef NS_ENUM(uint8_t, BPVWorkerState) {
 
 - (void)processObject:(id)object;
 - (void)performWorkWithObject:(id)object;
+
+- (void)finishProcessing;
 
 @end

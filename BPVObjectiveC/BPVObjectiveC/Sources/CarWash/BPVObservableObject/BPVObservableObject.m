@@ -44,20 +44,16 @@
 #pragma mark - Accessors
 
 - (NSSet *)observersSet {
-    NSHashTable *observersTable = self.observersTable;
-    NSMutableSet *set = [NSMutableSet setWithCapacity:[observersTable count]];
-    for (id object in observersTable) {
-        [set addObject:object];
-    }
-    
-    return [[set copy] autorelease];
+    return self.observersTable.setRepresentation;
 }
 
 #pragma mark -
 #pragma mark - Public implementations
 
 - (void)addObserver:(id)observer {
-    [self.observersTable addObject:observer];
+    if (observer) {
+        [self.observersTable addObject:observer];
+    }
 }
 
 - (void)removeObserver:(NSObject *)observer {
@@ -76,13 +72,19 @@
     }
 }
 
+- (void)setState:(NSUInteger)state withObject:(id)object {
+    [object setState:state];
+}
+
+- (void)notifyWithObject:(id)object ofState:(NSUInteger)state {
+    [object selectorForState:state];
+}
+
 #pragma mark - 
 #pragma mark - Private implementations
 
 - (SEL)selectorForState:(NSUInteger)state {
-    [self doesNotRecognizeSelector:_cmd];
-    
-    return nil;
+    return NULL;
 }
 
 - (void)notifyOfStateChangeWithSelector:(SEL)selector {

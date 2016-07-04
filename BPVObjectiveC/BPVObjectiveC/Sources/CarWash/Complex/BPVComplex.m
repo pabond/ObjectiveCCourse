@@ -17,6 +17,8 @@
 
 #import "BPVQueue.h"
 
+#import "BPVObservableObject.h"
+
 #import "NSObject+BPVExtensions.h"
 #import "NSArray+BPVExtensions.h"
 

@@ -47,10 +47,13 @@
 #pragma mark Public methods
 
 - (void)processObject:(id)object {
-    self.busy = YES;
     [self performWorkWithObject:object];
     [self.delegate workerDidFinishProcessingObject:self];
-    self.busy = NO;
+    [self finishProcessing];
+}
+
+- (void)finishProcessing {
+    self.state = BPVWorkerStatePending;
 }
 
 #pragma mark -
@@ -62,15 +65,14 @@
             return @selector(workerDidBecomeFree:);
             
         case BPVWorkerStatePending:
-            return @selector(workerDidFinishProcessing:object:);
+            return @selector(workerDidBecomeReadyForProcessing:);
             
         case BPVWorkerStateBusy:
-            return @selector(workerStartProcessing:object:);
+            return @selector(workerDidBecomeBusy:);
             
         default:
             return [super selectorForState:state];
     }
 }
-
 
 @end
