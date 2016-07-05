@@ -15,12 +15,15 @@
 - (void)washCar:(BPVCar *)car {
     NSLog(@"Washer washing car");
     NSLog(@"Car washed!");
-    car.clean = YES;
 }
 
 - (void)performWorkWithObject:(id)object {
     [self washCar:object];
     [self takeMoneyFromObject:object];
+}
+
+- (void)finishProcessingObject:(BPVCar *)car {
+    car.clean = YES;
 }
 
 @end

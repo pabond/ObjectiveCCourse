@@ -23,7 +23,7 @@
 }
 
 #pragma mark -
-#pragma mark BPVWorkersDelegate
+#pragma mark Observer methods
 
 - (void)workerDidBecomeReadyForProcessing:(id)washer {
     [self processObject:washer];

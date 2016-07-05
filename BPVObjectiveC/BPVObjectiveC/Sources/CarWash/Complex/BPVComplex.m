@@ -179,7 +179,7 @@ static const NSUInteger kBPVWashersCount  = 20;
 }
 
 #pragma mark -
-#pragma mark BPVWorkersDelegate
+#pragma mark Observer methods
 
 - (void)workerDidBecomeFree:(BPVWorker *)worker {
     [self.freeWashersQueue enqueueObject:worker];

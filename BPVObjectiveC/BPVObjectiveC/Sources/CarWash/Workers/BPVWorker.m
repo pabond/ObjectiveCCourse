@@ -44,16 +44,21 @@
 }
 
 #pragma mark -
-#pragma mark Public methods
+#pragma mark Public implementations
 
 - (void)processObject:(id)object {
     [self performWorkWithObject:object];
     self.state = BPVWorkerStatePending;
-    [self finishProcessing];
+    [self finishProcessingObject:object];  //change object state
+    [self finishProcessing];        //change self state
+}
+
+- (void)finishProcessingObject:(BPVWorker *)worker {
+    worker.state = BPVWorkerStateFree;
 }
 
 - (void)finishProcessing {
-    self.state = BPVWorkerStateFree;
+    self.state = BPVWorkerStatePending;
 }
 
 #pragma mark -

@@ -10,12 +10,6 @@
 
 #import "BPVAccountant.h"
 
-@interface BPVDirector ()
-
-- (void)changeSelfState;
-
-@end
-
 @implementation BPVDirector
 
 - (void)earnMoney {
@@ -25,18 +19,13 @@
 #pragma mark -
 #pragma mark Public implementations
 
-- (void)processObject:(id)object {
-    [super processObject:object];
-    [self changeSelfState];
-}
-
 - (void)performWorkWithObject:(id)object {
     [self takeMoneyFromObject:object];
     [self earnMoney];
 }
 
 #pragma mark -
-#pragma mark BPVWorkersDelegate
+#pragma mark Observer methods
 
 - (void)workerDidBecomeReadyForProcessing:(id)accountant {
     [self processObject:accountant];
@@ -45,7 +34,7 @@
 #pragma mark -
 #pragma mark Private implementations
 
-- (void)changeSelfState {
+- (void)finishProcessing {
     self.state = BPVWorkerStateFree;
 }
 
