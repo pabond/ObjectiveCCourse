@@ -114,6 +114,7 @@ static const NSUInteger kBPVWashersCount  = 20;
 - (void)washCar:(BPVCar *)carToWash {
     BPVQueue *carsQueue = self.carsQueue;
     [carsQueue enqueueObject:carToWash];
+    BPVQueue *freeWashersQueue = self.freeWashersQueue;
     
     BPVWasher *washer = nil;
     BPVCarWashRoom *washRoom = nil;
@@ -161,6 +162,7 @@ static const NSUInteger kBPVWashersCount  = 20;
     NSArray *workers = [[self buildingForWorkerWithClass:class] workersWithClass:class];
     workers = [workers filteredUsingBlock:^BOOL(BPVWorker *worker) { return BPVWorkerStateFree == worker.state; }];
     BPVWorker *freeWorker = [workers firstObject];
+    freeWorker.state = BPVWorkerStateBusy;
     
     return freeWorker;
 }

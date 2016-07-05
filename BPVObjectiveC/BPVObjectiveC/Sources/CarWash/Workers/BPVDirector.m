@@ -10,10 +10,24 @@
 
 #import "BPVAccountant.h"
 
+@interface BPVDirector ()
+
+- (void)changeSelfState;
+
+@end
+
 @implementation BPVDirector
 
 - (void)earnMoney {
     NSLog(@"Director earns money. Now director receive %lu", (unsigned long)self.money);
+}
+
+#pragma mark -
+#pragma mark Public implementations
+
+- (void)processObject:(id)object {
+    [super processObject:object];
+    [self changeSelfState];
 }
 
 - (void)performWorkWithObject:(id)object {
@@ -22,17 +36,17 @@
 }
 
 #pragma mark -
-#pragma mark BPVMoneyFlow
-
-- (void)workerDidFinishProcessingObject:(id)worker {
-    [self processObject:worker];
-}
-
-#pragma mark -
 #pragma mark BPVWorkersDelegate
 
 - (void)workerDidBecomeReadyForProcessing:(id)accountant {
     [self processObject:accountant];
+}
+
+#pragma mark -
+#pragma mark Private implementations
+
+- (void)changeSelfState {
+    self.state = BPVWorkerStateFree;
 }
 
 @end

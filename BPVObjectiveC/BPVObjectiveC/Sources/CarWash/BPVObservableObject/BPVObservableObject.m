@@ -41,14 +41,14 @@
 }
 
 #pragma mark -
-#pragma mark - Accessors
+#pragma mark Accessors
 
 - (NSSet *)observersSet {
     return self.observersTable.setRepresentation;
 }
 
 #pragma mark -
-#pragma mark - Public implementations
+#pragma mark Public implementations
 
 - (void)addObserver:(id)observer {
     if (observer) {
@@ -97,7 +97,7 @@
 }
 
 #pragma mark - 
-#pragma mark - Private implementations
+#pragma mark Private implementations
 
 - (SEL)selectorForState:(NSUInteger)state {
     return NULL;
