@@ -28,7 +28,8 @@ static const NSUInteger kBPVWashersCount  = 20;
 @interface BPVComplex ()
 @property (nonatomic, retain) BPVBuilding   *carWashBuilding;
 @property (nonatomic, retain) BPVBuilding   *adminBuilding;
-@property (nonatomic, retain) BPVQueue      *queue;
+@property (nonatomic, retain) BPVQueue      *carsQueue;
+@property (nonatomic, retain) BPVQueue      *freeWashersQueue;
 
 - (void)initInfrastructure;
 - (void)initRooms;
@@ -54,11 +55,12 @@ static const NSUInteger kBPVWashersCount  = 20;
 #pragma mark Deallocation / Initialisation
 
 - (void)dealloc {
+    [self removeWorkersObservers];
+    
     self.adminBuilding = nil;
     self.carWashBuilding = nil;
-    self.queue = nil;
-    
-    [self removeWorkersObservers];
+    self.carsQueue = nil;
+    self.freeWashersQueue = nil;
         
     [super dealloc];
 }
@@ -71,7 +73,8 @@ static const NSUInteger kBPVWashersCount  = 20;
 }
 
 - (void)initInfrastructure {
-    self.queue = [BPVQueue object];
+    self.carsQueue = [BPVQueue object];
+    self.freeWashersQueue = [BPVQueue object];
     self.adminBuilding = [BPVBuilding object];
     self.carWashBuilding = [BPVBuilding object];
     
@@ -81,8 +84,9 @@ static const NSUInteger kBPVWashersCount  = 20;
 
 - (void)initRooms {
     [self.adminBuilding addRoom:[BPVAdminRoom object]];
-    for (NSUInteger iterator = 0; kBPVWashRoomsCount > iterator ; iterator++) {
-        [self.carWashBuilding addRoom:[BPVCarWashRoom object]];
+    BPVBuilding *carWashBuilding = self.carWashBuilding;
+    for (NSUInteger iterator = 0; iterator < kBPVWashRoomsCount; iterator++) {
+        [carWashBuilding addRoom:[BPVCarWashRoom object]];
     }
 }
 
@@ -108,7 +112,7 @@ static const NSUInteger kBPVWashersCount  = 20;
 #pragma mark Public Implementation
 
 - (void)washCar:(BPVCar *)carToWash {
-    BPVQueue *carsQueue = self.queue;
+    BPVQueue *carsQueue = self.carsQueue;
     [carsQueue enqueueObject:carToWash];
     
     BPVWasher *washer = nil;
@@ -133,8 +137,9 @@ static const NSUInteger kBPVWashersCount  = 20;
 
 - (NSArray *)allWorkers {
     NSMutableArray *workers = [NSMutableArray array];
-    [workers addObjectsFromArray:[self.adminBuilding workersWithClass:[BPVAccountant class]]];
-    [workers addObjectsFromArray:[self.adminBuilding workersWithClass:[BPVDirector class]]];
+    BPVBuilding *adminBuilding = self.adminBuilding;
+    [workers addObjectsFromArray:[adminBuilding workersWithClass:[BPVAccountant class]]];
+    [workers addObjectsFromArray:[adminBuilding workersWithClass:[BPVDirector class]]];
     [workers addObjectsFromArray:[self.carWashBuilding workersWithClass:[BPVWasher class]]];
     
     return [[workers copy] autorelease];
@@ -175,7 +180,7 @@ static const NSUInteger kBPVWashersCount  = 20;
 #pragma mark BPVWorkersDelegate
 
 - (void)workerDidBecomeFree:(BPVWorker *)worker {
-    
+    [self.freeWashersQueue enqueueObject:worker];
 }
 
 @end

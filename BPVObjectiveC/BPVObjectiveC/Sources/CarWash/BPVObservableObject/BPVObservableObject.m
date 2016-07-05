@@ -79,15 +79,21 @@
 }
 
 - (void)setState:(NSUInteger)state withObject:(id)object {
+    if (_state != state) {
+        _state = state;
+        
+        [self notifyWithObject:object ofState:state];
+    }
+
     [object setState:state];
 }
 
 - (void)notifyWithObject:(id)object ofState:(NSUInteger)state {
-    [object selectorForState:state];
+    [self notifyOfStateChangeWithSelector:[object selectorForState:state] object:object];
 }
 
 - (void)removeObservers {
-    self.observersTable = nil;
+    [self.observersTable removeAllObjects];
 }
 
 #pragma mark - 
