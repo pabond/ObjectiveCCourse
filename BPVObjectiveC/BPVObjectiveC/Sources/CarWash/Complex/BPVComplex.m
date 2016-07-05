@@ -114,19 +114,26 @@ static const NSUInteger kBPVWashersCount  = 20;
 - (void)washCar:(BPVCar *)carToWash {
     BPVQueue *carsQueue = self.carsQueue;
     [carsQueue enqueueObject:carToWash];
+    
     BPVQueue *freeWashersQueue = self.freeWashersQueue;
+    [freeWashersQueue enqueueObjects:[self.carWashBuilding workersWithClass:[BPVWasher class]]];
     
     BPVWasher *washer = nil;
     BPVCarWashRoom *washRoom = nil;
 
     BPVCar *car = nil;
     while ((car = [carsQueue dequeueObject])) {
-        washer = [self freeWasher];
-        washRoom = [self freeCarWashRoom];
+        washer = [self.freeWashersQueue dequeueObject];
+        if (washer) {
+            washRoom = [self freeCarWashRoom];
         
-        washRoom.car = car;
-        [washer processObject:car];
-        washRoom.car = nil;
+            washRoom.car = car;
+            [washer processObject:car];
+            washRoom.car = nil;
+        } else {
+            [carsQueue enqueueObject:car];
+            car = nil;
+        }
     }
 }
 

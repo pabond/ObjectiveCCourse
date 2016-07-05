@@ -62,5 +62,13 @@
     return nextObject;
 }
 
+- (void)enqueueObjects:(NSArray *)objects {
+    [self.mutableQueue addObjectsFromArray:objects];
+}
+
+- (void)dequeueAllObjects {
+    [self.mutableQueue removeAllObjects];
+}
+
 @end
 
