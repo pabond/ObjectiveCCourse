@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-#import "BPVBuilding.h"
 #import "BPVWorker.h"
 
 @interface BPVComplex : NSObject <BPVWorkersObserver>

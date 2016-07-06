@@ -16,18 +16,12 @@
 		2D7E10091D20463100620461 /* BPVRangeAlphabet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0FD21D20463100620461 /* BPVRangeAlphabet.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2D7E100A1D20463100620461 /* BPVStringsAlphabet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0FD41D20463100620461 /* BPVStringsAlphabet.m */; };
 		2D7E100B1D20463100620461 /* BPVStringsAlphabet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0FD41D20463100620461 /* BPVStringsAlphabet.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		2D7E100C1D20463100620461 /* BPVBuilding.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0FD91D20463100620461 /* BPVBuilding.m */; };
-		2D7E100D1D20463100620461 /* BPVBuilding.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0FD91D20463100620461 /* BPVBuilding.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2D7E100E1D20463100620461 /* BPVCar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0FDC1D20463100620461 /* BPVCar.m */; };
 		2D7E100F1D20463100620461 /* BPVCar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0FDC1D20463100620461 /* BPVCar.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2D7E10101D20463100620461 /* BPVComplex.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0FDF1D20463100620461 /* BPVComplex.m */; };
 		2D7E10111D20463100620461 /* BPVComplex.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0FDF1D20463100620461 /* BPVComplex.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2D7E10121D20463100620461 /* BPVQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0FE21D20463100620461 /* BPVQueue.m */; };
 		2D7E10131D20463100620461 /* BPVQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0FE21D20463100620461 /* BPVQueue.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		2D7E10141D20463100620461 /* BPVAdminRoom.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0FE51D20463100620461 /* BPVAdminRoom.m */; };
-		2D7E10151D20463100620461 /* BPVAdminRoom.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0FE51D20463100620461 /* BPVAdminRoom.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		2D7E10161D20463100620461 /* BPVCarWashRoom.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0FE71D20463100620461 /* BPVCarWashRoom.m */; };
-		2D7E10171D20463100620461 /* BPVCarWashRoom.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0FE71D20463100620461 /* BPVCarWashRoom.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2D7E10181D20463100620461 /* BPVAccountant.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0FEA1D20463100620461 /* BPVAccountant.m */; };
 		2D7E10191D20463100620461 /* BPVAccountant.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0FEA1D20463100620461 /* BPVAccountant.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2D7E101A1D20463100620461 /* BPVDirector.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0FEC1D20463100620461 /* BPVDirector.m */; };
@@ -91,18 +85,12 @@
 		2D7E0FD21D20463100620461 /* BPVRangeAlphabet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPVRangeAlphabet.m; sourceTree = "<group>"; };
 		2D7E0FD31D20463100620461 /* BPVStringsAlphabet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPVStringsAlphabet.h; sourceTree = "<group>"; };
 		2D7E0FD41D20463100620461 /* BPVStringsAlphabet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPVStringsAlphabet.m; sourceTree = "<group>"; };
-		2D7E0FD81D20463100620461 /* BPVBuilding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPVBuilding.h; sourceTree = "<group>"; };
-		2D7E0FD91D20463100620461 /* BPVBuilding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPVBuilding.m; sourceTree = "<group>"; };
 		2D7E0FDB1D20463100620461 /* BPVCar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPVCar.h; sourceTree = "<group>"; };
 		2D7E0FDC1D20463100620461 /* BPVCar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPVCar.m; sourceTree = "<group>"; };
 		2D7E0FDE1D20463100620461 /* BPVComplex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPVComplex.h; sourceTree = "<group>"; };
 		2D7E0FDF1D20463100620461 /* BPVComplex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPVComplex.m; sourceTree = "<group>"; };
 		2D7E0FE11D20463100620461 /* BPVQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPVQueue.h; sourceTree = "<group>"; };
 		2D7E0FE21D20463100620461 /* BPVQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPVQueue.m; sourceTree = "<group>"; };
-		2D7E0FE41D20463100620461 /* BPVAdminRoom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPVAdminRoom.h; sourceTree = "<group>"; };
-		2D7E0FE51D20463100620461 /* BPVAdminRoom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPVAdminRoom.m; sourceTree = "<group>"; };
-		2D7E0FE61D20463100620461 /* BPVCarWashRoom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPVCarWashRoom.h; sourceTree = "<group>"; };
-		2D7E0FE71D20463100620461 /* BPVCarWashRoom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPVCarWashRoom.m; sourceTree = "<group>"; };
 		2D7E0FE91D20463100620461 /* BPVAccountant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPVAccountant.h; sourceTree = "<group>"; };
 		2D7E0FEA1D20463100620461 /* BPVAccountant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPVAccountant.m; sourceTree = "<group>"; };
 		2D7E0FEB1D20463100620461 /* BPVDirector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPVDirector.h; sourceTree = "<group>"; };
@@ -247,22 +235,11 @@
 				2DE716D81D2272B600562950 /* BPVObservableObject */,
 				2DE716D01D2168AA00562950 /* Protocols */,
 				2D7E0FDD1D20463100620461 /* Complex */,
-				2D7E0FD71D20463100620461 /* Building */,
 				2D7E0FDA1D20463100620461 /* Car */,
 				2D7E0FE01D20463100620461 /* Queue */,
-				2D7E0FE31D20463100620461 /* Rooms */,
 				2D7E0FE81D20463100620461 /* Workers */,
 			);
 			path = CarWash;
-			sourceTree = "<group>";
-		};
-		2D7E0FD71D20463100620461 /* Building */ = {
-			isa = PBXGroup;
-			children = (
-				2D7E0FD81D20463100620461 /* BPVBuilding.h */,
-				2D7E0FD91D20463100620461 /* BPVBuilding.m */,
-			);
-			path = Building;
 			sourceTree = "<group>";
 		};
 		2D7E0FDA1D20463100620461 /* Car */ = {
@@ -290,17 +267,6 @@
 				2D7E0FE21D20463100620461 /* BPVQueue.m */,
 			);
 			path = Queue;
-			sourceTree = "<group>";
-		};
-		2D7E0FE31D20463100620461 /* Rooms */ = {
-			isa = PBXGroup;
-			children = (
-				2D7E0FE41D20463100620461 /* BPVAdminRoom.h */,
-				2D7E0FE51D20463100620461 /* BPVAdminRoom.m */,
-				2D7E0FE61D20463100620461 /* BPVCarWashRoom.h */,
-				2D7E0FE71D20463100620461 /* BPVCarWashRoom.m */,
-			);
-			path = Rooms;
 			sourceTree = "<group>";
 		};
 		2D7E0FE81D20463100620461 /* Workers */ = {
@@ -559,10 +525,8 @@
 				2D7E101E1D20463100620461 /* BPVWorker.m in Sources */,
 				2D7E10021D20463100620461 /* BPVAlphabet.m in Sources */,
 				2DE716DB1D2272B600562950 /* BPVObservableObject.m in Sources */,
-				2D7E10161D20463100620461 /* BPVCarWashRoom.m in Sources */,
 				2DE716E21D22C0CD00562950 /* BPVReference.m in Sources */,
 				2D7E101A1D20463100620461 /* BPVDirector.m in Sources */,
-				2D7E10141D20463100620461 /* BPVAdminRoom.m in Sources */,
 				2D7E10241D20463100620461 /* BPVCreature.m in Sources */,
 				2D7E10001D20463100620461 /* main.m in Sources */,
 				2DE716EE1D22C13100562950 /* BPVRetainReference.m in Sources */,
@@ -578,7 +542,6 @@
 				2DE716E61D22C0F000562950 /* BPVAssingReference.m in Sources */,
 				2D7E10201D20463100620461 /* NSArray+BPVExtensions.m in Sources */,
 				2D7E10041D20463100620461 /* NSString+BPVExtensions.m in Sources */,
-				2D7E100C1D20463100620461 /* BPVBuilding.m in Sources */,
 				2D7E100A1D20463100620461 /* BPVStringsAlphabet.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -590,11 +553,9 @@
 				2D7E100F1D20463100620461 /* BPVCar.m in Sources */,
 				2D7E10111D20463100620461 /* BPVComplex.m in Sources */,
 				2D7E101F1D20463100620461 /* BPVWorker.m in Sources */,
-				2D7E10171D20463100620461 /* BPVCarWashRoom.m in Sources */,
 				2DE716DC1D2272B600562950 /* BPVObservableObject.m in Sources */,
 				2D7E101B1D20463100620461 /* BPVDirector.m in Sources */,
 				2DE716E31D22C0CD00562950 /* BPVReference.m in Sources */,
-				2D7E10151D20463100620461 /* BPVAdminRoom.m in Sources */,
 				2D7E10251D20463100620461 /* BPVCreature.m in Sources */,
 				2D7E10191D20463100620461 /* BPVAccountant.m in Sources */,
 				2DE716D71D2271D900562950 /* BPVAlphabet.m in Sources */,
@@ -610,7 +571,6 @@
 				2D7E10211D20463100620461 /* NSArray+BPVExtensions.m in Sources */,
 				2DE716E71D22C0F000562950 /* BPVAssingReference.m in Sources */,
 				2D575B8A1D20489E00C347D5 /* BPVAlphabetSpec.m in Sources */,
-				2D7E100D1D20463100620461 /* BPVBuilding.m in Sources */,
 				2DE716CC1D204E1600562950 /* NSString+BPVExtensions.m in Sources */,
 				2D7E100B1D20463100620461 /* BPVStringsAlphabet.m in Sources */,
 			);
