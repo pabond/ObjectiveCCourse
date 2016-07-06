@@ -47,8 +47,8 @@
 #pragma mark Public implementations
 
 - (void)processObject:(id)object {
+    
     [self performWorkWithObject:object];
-    self.state = BPVWorkerStatePending;
     [self finishProcessingObject:object];  //change object state
     [self finishProcessing];        //change self state
 }
@@ -59,6 +59,13 @@
 
 - (void)finishProcessing {
     self.state = BPVWorkerStatePending;
+}
+
+#pragma mark -
+#pragma mark Delegate methods
+
+- (void)workerDidBecomeReadyForProcessing:(id)object {
+    [self processObject:object];
 }
 
 #pragma mark -

@@ -25,13 +25,6 @@
 }
 
 #pragma mark -
-#pragma mark Observer methods
-
-- (void)workerDidBecomeReadyForProcessing:(id)accountant {
-    [self processObject:accountant];
-}
-
-#pragma mark -
 #pragma mark Private implementations
 
 - (void)finishProcessing {

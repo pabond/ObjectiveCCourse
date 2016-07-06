@@ -34,6 +34,7 @@ static const NSUInteger kBPVWashersCount  = 20;
 - (void)initInfrastructure;
 - (void)initRooms;
 - (void)initWorkers;
+- (void)initQueues;
 
 - (id)freeWasher;
 - (id)freeAccountant;
@@ -73,13 +74,12 @@ static const NSUInteger kBPVWashersCount  = 20;
 }
 
 - (void)initInfrastructure {
-    self.carsQueue = [BPVQueue object];
-    self.freeWashersQueue = [BPVQueue object];
     self.adminBuilding = [BPVBuilding object];
     self.carWashBuilding = [BPVBuilding object];
     
     [self initRooms];
     [self initWorkers];
+    [self initQueues];
 }
 
 - (void)initRooms {
@@ -101,11 +101,18 @@ static const NSUInteger kBPVWashersCount  = 20;
     [adminRoom addWorker:director];
     
     BPVCarWashRoom *carWashRoom = [[self.carWashBuilding rooms] firstObject];
-    for (NSUInteger iterator = 0; kBPVWashersCount > iterator; iterator++) {
+    for (NSUInteger iterator = 0; iterator < kBPVWashersCount; iterator++) {
         BPVWasher *washer = [BPVWasher object];
         [carWashRoom addWorker:washer];
         [washer addObservers:@[accountant, self]];
     }
+}
+
+- (void)initQueues {
+    BPVQueue *freeWashersQueue = [BPVQueue object];
+    self.freeWashersQueue = freeWashersQueue;
+    [freeWashersQueue enqueueObjects:[self.carWashBuilding workersWithClass:[BPVWasher class]]];
+    self.carsQueue = [BPVQueue object];
 }
 
 #pragma mark -
@@ -114,9 +121,6 @@ static const NSUInteger kBPVWashersCount  = 20;
 - (void)washCar:(BPVCar *)carToWash {
     BPVQueue *carsQueue = self.carsQueue;
     [carsQueue enqueueObject:carToWash];
-    
-    BPVQueue *freeWashersQueue = self.freeWashersQueue;
-    [freeWashersQueue enqueueObjects:[self.carWashBuilding workersWithClass:[BPVWasher class]]];
     
     BPVWasher *washer = nil;
     BPVCarWashRoom *washRoom = nil;

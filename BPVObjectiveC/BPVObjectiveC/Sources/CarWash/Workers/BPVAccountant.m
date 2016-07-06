@@ -22,12 +22,5 @@
     [self countMoney];
 }
 
-#pragma mark -
-#pragma mark Observer methods
-
-- (void)workerDidBecomeReadyForProcessing:(id)washer {
-    [self processObject:washer];
-}
-
 @end
 

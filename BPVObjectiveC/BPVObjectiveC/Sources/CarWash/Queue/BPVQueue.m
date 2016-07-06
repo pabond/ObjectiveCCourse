@@ -66,9 +66,5 @@
     [self.mutableQueue addObjectsFromArray:objects];
 }
 
-- (void)dequeueAllObjects {
-    [self.mutableQueue removeAllObjects];
-}
-
 @end
 
