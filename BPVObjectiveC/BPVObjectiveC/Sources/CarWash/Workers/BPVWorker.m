@@ -49,8 +49,13 @@
 - (void)processObject:(id)object {
     
     [self performWorkWithObject:object];
-    [self finishProcessingObject:object];  //change object state
-    [self finishProcessing];        //change self state
+    [self performSelectorOnMainThread:@selector(finishProcessingObject:)
+                           withObject:object
+                        waitUntilDone:NO];                      //change object state
+    
+    [self performSelectorOnMainThread:@selector(finishProcessing)
+                           withObject:nil
+                        waitUntilDone:NO];                      //change self state
 }
 
 - (void)finishProcessingObject:(BPVWorker *)worker {

@@ -108,7 +108,7 @@ static const NSUInteger kBPVWashersCount = 3;
     while ((car = [carsQueue dequeueObject])) {
         washer = [self reservedFreeWasher];
         if (washer) {
-            [washer processObject:car];
+            [washer performSelectorInBackground:@selector(processObject:) withObject:car];
         } else {
             [carsQueue enqueueObject:car];
         }
