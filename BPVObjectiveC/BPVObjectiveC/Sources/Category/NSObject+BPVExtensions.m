@@ -14,4 +14,12 @@
     return [[[self alloc] init] autorelease];
 }
 
+- (void)performSelectorOnMainThreadWithoutObject:(SEL)aSelector
+                                   waitUntilDone:(BOOL)wait
+{
+    [self performSelectorOnMainThread:aSelector
+                           withObject:nil
+                        waitUntilDone:wait];
+}
+
 @end

@@ -12,4 +12,7 @@
 
 + (id)object;
 
+- (void)performSelectorOnMainThreadWithoutObject:(SEL)aSelector
+                                    waitUntilDone:(BOOL)wait;
+
 @end

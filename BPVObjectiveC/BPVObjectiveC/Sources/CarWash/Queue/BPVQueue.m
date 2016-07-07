@@ -37,7 +37,9 @@
 }
 
 - (NSArray *)queue {
-    return [[self.mutableQueue copy] autorelease];
+    @synchronized (self) {
+        return [[self.mutableQueue copy] autorelease];
+    }
 }
 
 - (NSUInteger)objectsCount {
@@ -45,21 +47,25 @@
 }
 
 - (void)enqueueObject:(id)object {
-    if (object) {
-        [self.mutableQueue addObject:object];
+    @synchronized (self) {
+        if (object) {
+            [self.mutableQueue addObject:object];
+        }
     }
 }
 
 - (id)dequeueObject {
-    NSMutableArray *queue = self.mutableQueue;
-    if (!queue.count) {
-        return nil;
+    @synchronized (self) {
+        NSMutableArray *queue = self.mutableQueue;
+        if (!queue.count) {
+            return nil;
+        }
+        
+        id nextObject = [[[queue firstObject] retain] autorelease];
+        [queue removeObject:nextObject];
+        
+        return nextObject;
     }
-    
-    id nextObject = [[[queue firstObject] retain] autorelease];
-    [queue removeObject:nextObject];
-    
-    return nextObject;
 }
 
 - (void)enqueueObjects:(NSArray *)objects {

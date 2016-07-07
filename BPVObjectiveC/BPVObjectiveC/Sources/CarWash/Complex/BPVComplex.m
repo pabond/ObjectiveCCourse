@@ -106,11 +106,13 @@ static const NSUInteger kBPVWashersCount = 3;
     BPVWasher *washer = nil;
     BPVCar *car = nil;
     while ((car = [carsQueue dequeueObject])) {
-        washer = [self reservedFreeWasher];
-        if (washer) {
-            [washer performSelectorInBackground:@selector(processObject:) withObject:car];
-        } else {
-            [carsQueue enqueueObject:car];
+        @synchronized (car) {
+            washer = [self reservedFreeWasher];
+            if (washer) {
+                [washer performSelectorInBackground:@selector(processObject:) withObject:car];
+            } else {
+                [carsQueue enqueueObject:car];
+            }
         }
     }
 }
@@ -150,8 +152,10 @@ static const NSUInteger kBPVWashersCount = 3;
 #pragma mark Private Implementation
 
 - (void)addWasher:(id)washer {
-    if (washer) {
-        [self.washers addObject:washer];
+    @synchronized (self) {
+        if (washer) {
+            [self.washers addObject:washer];
+        }
     }
 }
 

@@ -47,48 +47,60 @@
 #pragma mark Public implementations
 
 - (void)processObject:(id)object {
-    
-    [self performWorkWithObject:object];
-    [self performSelectorOnMainThread:@selector(finishProcessingObject:)
-                           withObject:object
-                        waitUntilDone:NO];                      //change object state
-    
-    [self performSelectorOnMainThread:@selector(finishProcessing)
-                           withObject:nil
-                        waitUntilDone:NO];                      //change self state
+    @synchronized (self) {
+        NSLog(@"Worker %@ start processing object %@ in background", self, object);
+        [self performWorkWithObject:object];
+        
+        [self performSelectorOnMainThread:@selector(finishProcessingObject:)
+                               withObject:object
+                            waitUntilDone:YES];
+        
+        NSLog(@"Worker %@ finish processing object %@", self, object);
+    }
 }
 
-- (void)finishProcessingObject:(BPVWorker *)worker {
-    worker.state = BPVWorkerStateFree;
+- (void)finishProcessingObject:(BPVWorker *)worker {    //change object state
+    @synchronized (worker) {
+        NSLog(@"Processed object change notification");
+        worker.state = BPVWorkerStateFree;
+        [self finishProcessing];
+    }
 }
 
-- (void)finishProcessing {
-    self.state = BPVWorkerStatePending;
+- (void)finishProcessing {                              //change self state
+    @synchronized (self) {
+        NSLog(@"Self status change notification");
+        self.state = BPVWorkerStatePending;
+    }
 }
 
 #pragma mark -
 #pragma mark Delegate methods
 
 - (void)workerDidBecomeReadyForProcessing:(id)object {
-    [self processObject:object];
+    @synchronized (self) {
+        [self processObject:object];
+    }
 }
 
 #pragma mark -
 #pragma mark Owerloaded parent method
 
 - (SEL)selectorForState:(NSUInteger)state {
-    switch (state) {
-        case BPVWorkerStateFree:
-            return @selector(workerDidBecomeFree:);
-            
-        case BPVWorkerStatePending:
-            return @selector(workerDidBecomeReadyForProcessing:);
-            
-        case BPVWorkerStateBusy:
-            return @selector(workerDidBecomeBusy:);
-            
-        default:
-            return [super selectorForState:state];
+    @synchronized (self) {
+        switch (state) {
+            case BPVWorkerStateFree:
+                return @selector(workerDidBecomeFree:);
+                
+            case BPVWorkerStatePending:
+                return @selector(workerDidBecomeReadyForProcessing:);
+                
+            case BPVWorkerStateBusy:
+                return @selector(workerDidBecomeBusy:);
+                
+            default:
+                return [super selectorForState:state];
+        }
     }
 }
 

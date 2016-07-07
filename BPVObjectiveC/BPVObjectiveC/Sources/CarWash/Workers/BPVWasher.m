@@ -18,8 +18,11 @@
 }
 
 - (void)performWorkWithObject:(id)object {
-    [self washCar:object];
-    [self takeMoneyFromObject:object];
+    @synchronized (self) {
+        sleep(2);
+        [self washCar:object];
+        [self takeMoneyFromObject:object];
+    }
 }
 
 - (void)finishProcessingObject:(BPVCar *)car {
