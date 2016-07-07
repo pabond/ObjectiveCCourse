@@ -50,9 +50,13 @@
     @synchronized (self) {
         NSLog(@"Worker %@ start processing object %@ in background", self, object);
         [self performWorkWithObject:object];
-        [self performSelectorOnMainThread:@selector(finishProcessingOnMainThreadWithObject:)
-                               withObject:object
-                            waitUntilDone:NO];
+        @synchronized (self) {
+            NSLog(@"Worker %@ in synchronized to go to main thread", self);
+            sleep(1);
+            [self performSelectorOnMainThread:@selector(finishProcessingOnMainThreadWithObject:)
+                                   withObject:object
+                                waitUntilDone:YES];
+        }
         
         NSLog(@"Worker %@ finish processing object %@", self, object);
     }
