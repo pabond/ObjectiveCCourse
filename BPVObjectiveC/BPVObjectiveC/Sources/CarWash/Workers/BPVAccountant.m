@@ -20,6 +20,7 @@
 - (void)performWorkWithObject:(id)object {
     [self takeMoneyFromObject:object];
     [self countMoney];
+    NSLog(@"Accountant take money from washer %@", object);
 }
 
 @end

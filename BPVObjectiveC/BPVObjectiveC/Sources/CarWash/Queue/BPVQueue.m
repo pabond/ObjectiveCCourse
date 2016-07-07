@@ -64,6 +64,8 @@
         id nextObject = [[[queue firstObject] retain] autorelease];
         [queue removeObject:nextObject];
         
+        sleep(1);
+        
         return nextObject;
     }
 }

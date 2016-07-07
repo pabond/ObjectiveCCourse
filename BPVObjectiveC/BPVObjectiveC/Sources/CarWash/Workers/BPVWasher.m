@@ -19,7 +19,7 @@
 
 - (void)performWorkWithObject:(id)object {
     @synchronized (self) {
-        sleep(2);
+        sleep(1);
         [self washCar:object];
         [self takeMoneyFromObject:object];
     }
@@ -27,6 +27,7 @@
 
 - (void)finishProcessingObject:(BPVCar *)car {
     car.clean = YES;
+    NSLog(@"Car is clean");
 }
 
 @end

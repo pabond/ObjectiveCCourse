@@ -22,6 +22,7 @@
 - (void)performWorkWithObject:(id)object {
     [self takeMoneyFromObject:object];
     [self earnMoney];
+    NSLog(@"Director processed accountant");
 }
 
 #pragma mark -
@@ -29,6 +30,7 @@
 
 - (void)finishProcessing {
     self.state = BPVWorkerStateFree;
+    NSLog(@"Director become free");
 }
 
 @end

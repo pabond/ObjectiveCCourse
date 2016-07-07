@@ -21,7 +21,7 @@
 #import "NSObject+BPVExtensions.h"
 #import "NSArray+BPVExtensions.h"
 
-static const NSUInteger kBPVWashersCount = 3;
+static const NSUInteger kBPVWashersCount = 5;
 
 @interface BPVComplex ()
 @property (nonatomic, retain) BPVDirector       *director;

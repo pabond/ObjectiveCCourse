@@ -50,26 +50,34 @@
     @synchronized (self) {
         NSLog(@"Worker %@ start processing object %@ in background", self, object);
         [self performWorkWithObject:object];
-        
-        [self performSelectorOnMainThread:@selector(finishProcessingObject:)
+        [self performSelectorOnMainThread:@selector(finishProcessingOnMainThreadWithObject:)
                                withObject:object
-                            waitUntilDone:YES];
+                            waitUntilDone:NO];
         
         NSLog(@"Worker %@ finish processing object %@", self, object);
     }
 }
 
+- (void)finishProcessingOnMainThreadWithObject:(id)object {
+    @synchronized (object) {
+        [self finishProcessingObject:object];
+    }
+    
+    @synchronized (self) {
+        [self finishProcessing];
+    }
+}
+
 - (void)finishProcessingObject:(BPVWorker *)worker {    //change object state
     @synchronized (worker) {
-        NSLog(@"Processed object change notification");
+        NSLog(@"Worker become free");
         worker.state = BPVWorkerStateFree;
-        [self finishProcessing];
     }
 }
 
 - (void)finishProcessing {                              //change self state
     @synchronized (self) {
-        NSLog(@"Self status change notification");
+        NSLog(@"Worker become pending");
         self.state = BPVWorkerStatePending;
     }
 }
