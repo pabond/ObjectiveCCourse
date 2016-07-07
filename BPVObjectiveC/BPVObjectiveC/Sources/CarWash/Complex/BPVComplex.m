@@ -105,15 +105,8 @@ static const NSUInteger kBPVWashersCount = 5;
     
     BPVWasher *washer = nil;
     BPVCar *car = nil;
-    while ((car = [carsQueue dequeueObject])) {
-        @synchronized (car) {
-            washer = [self reservedFreeWasher];
-            if (washer) {
-                [washer performSelectorInBackground:@selector(processObject:) withObject:car];
-            } else {
-                [carsQueue enqueueObject:car];
-            }
-        }
+    while ((car = [carsQueue dequeueObject]) && (washer = [self reservedFreeWasher])) {
+        [washer processObject:car];
     }
 }
 
@@ -124,12 +117,8 @@ static const NSUInteger kBPVWashersCount = 5;
 }
 
 - (NSArray *)allWorkers {
-    NSMutableArray *workers = [NSMutableArray arrayWithObjects:
-                               self.accountant,
-                               self.director,
-                               nil];
-    
-    [workers addObjectsFromArray:self.washers];
+    NSMutableArray *workers = self.washers;
+    [workers addObjectsFromArray:@[self.accountant, self.director]];
     
     return [[workers copy] autorelease];
 }
@@ -145,17 +134,17 @@ static const NSUInteger kBPVWashersCount = 5;
 #pragma mark Delegate methods
 
 - (void)workerDidBecomeFree:(BPVWorker *)worker {
-    [self.freeWashersQueue enqueueObject:worker];
+    @synchronized (self) {
+        [self.freeWashersQueue enqueueObject:worker];
+    }
 }
 
 #pragma mark -
 #pragma mark Private Implementation
 
 - (void)addWasher:(id)washer {
-    @synchronized (self) {
-        if (washer) {
-            [self.washers addObject:washer];
-        }
+    if (washer) {
+        [self.washers addObject:washer];
     }
 }
 

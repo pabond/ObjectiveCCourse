@@ -19,7 +19,6 @@
 
 - (void)performWorkWithObject:(id)object {
     @synchronized (self) {
-        sleep(1);
         [self washCar:object];
         [self takeMoneyFromObject:object];
     }

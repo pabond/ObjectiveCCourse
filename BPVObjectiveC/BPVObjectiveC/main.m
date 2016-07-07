@@ -18,7 +18,6 @@ static const NSUInteger kBPVCarsCount = 40;
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         BPVComplex *complex = [BPVComplex object];
-        
         for (NSUInteger count = 0; count < kBPVCarsCount; count++) {
             [complex washCar:[BPVCar object]];
         }

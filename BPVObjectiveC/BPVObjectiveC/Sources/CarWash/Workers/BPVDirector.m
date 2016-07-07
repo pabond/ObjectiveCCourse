@@ -20,8 +20,11 @@
 #pragma mark Public implementations
 
 - (void)performWorkWithObject:(id)object {
-    [self takeMoneyFromObject:object];
-    [self earnMoney];
+    @synchronized (self) {
+        [self takeMoneyFromObject:object];
+        [self earnMoney];
+    }
+    
     NSLog(@"Director processed accountant");
 }
 

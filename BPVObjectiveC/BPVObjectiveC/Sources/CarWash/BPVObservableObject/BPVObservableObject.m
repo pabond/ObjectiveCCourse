@@ -76,11 +76,7 @@
 
 - (void)setState:(NSUInteger)state {
     @synchronized (self) {
-        if (state != _state) {
-            _state = state;
-            
-            [self notifyOfStateChangeWithSelector:[self selectorForState:state]];
-        }
+        [self setState:state withObject:nil];
     }
 }
 
@@ -89,12 +85,16 @@
         if (_state != state) {
             _state = state;
             
-            [self notifyWithObject:object ofState:state];
+            if (object) {
+                [self notifyOfState:state withObject:object];
+            } else {
+                [self notifyOfStateChangeWithSelector:[self selectorForState:state]];
+            }
         }
     }
 }
 
-- (void)notifyWithObject:(id)object ofState:(NSUInteger)state {
+- (void)notifyOfState:(NSUInteger)state withObject:(id)object {
     @synchronized (self) {
         [self notifyOfStateChangeWithSelector:[object selectorForState:state] object:object];
     }
