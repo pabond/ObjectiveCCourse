@@ -21,6 +21,8 @@ int main(int argc, const char * argv[]) {
         for (NSUInteger count = 0; count < kBPVCarsCount; count++) {
             [complex washCar:[BPVCar object]];
         }
+        
+        [[NSRunLoop mainRunLoop] run];
     }
     
     return 0;

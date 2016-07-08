@@ -37,9 +37,7 @@
 }
 
 - (NSArray *)queue {
-    @synchronized (self) {
-        return [[self.mutableQueue copy] autorelease];
-    }
+    return [[self.mutableQueue copy] autorelease];
 }
 
 - (NSUInteger)objectsCount {

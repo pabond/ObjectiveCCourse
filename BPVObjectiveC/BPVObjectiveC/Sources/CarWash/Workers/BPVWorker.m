@@ -27,18 +27,24 @@
 #pragma mark BPVMoneyFlow
 
 - (void)acceptMoney:(NSUInteger)value {
-    self.money += value;
+    @synchronized (self) {
+        self.money += value;
+    }
 }
 
 - (NSUInteger)giveMoney {
-    NSUInteger money = self.money;
-    self.money = 0;
-    
-    return money;
+    @synchronized (self) {
+        NSUInteger money = self.money;
+        self.money = 0;
+        
+        return money;
+    }
 }
 
 - (void)takeMoneyFromObject:(id<BPVMoneyFlow>)object {
-    [self acceptMoney:[object giveMoney]];
+    @synchronized (self) {
+        [self acceptMoney:[object giveMoney]];
+    }
 }
 
 - (void)performWorkWithObject:(id)object {
@@ -51,11 +57,6 @@
 - (void)processObject:(id)object {
     @synchronized (self) {
         [self performSelectorInBackground:@selector(startProcessingObjectInBackground:) withObject:object];
-        [self performSelectorOnMainThread:@selector(finishProcessingOnMainThreadWithObject:)
-                               withObject:object
-                            waitUntilDone:YES];
-        
-        NSLog(@"Worker %@ finish processing object %@", self, object);
     }
 }
 
@@ -63,6 +64,9 @@
     @synchronized (self) {
         NSLog(@"Worker %@ start processing object %@ in background", self, object);
         [self performWorkWithObject:object];
+        [self performSelectorOnMainThread:@selector(finishProcessingOnMainThreadWithObject:)
+                               withObject:object
+                            waitUntilDone:NO];
     }
 }
 

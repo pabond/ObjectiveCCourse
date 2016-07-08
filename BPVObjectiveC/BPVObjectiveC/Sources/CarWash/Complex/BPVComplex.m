@@ -21,7 +21,7 @@
 #import "NSObject+BPVExtensions.h"
 #import "NSArray+BPVExtensions.h"
 
-static const NSUInteger kBPVWashersCount = 5;
+static const NSUInteger kBPVWashersCount = 3;
 
 @interface BPVComplex ()
 @property (nonatomic, retain) BPVDirector       *director;
@@ -35,12 +35,15 @@ static const NSUInteger kBPVWashersCount = 5;
 - (void)initQueues;
 
 - (void)addWasher:(id)washer;
-- (void)removeWorker:(id)washer;
+- (void)removeWasher:(id)washer;
 
 - (id)reservedFreeWasher;
 
 - (void)removeWorkersObservers;
 - (NSArray *)allWorkers;
+
+- (void)procaessCar:(BPVCar *)car byWasher:(BPVWasher *)washer;
+- (BPVCar *)nextCar;
 
 @end
 
@@ -102,12 +105,30 @@ static const NSUInteger kBPVWashersCount = 5;
 - (void)washCar:(BPVCar *)carToWash {
     BPVQueue *carsQueue = self.carsQueue;
     [carsQueue enqueueObject:carToWash];
-    
-    BPVWasher *washer = nil;
-    BPVCar *car = nil;
-    while ((car = [carsQueue dequeueObject]) && (washer = [self reservedFreeWasher])) {
-        [washer processObject:car];
+    while (carsQueue.queue.count && self.freeWashersQueue.queue.count) {
+        [self procaessCar:[self nextCar] byWasher:[self reservedFreeWasher]];
     }
+}
+
+#pragma mark -
+#pragma mark Delegate methods
+
+- (void)workerDidBecomeFree:(BPVWorker *)worker {
+    @synchronized (self) {
+        [self.freeWashersQueue enqueueObject:worker];
+        [self washCar:nil];
+    }
+}
+
+#pragma mark -
+#pragma mark Private Implementation
+
+- (void)procaessCar:(BPVCar *)car byWasher:(BPVWasher *)washer {
+    [washer processObject:car];
+}
+
+- (BPVCar *)nextCar {
+    return [self.carsQueue dequeueObject];
 }
 
 - (void)removeWorkersObservers {
@@ -130,25 +151,13 @@ static const NSUInteger kBPVWashersCount = 5;
     return freeWasher;
 }
 
-#pragma mark -
-#pragma mark Delegate methods
-
-- (void)workerDidBecomeFree:(BPVWorker *)worker {
-    @synchronized (self) {
-        [self.freeWashersQueue enqueueObject:worker];
-    }
-}
-
-#pragma mark -
-#pragma mark Private Implementation
-
 - (void)addWasher:(id)washer {
     if (washer) {
         [self.washers addObject:washer];
     }
 }
 
-- (void)removeWorker:(id)washer {
+- (void)removeWasher:(id)washer {
     [self.washers removeObject:washer];
 }
 

@@ -112,9 +112,7 @@
 }
 
 - (void)notifyOfStateChangeWithSelector:(SEL)selector {
-    @synchronized (self) {
-        [self notifyOfStateChangeWithSelector:selector object:nil];
-    }
+    [self notifyOfStateChangeWithSelector:selector object:nil];
 }
 
 - (void)notifyOfStateChangeWithSelector:(SEL)selector object:(id)object {
