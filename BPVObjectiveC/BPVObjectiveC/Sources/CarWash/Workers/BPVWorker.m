@@ -11,17 +11,13 @@
 #import "NSObject+BPVExtensions.h"
 
 @interface BPVWorker ()
-@property (nonatomic, assign) NSUInteger    money;
+@property (nonatomic, assign) NSUInteger        money;
 
 - (void)startProcessingObjectInBackground:(id)object;
 
 @end
 
 @implementation BPVWorker
-
-#pragma mark -
-#pragma mark Accessors
-
 
 #pragma mark -
 #pragma mark BPVMoneyFlow
@@ -61,13 +57,11 @@
 }
 
 - (void)startProcessingObjectInBackground:(id)object {
-    @synchronized (self) {
-        NSLog(@"Worker %@ start processing object %@ in background", self, object);
-        [self performWorkWithObject:object];
-        [self performSelectorOnMainThread:@selector(finishProcessingOnMainThreadWithObject:)
+    NSLog(@"Worker %@ start processing object %@ in background", self, object);
+    [self performWorkWithObject:object];
+    [self performSelectorOnMainThread:@selector(finishProcessingOnMainThreadWithObject:)
                                withObject:object
                             waitUntilDone:NO];
-    }
 }
 
 - (void)finishProcessingOnMainThreadWithObject:(id)object {

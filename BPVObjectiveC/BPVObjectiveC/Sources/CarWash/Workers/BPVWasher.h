@@ -9,6 +9,7 @@
 #import "BPVWorker.h"
 
 @interface BPVWasher : BPVWorker
+@property (nonatomic, copy) NSString *name;
 
 - (void)washCar:(id)car;
 

@@ -84,10 +84,11 @@ static const NSUInteger kBPVWashersCount = 3;
     self.accountant = accountant;
     
     [accountant addObserver:director];
-    
+    NSArray *washersNames = @[@"Washer1", @"Washer2", @"Washer3"];
     for (NSUInteger iterator = 0; iterator < kBPVWashersCount; iterator++) {
         BPVWasher *washer = [BPVWasher object];
         [self addWasher:washer];
+        washer.name = washersNames[iterator];
         [washer addObservers:@[accountant, self]];
     }
 }

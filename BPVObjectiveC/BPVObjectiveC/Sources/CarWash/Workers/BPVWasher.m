@@ -12,6 +12,12 @@
 
 @implementation BPVWasher
 
+- (void)dealloc {
+    self.name = nil;
+    
+    [super dealloc];
+}
+
 - (void)washCar:(BPVCar *)car {
     NSLog(@"Washer washing car");
     NSLog(@"Car washed!");
@@ -26,7 +32,7 @@
 
 - (void)finishProcessingObject:(BPVCar *)car {
     car.clean = YES;
-    NSLog(@"Car is clean");
+    NSLog(@"Car is cleaned by %@", self.name);
 }
 
 @end

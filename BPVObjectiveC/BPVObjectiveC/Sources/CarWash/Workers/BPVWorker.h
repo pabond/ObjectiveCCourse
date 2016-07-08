@@ -30,6 +30,7 @@ typedef NS_ENUM(uint8_t, BPVWorkerState) {
 @interface BPVWorker : BPVObservableObject <BPVMoneyFlow>
 @property (nonatomic, assign)   NSUInteger  experience;
 @property (nonatomic, assign)   NSUInteger  salary;
+@property (nonatomic, readonly) NSArray     *log;
 
 - (void)processObject:(id)object;
 - (void)performWorkWithObject:(id)object;
