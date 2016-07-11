@@ -137,7 +137,9 @@ static const NSString *kBPVWasherName = @"Washer";
 }
 
 - (BPVCar *)nextCar {
-    return [self.carsQueue dequeueObject];
+    @synchronized (self) {
+        return [self.carsQueue dequeueObject];
+    }
 }
 
 - (void)removeWorkersObservers {
