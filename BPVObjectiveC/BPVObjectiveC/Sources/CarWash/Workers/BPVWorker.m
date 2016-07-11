@@ -11,13 +11,77 @@
 #import "NSObject+BPVExtensions.h"
 
 @interface BPVWorker ()
-@property (nonatomic, assign) NSUInteger        money;
+@property (nonatomic, assign) NSUInteger    money;
+@property (nonatomic, retain) BPVQueue      *mutableQueue;
 
 - (void)startProcessingObjectInBackground:(id)object;
 
 @end
 
 @implementation BPVWorker
+
+@dynamic queue;
+
+#pragma mark -
+#pragma mark Deallocation / Initialisation
+
+- (void)dealloc {
+    self.mutableQueue = nil;
+    
+    [super dealloc];
+}
+
+- (instancetype)init {
+    self = [super init];
+    self.mutableQueue = [BPVQueue object];
+    
+    return self;
+}
+
+#pragma mark -
+#pragma mark Accessors
+
+- (BPVQueue *)queue {
+    @synchronized (self) {
+        return [[self.mutableQueue copy] autorelease];
+    }
+}
+
+#pragma mark -
+#pragma mark Public implementations
+
+- (void)processObject:(id)object {
+    @synchronized (self) {
+        [self performSelectorInBackground:@selector(startProcessingObjectInBackground:) withObject:object];
+    }
+}
+
+- (void)startProcessingObjectInBackground:(id)object {
+    NSLog(@"Worker %@ start processing object %@ in background", self, object);
+    [self performWorkWithObject:object];
+    [self performSelectorOnMainThread:@selector(finishProcessingOnMainThreadWithObject:)
+                           withObject:object
+                        waitUntilDone:NO];
+}
+
+- (void)finishProcessingOnMainThreadWithObject:(id)object {
+    [self finishProcessingObject:object];
+    [self finishProcessing];
+}
+
+- (void)finishProcessingObject:(BPVWorker *)worker {    //change object state
+    @synchronized (worker) {
+        NSLog(@"Worker become free");
+        worker.state = BPVWorkerStateFree;
+    }
+}
+
+- (void)finishProcessing {                              //change self state
+    @synchronized (self) {
+        NSLog(@"Worker become pending");
+        self.state = BPVWorkerStatePending;
+    }
+}
 
 #pragma mark -
 #pragma mark BPVMoneyFlow
@@ -38,9 +102,7 @@
 }
 
 - (void)takeMoneyFromObject:(id<BPVMoneyFlow>)object {
-    @synchronized (self) {
-        [self acceptMoney:[object giveMoney]];
-    }
+    [self acceptMoney:[object giveMoney]];
 }
 
 - (void)performWorkWithObject:(id)object {
@@ -48,52 +110,16 @@
 }
 
 #pragma mark -
-#pragma mark Public implementations
-
-- (void)processObject:(id)object {
-    @synchronized (self) {
-        [self performSelectorInBackground:@selector(startProcessingObjectInBackground:) withObject:object];
-    }
-}
-
-- (void)startProcessingObjectInBackground:(id)object {
-    NSLog(@"Worker %@ start processing object %@ in background", self, object);
-    [self performWorkWithObject:object];
-    [self performSelectorOnMainThread:@selector(finishProcessingOnMainThreadWithObject:)
-                               withObject:object
-                            waitUntilDone:NO];
-}
-
-- (void)finishProcessingOnMainThreadWithObject:(id)object {
-    @synchronized (self) {
-        [self finishProcessingObject:object];
-    }
-    
-    @synchronized (self) {
-        [self finishProcessing];
-    }
-}
-
-- (void)finishProcessingObject:(BPVWorker *)worker {    //change object state
-    @synchronized (worker) {
-        NSLog(@"Worker become free");
-        worker.state = BPVWorkerStateFree;
-    }
-}
-
-- (void)finishProcessing {                              //change self state
-    @synchronized (self) {
-        NSLog(@"Worker become pending");
-        self.state = BPVWorkerStatePending;
-    }
-}
-
-#pragma mark -
-#pragma mark Delegate methods
+#pragma mark BPVWorkersObserver
 
 - (void)workerDidBecomeReadyForProcessing:(id)object {
     @synchronized (self) {
-        [self processObject:object];
+        BPVQueue *queue = self.queue;
+        [queue enqueueObject:object];
+        BPVWorker *nextWorker = nil;
+        while ((nextWorker = [queue dequeueObject])) {
+            [self processObject:nextWorker];
+        }
     }
 }
 

@@ -22,6 +22,8 @@ int main(int argc, const char * argv[]) {
             [complex washCar:[BPVCar object]];
         }
         
+        NSLog(@"All %lu cars added to queue", (unsigned long)kBPVCarsCount);
+        
         [[NSRunLoop mainRunLoop] run];
     }
     

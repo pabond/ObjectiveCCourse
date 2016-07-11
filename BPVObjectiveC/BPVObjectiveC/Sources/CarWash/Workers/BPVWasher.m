@@ -10,6 +10,8 @@
 
 #import "BPVCar.h"
 
+static NSUInteger counter = 0;
+
 @implementation BPVWasher
 
 - (void)dealloc {
@@ -24,15 +26,14 @@
 }
 
 - (void)performWorkWithObject:(id)object {
-    @synchronized (self) {
-        [self washCar:object];
-        [self takeMoneyFromObject:object];
-    }
+    [self washCar:object];
+    [self takeMoneyFromObject:object];
 }
 
 - (void)finishProcessingObject:(BPVCar *)car {
     car.clean = YES;
-    NSLog(@"Car is cleaned by %@", self.name);
+    counter++;
+    NSLog(@"Car %lu is cleaned by %@", counter, self.name);
 }
 
 @end

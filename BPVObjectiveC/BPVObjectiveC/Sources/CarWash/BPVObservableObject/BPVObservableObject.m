@@ -58,15 +58,21 @@
     }
 }
 
+- (void)removeObserver:(NSObject *)observer {
+    @synchronized (self) {
+        [self.observersTable removeObject:observer];
+    }
+}
+
 - (void)addObservers:(NSArray *)observers {
     for (id observer in observers) {
         [self addObserver:observer];
     }
 }
 
-- (void)removeObserver:(NSObject *)observer {
-    @synchronized (self) {
-        [self.observersTable removeObject:observer];
+- (void)removeObservers:(NSArray *)observers {
+    for (id observer in observers) {
+        [self removeObserver:observer];
     }
 }
 
@@ -98,10 +104,6 @@
     @synchronized (self) {
         [self notifyOfStateChangeWithSelector:[object selectorForState:state] object:object];
     }
-}
-
-- (void)removeObservers {
-    [self.observersTable removeAllObjects];
 }
 
 #pragma mark - 

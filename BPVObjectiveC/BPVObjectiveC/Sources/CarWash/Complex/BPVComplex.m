@@ -22,6 +22,7 @@
 #import "NSArray+BPVExtensions.h"
 
 static const NSUInteger kBPVWashersCount = 3;
+static const NSString *kBPVWasherName = @"Washer";
 
 @interface BPVComplex ()
 @property (nonatomic, retain) BPVDirector       *director;
@@ -40,9 +41,8 @@ static const NSUInteger kBPVWashersCount = 3;
 - (id)reservedFreeWasher;
 
 - (void)removeWorkersObservers;
-- (NSArray *)allWorkers;
 
-- (void)procaessCar:(BPVCar *)car byWasher:(BPVWasher *)washer;
+- (void)processCar:(BPVCar *)car byWasher:(BPVWasher *)washer;
 - (BPVCar *)nextCar;
 
 @end
@@ -82,14 +82,14 @@ static const NSUInteger kBPVWashersCount = 3;
     self.director = director;
     BPVAccountant *accountant = [BPVAccountant object];
     self.accountant = accountant;
-    
     [accountant addObserver:director];
-    NSArray *washersNames = @[@"Washer1", @"Washer2", @"Washer3"];
+    
+    NSArray *washerObservers = @[accountant, self];
     for (NSUInteger iterator = 0; iterator < kBPVWashersCount; iterator++) {
         BPVWasher *washer = [BPVWasher object];
         [self addWasher:washer];
-        washer.name = washersNames[iterator];
-        [washer addObservers:@[accountant, self]];
+        washer.name = [NSString stringWithFormat:@"%@%lu", kBPVWasherName, (unsigned long)iterator];
+        [washer addObservers:washerObservers];
     }
 }
 
@@ -104,19 +104,19 @@ static const NSUInteger kBPVWashersCount = 3;
 #pragma mark Public Implementation
 
 - (void)washCar:(BPVCar *)carToWash {
-    BPVQueue *carsQueue = self.carsQueue;
-    [carsQueue enqueueObject:carToWash];
-    while (carsQueue.queue.count && self.freeWashersQueue.queue.count) {
-        [self procaessCar:[self nextCar] byWasher:[self reservedFreeWasher]];
+    [self.carsQueue enqueueObject:carToWash];
+    while ([self washNextCar]) {
+        [self processCar:[self nextCar] byWasher:[self reservedFreeWasher]];
     }
 }
 
 #pragma mark -
-#pragma mark Delegate methods
+#pragma mark BPVWorkersObserver
 
 - (void)workerDidBecomeFree:(BPVWorker *)worker {
-    @synchronized (self) {
-        [self.freeWashersQueue enqueueObject:worker];
+    BPVQueue *washersQueue = self.freeWashersQueue;
+    @synchronized (washersQueue) {
+        [washersQueue enqueueObject:worker];
         [self washCar:nil];
     }
 }
@@ -124,8 +124,16 @@ static const NSUInteger kBPVWashersCount = 3;
 #pragma mark -
 #pragma mark Private Implementation
 
-- (void)procaessCar:(BPVCar *)car byWasher:(BPVWasher *)washer {
-    [washer processObject:car];
+- (BOOL)washNextCar {
+    @synchronized (self) {
+        return [self.carsQueue objectsCount] && [self.freeWashersQueue objectsCount];
+    }
+}
+
+- (void)processCar:(BPVCar *)car byWasher:(BPVWasher *)washer {
+    @synchronized (self) {
+        [washer processObject:car];
+    }
 }
 
 - (BPVCar *)nextCar {
@@ -133,16 +141,13 @@ static const NSUInteger kBPVWashersCount = 3;
 }
 
 - (void)removeWorkersObservers {
-    for (BPVWorker *worker in [self allWorkers]) {
-        [worker removeObservers];
+    BPVAccountant *accountant = self.accountant;
+    [accountant removeObserver:self.director];
+   
+    NSArray *washerObservers = @[accountant, self];
+    for (BPVWorker *worker in self.washers) {
+        [worker removeObservers:washerObservers];
     }
-}
-
-- (NSArray *)allWorkers {
-    NSMutableArray *workers = self.washers;
-    [workers addObjectsFromArray:@[self.accountant, self.director]];
-    
-    return [[workers copy] autorelease];
 }
 
 - (id)reservedFreeWasher {
@@ -153,13 +158,17 @@ static const NSUInteger kBPVWashersCount = 3;
 }
 
 - (void)addWasher:(id)washer {
-    if (washer) {
-        [self.washers addObject:washer];
+    @synchronized (self) {
+        if (washer) {
+            [self.washers addObject:washer];
+        }
     }
 }
 
 - (void)removeWasher:(id)washer {
-    [self.washers removeObject:washer];
+    @synchronized (self) {
+        [self.washers removeObject:washer];
+    }
 }
 
 @end

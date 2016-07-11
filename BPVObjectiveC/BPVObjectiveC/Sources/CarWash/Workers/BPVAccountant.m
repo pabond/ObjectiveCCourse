@@ -18,10 +18,8 @@
 #pragma mark BPVMoneyFlow
 
 - (void)performWorkWithObject:(id)object {
-    @synchronized (self) {
-        [self takeMoneyFromObject:object];
-        [self countMoney];
-    }
+    [self takeMoneyFromObject:object];
+    [self countMoney];
     
     NSLog(@"Accountant take money from washer %@", object);
 }
