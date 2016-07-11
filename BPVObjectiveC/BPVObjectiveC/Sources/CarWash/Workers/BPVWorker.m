@@ -14,6 +14,8 @@
 @property (nonatomic, assign) NSUInteger    money;
 @property (nonatomic, retain) BPVQueue      *queue;
 
+- (void)startProcessingObject:(id)object;
+
 @end
 
 @implementation BPVWorker
@@ -63,6 +65,10 @@
 #pragma mark -
 #pragma mark Public implementations
 
+- (void)processObject:(id)object {
+    [self performSelectorInBackground:@selector(startProcessingObject:) withObject:object];
+}
+
 - (void)startProcessingObject:(id)object {
     NSLog(@"Worker %@ start processing object %@ in background", self, object);
     [self performWorkWithObject:object];
@@ -84,10 +90,10 @@
 }
 
 - (void)finishProcessing {                              //change self state
+    BPVQueue *queue = self.queue;
     @synchronized (self) {
-        BPVQueue *queue = self.queue;
         if ([queue objectsCount]) {
-            [self performSelectorInBackground:@selector(startProcessingObject:) withObject:[queue dequeueObject]];
+            [self processObject:[queue dequeueObject]];
         } else {
             [self setSelfFinalState];
         }
@@ -102,10 +108,12 @@
 #pragma mark BPVWorkersObserver
 
 - (void)workerDidBecomeReadyForProcessing:(id)object {
+    self.state = BPVWorkerStateBusy;
+    BPVQueue *queue = self.queue;
     @synchronized (self) {
-        [self.queue enqueueObject:object];
-        self.state = BPVWorkerStateBusy;
-        [self performSelectorInBackground:@selector(startProcessingObject:) withObject:object];
+        [queue enqueueObject:object];
+        
+        [self processObject:[queue dequeueObject]];
     }
 }
 

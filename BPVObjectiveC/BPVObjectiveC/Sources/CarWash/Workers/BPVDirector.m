@@ -31,4 +31,14 @@
     NSLog(@"Director become free");
 }
 
+- (void)finishProcessingObject:(BPVWorker *)accountant {    //change object state
+    @synchronized (accountant) {
+        if ([accountant.queue objectsCount]) {
+            return;
+        }
+        
+        [super finishProcessingObject:accountant];
+    }
+}
+
 @end
