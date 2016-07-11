@@ -22,9 +22,9 @@ typedef NS_ENUM(uint8_t, BPVWorkerState) {
 @interface BPVWorker : BPVObservableObject <BPVMoneyFlow>
 @property (nonatomic, assign)   NSUInteger  experience;
 @property (nonatomic, assign)   NSUInteger  salary;
-@property (nonatomic, readonly) BPVQueue    *queue;
 
-- (void)processObject:(id)object;
+- (void)startProcessingObject:(id)object;
+
 - (void)performWorkWithObject:(id)object;
 
 - (void)finishProcessing;

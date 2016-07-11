@@ -132,7 +132,7 @@ static const NSString *kBPVWasherName = @"Washer";
 
 - (void)processCar:(BPVCar *)car byWasher:(BPVWasher *)washer {
     @synchronized (self) {
-        [washer processObject:car];
+        [washer performSelectorInBackground:@selector(startProcessingObject:) withObject:car];
     }
 }
 

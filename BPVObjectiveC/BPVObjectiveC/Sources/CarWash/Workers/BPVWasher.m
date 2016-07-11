@@ -14,11 +14,17 @@ static NSUInteger counter = 0;
 
 @implementation BPVWasher
 
+#pragma mark -
+#pragma mark Initalistations / Deallocations
+
 - (void)dealloc {
     self.name = nil;
     
     [super dealloc];
 }
+
+#pragma mark -
+#pragma mark Public implementations
 
 - (void)washCar:(BPVCar *)car {
     NSLog(@"Washer washing car");
@@ -35,5 +41,15 @@ static NSUInteger counter = 0;
     counter++;
     NSLog(@"Car %lu is cleaned by %@", counter, self.name);
 }
+
+- (void)finishProcessing {
+    @synchronized (self) {
+        NSLog(@"Washer become pending");
+        self.state = BPVWorkerStatePending;
+    }
+}
+
+#pragma mark -
+#pragma mark Private implementations
 
 @end

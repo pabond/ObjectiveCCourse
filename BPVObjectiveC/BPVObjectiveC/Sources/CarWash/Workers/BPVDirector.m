@@ -26,10 +26,7 @@
     NSLog(@"Director processed accountant");
 }
 
-#pragma mark -
-#pragma mark Private implementations
-
-- (void)finishProcessing {
+- (void)setSelfFinalState {
     self.state = BPVWorkerStateFree;
     NSLog(@"Director become free");
 }

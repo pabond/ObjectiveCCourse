@@ -24,5 +24,10 @@
     NSLog(@"Accountant take money from washer %@", object);
 }
 
+- (void)setSelfFinalState {
+    self.state = BPVWorkerStatePending;
+    NSLog(@"Accountant become pending");
+}
+
 @end
 
