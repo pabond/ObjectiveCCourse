@@ -106,18 +106,7 @@ static const NSString *kBPVWasherName = @"Washer";
 - (void)washCar:(BPVCar *)carToWash {
     [self.carsQueue enqueueObject:carToWash];
     while ([self washNextCar]) {
-        [self processCar:[self nextCar] byWasher:[self reservedFreeWasher]];
-    }
-}
-
-#pragma mark -
-#pragma mark BPVWorkersObserver
-
-- (void)workerDidBecomeFree:(BPVWorker *)worker {
-    BPVQueue *washersQueue = self.freeWashersQueue;
-    @synchronized (washersQueue) {
-        [washersQueue enqueueObject:worker];
-        [self washCar:nil];
+        [[self reservedFreeWasher] processObject:[self nextCar]];
     }
 }
 
@@ -130,16 +119,8 @@ static const NSString *kBPVWasherName = @"Washer";
     }
 }
 
-- (void)processCar:(BPVCar *)car byWasher:(BPVWasher *)washer {
-    @synchronized (self) {
-        [washer processObject:car];
-    }
-}
-
 - (BPVCar *)nextCar {
-    @synchronized (self) {
-        return [self.carsQueue dequeueObject];
-    }
+    return [self.carsQueue dequeueObject];
 }
 
 - (void)removeWorkersObservers {
@@ -170,6 +151,17 @@ static const NSString *kBPVWasherName = @"Washer";
 - (void)removeWasher:(id)washer {
     @synchronized (self) {
         [self.washers removeObject:washer];
+    }
+}
+
+#pragma mark -
+#pragma mark BPVWorkersObserver
+
+- (void)workerDidBecomeFree:(BPVWorker *)worker {
+    BPVQueue *washersQueue = self.freeWashersQueue;
+    @synchronized (washersQueue) {
+        [washersQueue enqueueObject:worker];
+        [self washCar:nil];
     }
 }
 

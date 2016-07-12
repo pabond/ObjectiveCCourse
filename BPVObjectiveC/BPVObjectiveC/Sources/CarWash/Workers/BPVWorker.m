@@ -66,7 +66,13 @@
 #pragma mark Public implementations
 
 - (void)processObject:(id)object {
-    [self performSelectorInBackground:@selector(startProcessingObject:) withObject:object];
+    if (self.state == BPVWorkerStateFree) {
+        self.state = BPVWorkerStateBusy;
+        [self performSelectorInBackground:@selector(startProcessingObject:) withObject:object];
+    } else {
+        BPVQueue *queue = self.queue;
+        [queue enqueueObject:object];
+    }
 }
 
 - (void)startProcessingObject:(id)object {
@@ -78,41 +84,23 @@
 }
 
 - (void)finishProcessingOnMainThreadWithObject:(id)object {
-    [self finishProcessingObject:object];
-    [self finishProcessing];
+    @synchronized (object) {
+        [self finishProcessingObject:object];
+    }
+    
+    @synchronized (self) {
+        [self finishProcessing];
+    }
 }
 
 - (void)finishProcessingObject:(BPVWorker *)worker {    //change object state
-    @synchronized (worker) {
         NSLog(@"Worker become free");
         worker.state = BPVWorkerStateFree;
-    }
 }
 
 - (void)finishProcessing {                              //change self state
     BPVQueue *queue = self.queue;
-    @synchronized (self) {
-        if ([queue objectsCount]) {
-            [self processObject:[queue dequeueObject]];
-        } else {
-            [self setSelfFinalState];
-        }
-    }
-}
-
-- (void)setSelfFinalState {
-    //will be launched from director and accountant directly
-}
-
-#pragma mark -
-#pragma mark BPVWorkersObserver
-
-- (void)workerDidBecomeReadyForProcessing:(id)object {
-    self.state = BPVWorkerStateBusy;
-    BPVQueue *queue = self.queue;
-    @synchronized (self) {
-        [queue enqueueObject:object];
-        
+    if ([queue objectsCount]) {
         [self processObject:[queue dequeueObject]];
     }
 }
@@ -125,7 +113,7 @@
         case BPVWorkerStateFree:
             return @selector(workerDidBecomeFree:);
             
-        case BPVWorkerStatePending:
+        case BPVWorkerStateReadyForProcessing:
             return @selector(workerDidBecomeReadyForProcessing:);
             
         case BPVWorkerStateBusy:
@@ -134,6 +122,13 @@
         default:
             return [super selectorForState:state];
     }
+}
+
+#pragma mark -
+#pragma mark BPVWorkersObserver
+
+- (void)workerDidBecomeReadyForProcessing:(id)object {
+    [self processObject:object];
 }
 
 @end

@@ -26,17 +26,12 @@
     NSLog(@"Director processed accountant");
 }
 
-- (void)setSelfFinalState {
-    self.state = BPVWorkerStateFree;
-    NSLog(@"Director become free");
-}
-
 - (void)finishProcessingObject:(BPVWorker *)accountant {    //change object state
-    @synchronized (accountant) {
-        if ([accountant.queue objectsCount]) {
-            return;
-        }
-        
+    BPVQueue *queue = accountant.queue;
+    if (queue.objectsCount) {
+        [accountant performSelectorInBackground:@selector(startProcessingObject:)
+                                     withObject:[accountant.queue dequeueObject]];
+    } else {
         [super finishProcessingObject:accountant];
     }
 }

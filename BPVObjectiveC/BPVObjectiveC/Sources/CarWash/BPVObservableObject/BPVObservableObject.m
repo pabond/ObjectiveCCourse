@@ -44,7 +44,9 @@
 #pragma mark Accessors
 
 - (NSSet *)observersSet {
-    return self.observersTable.setRepresentation;
+    @synchronized (self) {
+        return self.observersTable.setRepresentation;
+    }
 }
 
 #pragma mark -
@@ -77,7 +79,9 @@
 }
 
 - (BOOL)containsObserver:(id)object {
-    return [self.observersTable containsObject:object];
+    @synchronized (self) {
+        return [self.observersTable containsObject:object];
+    }
 }
 
 - (void)setState:(NSUInteger)state {

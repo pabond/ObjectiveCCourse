@@ -44,8 +44,8 @@ static NSUInteger counter = 0;
 
 - (void)finishProcessing {
     @synchronized (self) {
-        NSLog(@"Washer become pending");
-        self.state = BPVWorkerStatePending;
+        NSLog(@"Washer become ReadyForProcessing");
+        self.state = BPVWorkerStateReadyForProcessing;
     }
 }
 
