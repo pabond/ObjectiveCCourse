@@ -72,11 +72,6 @@
     } else {
         [self.queue enqueueObject:object];
     }
-    
-//    @synchronized (self) {
-//        self.state = BPVWorkerStateBusy;
-//        [self startProcessingObject:object];
-//    }
 }
 
 - (void)startProcessingObject:(id)object {

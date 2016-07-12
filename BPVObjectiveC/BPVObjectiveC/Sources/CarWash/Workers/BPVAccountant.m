@@ -27,7 +27,7 @@
 - (void)finishProcessing {                              //change self state
     BPVQueue *queue = self.queue;
     if (queue.objectsCount) {
-        [self performSelectorInBackground:@selector(processObject:) withObject:[queue dequeueObject]];
+        [self performSelectorInBackground:@selector(startProcessingObject:) withObject:[queue dequeueObject]];
     } else {
         [super finishProcessing];
     }
