@@ -42,7 +42,6 @@ static const NSString *kBPVWasherName = @"Washer";
 
 - (void)removeWorkersObservers;
 
-- (void)processCar:(BPVCar *)car byWasher:(BPVWasher *)washer;
 - (BPVCar *)nextCar;
 
 @end
@@ -54,7 +53,6 @@ static const NSString *kBPVWasherName = @"Washer";
 
 - (void)dealloc {
     [self removeWorkersObservers];
-    
     self.director = nil;
     self.accountant = nil;
     self.washers = nil;
@@ -88,7 +86,7 @@ static const NSString *kBPVWasherName = @"Washer";
     for (NSUInteger iterator = 0; iterator < kBPVWashersCount; iterator++) {
         BPVWasher *washer = [BPVWasher object];
         [self addWasher:washer];
-        washer.name = [NSString stringWithFormat:@"%@%lu", kBPVWasherName, (unsigned long)iterator];
+        washer.name = [NSString stringWithFormat:@"%@%lu", kBPVWasherName, (unsigned long)iterator + 1];
         [washer addObservers:washerObservers];
     }
 }
@@ -105,8 +103,12 @@ static const NSString *kBPVWasherName = @"Washer";
 
 - (void)washCar:(BPVCar *)carToWash {
     [self.carsQueue enqueueObject:carToWash];
-    while ([self washNextCar]) {
-        [[self reservedFreeWasher] processObject:[self nextCar]];
+    @synchronized (self.carsQueue) {
+        @synchronized (self.freeWashersQueue) {
+            while ([self washNextCar]) {
+                [[self reservedFreeWasher] processObject:[self nextCar]];
+            }
+        }
     }
 }
 

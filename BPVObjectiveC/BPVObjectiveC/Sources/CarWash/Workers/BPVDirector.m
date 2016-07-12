@@ -29,8 +29,7 @@
 - (void)finishProcessingObject:(BPVWorker *)accountant {    //change object state
     BPVQueue *queue = accountant.queue;
     if (queue.objectsCount) {
-        [accountant performSelectorInBackground:@selector(startProcessingObject:)
-                                     withObject:[accountant.queue dequeueObject]];
+        [accountant processObject:[queue dequeueObject]];
     } else {
         [super finishProcessingObject:accountant];
     }

@@ -14,7 +14,7 @@
 @property (nonatomic, assign) NSUInteger    money;
 @property (nonatomic, retain) BPVQueue      *queue;
 
-- (void)startProcessingObject:(id)object;
+- (void)finishProcessingOnMainThreadWithObject:(id)object;
 
 @end
 
@@ -66,12 +66,8 @@
 #pragma mark Public implementations
 
 - (void)processObject:(id)object {
-    if (self.state == BPVWorkerStateFree) {
-        self.state = BPVWorkerStateBusy;
+    @synchronized (self) {
         [self performSelectorInBackground:@selector(startProcessingObject:) withObject:object];
-    } else {
-        BPVQueue *queue = self.queue;
-        [queue enqueueObject:object];
     }
 }
 
@@ -94,15 +90,13 @@
 }
 
 - (void)finishProcessingObject:(BPVWorker *)worker {    //change object state
-        NSLog(@"Worker become free");
-        worker.state = BPVWorkerStateFree;
+    NSLog(@"Worker become free");
+    worker.state = BPVWorkerStateFree;
 }
 
-- (void)finishProcessing {                              //change self state
-    BPVQueue *queue = self.queue;
-    if ([queue objectsCount]) {
-        [self processObject:[queue dequeueObject]];
-    }
+- (void)finishProcessing {
+    NSLog(@"Worker become ReadyForProcessing");
+    self.state = BPVWorkerStateReadyForProcessing;
 }
 
 #pragma mark -
@@ -128,7 +122,12 @@
 #pragma mark BPVWorkersObserver
 
 - (void)workerDidBecomeReadyForProcessing:(id)object {
-    [self processObject:object];
+    if (self.state == BPVWorkerStateFree) {
+        self.state = BPVWorkerStateBusy;
+        [self processObject:object];
+    } else {
+        [self.queue enqueueObject:object];
+    }
 }
 
 @end

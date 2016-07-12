@@ -42,13 +42,6 @@ static NSUInteger counter = 0;
     NSLog(@"Car %lu is cleaned by %@", counter, self.name);
 }
 
-- (void)finishProcessing {
-    @synchronized (self) {
-        NSLog(@"Washer become ReadyForProcessing");
-        self.state = BPVWorkerStateReadyForProcessing;
-    }
-}
-
 #pragma mark -
 #pragma mark Private implementations
 
