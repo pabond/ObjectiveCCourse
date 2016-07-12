@@ -26,13 +26,4 @@
     NSLog(@"Director processed accountant");
 }
 
-- (void)finishProcessingObject:(BPVWorker *)accountant {    //change object state
-    BPVQueue *queue = accountant.queue;
-    if (queue.objectsCount) {
-        [accountant processObject:[queue dequeueObject]];
-    } else {
-        [super finishProcessingObject:accountant];
-    }
-}
-
 @end

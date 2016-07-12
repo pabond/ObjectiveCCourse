@@ -66,9 +66,17 @@
 #pragma mark Public implementations
 
 - (void)processObject:(id)object {
-    @synchronized (self) {
-        [self performSelectorInBackground:@selector(startProcessingObject:) withObject:object];
+    if (self.state == BPVWorkerStateFree) {
+        self.state = BPVWorkerStateBusy;
+        [self startProcessingObject:object];
+    } else {
+        [self.queue enqueueObject:object];
     }
+    
+//    @synchronized (self) {
+//        self.state = BPVWorkerStateBusy;
+//        [self startProcessingObject:object];
+//    }
 }
 
 - (void)startProcessingObject:(id)object {
@@ -100,6 +108,15 @@
 }
 
 #pragma mark -
+#pragma mark BPVWorkersObserver
+
+- (void)workerDidBecomeReadyForProcessing:(id)object {
+    @synchronized (self) {
+        [self performSelectorInBackground:@selector(processObject:) withObject:object];
+    }
+}
+
+#pragma mark -
 #pragma mark Owerloaded parent method
 
 - (SEL)selectorForState:(NSUInteger)state {
@@ -115,18 +132,6 @@
             
         default:
             return [super selectorForState:state];
-    }
-}
-
-#pragma mark -
-#pragma mark BPVWorkersObserver
-
-- (void)workerDidBecomeReadyForProcessing:(id)object {
-    if (self.state == BPVWorkerStateFree) {
-        self.state = BPVWorkerStateBusy;
-        [self processObject:object];
-    } else {
-        [self.queue enqueueObject:object];
     }
 }
 

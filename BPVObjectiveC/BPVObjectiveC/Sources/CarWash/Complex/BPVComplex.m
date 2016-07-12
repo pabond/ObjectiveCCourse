@@ -106,7 +106,8 @@ static const NSString *kBPVWasherName = @"Washer";
     @synchronized (self.carsQueue) {
         @synchronized (self.freeWashersQueue) {
             while ([self washNextCar]) {
-                [[self reservedFreeWasher] processObject:[self nextCar]];
+                [[self reservedFreeWasher] performSelectorInBackground:@selector(startProcessingObject:)
+                                                            withObject:[self nextCar]];
             }
         }
     }
