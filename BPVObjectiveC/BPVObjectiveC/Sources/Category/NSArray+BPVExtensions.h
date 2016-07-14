@@ -14,4 +14,6 @@ typedef BOOL(^BPVArrayFiltredUsingBlock)(id object);
 
 - (NSArray *)filteredUsingBlock:(BPVArrayFiltredUsingBlock)block;
 
++ (NSMutableArray *)arrayWithObjectsCount:(NSUInteger)count usingBlock:(id(^)())block;
+
 @end
