@@ -26,4 +26,8 @@
     NSLog(@"Director processed accountant");
 }
 
+- (void)finishProcessing {
+    [super finishProcessingObject:self];
+}
+
 @end

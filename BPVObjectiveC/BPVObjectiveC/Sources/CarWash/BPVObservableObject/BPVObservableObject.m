@@ -94,12 +94,8 @@
     @synchronized (self) {
         if (_state != state) {
             _state = state;
-            
-            if (object) {
-                [self notifyOfState:state withObject:object];
-            } else {
-                [self notifyOfStateChangeWithSelector:[self selectorForState:state]];
-            }
+          
+            [self notifyOfStateChangeWithSelector:[self selectorForState:state] object:object];
         }
     }
 }

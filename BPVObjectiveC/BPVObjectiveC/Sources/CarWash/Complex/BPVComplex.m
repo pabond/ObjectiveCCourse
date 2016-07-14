@@ -38,11 +38,7 @@ static const NSString *kBPVWasherName = @"Washer";
 - (void)addWasher:(id)washer;
 - (void)removeWasher:(id)washer;
 
-- (id)reservedFreeWasher;
-
 - (void)removeWorkersObservers;
-
-- (BPVCar *)nextCar;
 
 @end
 
@@ -101,30 +97,19 @@ static const NSString *kBPVWasherName = @"Washer";
 #pragma mark -
 #pragma mark Public Implementation
 
-- (void)washCar:(BPVCar *)carToWash {
-    [self.carsQueue enqueueObject:carToWash];
-    @synchronized (self.carsQueue) {
-        @synchronized (self.freeWashersQueue) {
-            while ([self washNextCar]) {
-                [[self reservedFreeWasher] performSelectorInBackground:@selector(startProcessingObject:)
-                                                            withObject:[self nextCar]];
-            }
+- (void)washCar:(BPVCar *)car {
+    if (car) {
+        BPVWasher *washer = [self.freeWashersQueue dequeueObject];
+        if (washer) {
+            [washer processObject:car];
+        } else {
+            [self.carsQueue enqueueObject:car];
         }
     }
 }
 
 #pragma mark -
 #pragma mark Private Implementation
-
-- (BOOL)washNextCar {
-    @synchronized (self) {
-        return [self.carsQueue objectsCount] && [self.freeWashersQueue objectsCount];
-    }
-}
-
-- (BPVCar *)nextCar {
-    return [self.carsQueue dequeueObject];
-}
 
 - (void)removeWorkersObservers {
     BPVAccountant *accountant = self.accountant;
@@ -134,13 +119,6 @@ static const NSString *kBPVWasherName = @"Washer";
     for (BPVWorker *worker in self.washers) {
         [worker removeObservers:washerObservers];
     }
-}
-
-- (id)reservedFreeWasher {
-    BPVWasher *freeWasher = [self.freeWashersQueue dequeueObject];
-    freeWasher.state = BPVWorkerStateBusy;
-    
-    return freeWasher;
 }
 
 - (void)addWasher:(id)washer {
@@ -161,10 +139,11 @@ static const NSString *kBPVWasherName = @"Washer";
 #pragma mark BPVWorkersObserver
 
 - (void)workerDidBecomeFree:(BPVWorker *)worker {
-    BPVQueue *washersQueue = self.freeWashersQueue;
-    @synchronized (washersQueue) {
-        [washersQueue enqueueObject:worker];
-        [self washCar:nil];
+    BPVCar *car = [self.carsQueue dequeueObject];
+    if (car) {
+        [worker processObject:car];
+    } else {
+        [self.freeWashersQueue enqueueObject:worker];
     }
 }
 

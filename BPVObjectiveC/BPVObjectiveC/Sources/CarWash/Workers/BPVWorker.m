@@ -66,11 +66,13 @@
 #pragma mark Public implementations
 
 - (void)processObject:(id)object {
-    if (self.state == BPVWorkerStateFree) {
-        self.state = BPVWorkerStateBusy;
-        [self startProcessingObject:object];
-    } else {
-        [self.queue enqueueObject:object];
+    @synchronized (self) {
+        if (self.state == BPVWorkerStateFree) {
+            self.state = BPVWorkerStateBusy;
+            [self performSelectorInBackground:@selector(startProcessingObject:) withObject:object];
+        } else {
+            [self.queue enqueueObject:object];
+        }
     }
 }
 
@@ -87,8 +89,13 @@
         [self finishProcessingObject:object];
     }
     
-    @synchronized (self) {
-        [self finishProcessing];
+    BPVQueue *queue = self.queue;
+    if (queue.objectsCount) {
+        [self performSelectorInBackground:@selector(startProcessingObject:) withObject:[queue dequeueObject]];
+    } else {
+        @synchronized (self) {
+            [self finishProcessing];
+        }
     }
 }
 
@@ -107,7 +114,7 @@
 
 - (void)workerDidBecomeReadyForProcessing:(id)object {
     @synchronized (self) {
-        [self performSelectorInBackground:@selector(processObject:) withObject:object];
+        [self processObject:object];
     }
 }
 

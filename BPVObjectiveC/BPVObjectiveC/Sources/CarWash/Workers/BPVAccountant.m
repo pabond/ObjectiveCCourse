@@ -24,14 +24,5 @@
     NSLog(@"Accountant take money from washer %@", object);
 }
 
-- (void)finishProcessing {                              //change self state
-    BPVQueue *queue = self.queue;
-    if (queue.objectsCount) {
-        [self performSelectorInBackground:@selector(startProcessingObject:) withObject:[queue dequeueObject]];
-    } else {
-        [super finishProcessing];
-    }
-}
-
 @end
 

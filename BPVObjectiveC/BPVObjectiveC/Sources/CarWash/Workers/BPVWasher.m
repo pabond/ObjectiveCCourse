@@ -42,7 +42,4 @@ static NSUInteger counter = 0;
     NSLog(@"Car %lu is cleaned by %@", counter, self.name);
 }
 
-#pragma mark -
-#pragma mark Private implementations
-
 @end
