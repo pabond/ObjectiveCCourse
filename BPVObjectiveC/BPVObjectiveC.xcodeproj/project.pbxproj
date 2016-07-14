@@ -54,6 +54,10 @@
 		2DE716EB1D22C10000562950 /* BPVCopyReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE716E91D22C10000562950 /* BPVCopyReference.m */; };
 		2DE716EE1D22C13100562950 /* BPVRetainReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE716ED1D22C13100562950 /* BPVRetainReference.m */; };
 		2DE716EF1D22C13100562950 /* BPVRetainReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE716ED1D22C13100562950 /* BPVRetainReference.m */; };
+		2DEFC4411D37B1DF0025C7B9 /* BPVWorkersDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DEFC4401D37B1DF0025C7B9 /* BPVWorkersDispatcher.m */; };
+		2DEFC4421D37B1DF0025C7B9 /* BPVWorkersDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DEFC4401D37B1DF0025C7B9 /* BPVWorkersDispatcher.m */; };
+		2DEFC4451D37B1FF0025C7B9 /* BPVComplexDipatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DEFC4441D37B1FF0025C7B9 /* BPVComplexDipatcher.m */; };
+		2DEFC4461D37B1FF0025C7B9 /* BPVComplexDipatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DEFC4441D37B1FF0025C7B9 /* BPVComplexDipatcher.m */; };
 		9C6DF33F32A0D137E49399EC /* libPods-ObjectiveCTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EEAF618C12477490D1782A7 /* libPods-ObjectiveCTests.a */; };
 /* End PBXBuildFile section */
 
@@ -121,6 +125,10 @@
 		2DE716E91D22C10000562950 /* BPVCopyReference.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPVCopyReference.m; sourceTree = "<group>"; };
 		2DE716EC1D22C13100562950 /* BPVRetainReference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPVRetainReference.h; sourceTree = "<group>"; };
 		2DE716ED1D22C13100562950 /* BPVRetainReference.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPVRetainReference.m; sourceTree = "<group>"; };
+		2DEFC43F1D37B1DF0025C7B9 /* BPVWorkersDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPVWorkersDispatcher.h; sourceTree = "<group>"; };
+		2DEFC4401D37B1DF0025C7B9 /* BPVWorkersDispatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPVWorkersDispatcher.m; sourceTree = "<group>"; };
+		2DEFC4431D37B1FF0025C7B9 /* BPVComplexDipatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPVComplexDipatcher.h; sourceTree = "<group>"; };
+		2DEFC4441D37B1FF0025C7B9 /* BPVComplexDipatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPVComplexDipatcher.m; sourceTree = "<group>"; };
 		49FF2E6285CB975692737E08 /* Pods-ObjectiveCTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ObjectiveCTests/Pods-ObjectiveCTests.debug.xcconfig"; sourceTree = "<group>"; };
 		58C5E08252656B7E6D831DCE /* Pods-ObjectiveCTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ObjectiveCTests/Pods-ObjectiveCTests.release.xcconfig"; sourceTree = "<group>"; };
 		5EEAF618C12477490D1782A7 /* libPods-ObjectiveCTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ObjectiveCTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -234,9 +242,10 @@
 			children = (
 				2DE716D81D2272B600562950 /* BPVObservableObject */,
 				2DE716D01D2168AA00562950 /* Protocols */,
-				2D7E0FDD1D20463100620461 /* Complex */,
-				2D7E0FDA1D20463100620461 /* Car */,
 				2D7E0FE01D20463100620461 /* Queue */,
+				2D7E0FDA1D20463100620461 /* Car */,
+				2DEFC43E1D37B1A20025C7B9 /* Dispatchers */,
+				2D7E0FDD1D20463100620461 /* Complex */,
 				2D7E0FE81D20463100620461 /* Workers */,
 			);
 			path = CarWash;
@@ -363,6 +372,18 @@
 			);
 			path = Reference;
 			sourceTree = "<group>";
+		};
+		2DEFC43E1D37B1A20025C7B9 /* Dispatchers */ = {
+			isa = PBXGroup;
+			children = (
+				2DEFC43F1D37B1DF0025C7B9 /* BPVWorkersDispatcher.h */,
+				2DEFC4401D37B1DF0025C7B9 /* BPVWorkersDispatcher.m */,
+				2DEFC4431D37B1FF0025C7B9 /* BPVComplexDipatcher.h */,
+				2DEFC4441D37B1FF0025C7B9 /* BPVComplexDipatcher.m */,
+			);
+			name = Dispatchers;
+			path = BPVObjectiveC/Sources/CarWash/Dispatchers;
+			sourceTree = SOURCE_ROOT;
 		};
 		403D26315F435E94D2E417E3 /* Pods */ = {
 			isa = PBXGroup;
@@ -533,6 +554,7 @@
 				2D7E10181D20463100620461 /* BPVAccountant.m in Sources */,
 				2D7E10221D20463100620461 /* NSObject+BPVExtensions.m in Sources */,
 				2D7E101C1D20463100620461 /* BPVWasher.m in Sources */,
+				2DEFC4411D37B1DF0025C7B9 /* BPVWorkersDispatcher.m in Sources */,
 				2D7E10061D20463100620461 /* BPVClusterAlphabet.m in Sources */,
 				2D7E10261D20463100620461 /* BPVCreatureFemale.m in Sources */,
 				2D7E10281D20463100620461 /* BPVCreatureMale.m in Sources */,
@@ -540,6 +562,7 @@
 				2D7E10121D20463100620461 /* BPVQueue.m in Sources */,
 				2D7E10081D20463100620461 /* BPVRangeAlphabet.m in Sources */,
 				2DE716E61D22C0F000562950 /* BPVAssingReference.m in Sources */,
+				2DEFC4451D37B1FF0025C7B9 /* BPVComplexDipatcher.m in Sources */,
 				2D7E10201D20463100620461 /* NSArray+BPVExtensions.m in Sources */,
 				2D7E10041D20463100620461 /* NSString+BPVExtensions.m in Sources */,
 				2D7E100A1D20463100620461 /* BPVStringsAlphabet.m in Sources */,
@@ -563,6 +586,7 @@
 				2D7E10231D20463100620461 /* NSObject+BPVExtensions.m in Sources */,
 				2D7E101D1D20463100620461 /* BPVWasher.m in Sources */,
 				2DE716CB1D204E1100562950 /* BPVClusterAlphabet.m in Sources */,
+				2DEFC4421D37B1DF0025C7B9 /* BPVWorkersDispatcher.m in Sources */,
 				2D7E10271D20463100620461 /* BPVCreatureFemale.m in Sources */,
 				2D7E10291D20463100620461 /* BPVCreatureMale.m in Sources */,
 				2D7E10131D20463100620461 /* BPVQueue.m in Sources */,
@@ -570,6 +594,7 @@
 				2D7E10091D20463100620461 /* BPVRangeAlphabet.m in Sources */,
 				2D7E10211D20463100620461 /* NSArray+BPVExtensions.m in Sources */,
 				2DE716E71D22C0F000562950 /* BPVAssingReference.m in Sources */,
+				2DEFC4461D37B1FF0025C7B9 /* BPVComplexDipatcher.m in Sources */,
 				2D575B8A1D20489E00C347D5 /* BPVAlphabetSpec.m in Sources */,
 				2DE716CC1D204E1600562950 /* NSString+BPVExtensions.m in Sources */,
 				2D7E100B1D20463100620461 /* BPVStringsAlphabet.m in Sources */,
