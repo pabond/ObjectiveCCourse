@@ -18,11 +18,20 @@
 @property (nonatomic, retain) BPVQueue          *objectsToProcess;
 @property (nonatomic, retain) BPVQueue          *freeProcessors;
 
+- (instancetype)initWithProcessors:(NSArray *)objects
+
 @end
 
 @implementation BPVWorkersDispatcher
 
 @dynamic processors;
+
+#pragma mark -
+#pragma mark Class methods
+
++ (instancetype)dispatcherWithProcessors:(NSArray *)processors {
+    return [[[self alloc] initWithProcessors:processors] autorelease];
+}
 
 #pragma mark -
 #pragma mark Initializations / Deallocations
@@ -35,11 +44,13 @@
     [super dealloc];
 }
 
-- (instancetype)init {
+- (instancetype)initWithProcessors:(NSArray *)objects {
     self = [super init];
     self.objectsToProcess = [BPVQueue object];
-    self.mutableProcessors = [NSMutableArray array];
-    self.freeProcessors = [BPVQueue object];
+    self.mutableProcessors = [[objects mutableCopy] autorelease];
+    BPVQueue *freeProcessors = [BPVQueue object];
+    self.freeProcessors = freeProcessors;
+    [freeProcessors enqueueObjects:objects];
     
     return self;
 }

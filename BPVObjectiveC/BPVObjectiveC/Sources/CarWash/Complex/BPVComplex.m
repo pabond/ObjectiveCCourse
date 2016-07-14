@@ -8,32 +8,32 @@
 
 #import "BPVComplex.h"
 
+#import "BPVWorkersDispatcher.h"
+
 #import "BPVWorker.h"
+#import "BPVWasher.h"
 #import "BPVDirector.h"
 #import "BPVAccountant.h"
-#import "BPVWasher.h"
-#import "BPVCar.h"
-
-#import "BPVQueue.h"
 
 #import "BPVObservableObject.h"
 
 #import "NSObject+BPVExtensions.h"
 #import "NSArray+BPVExtensions.h"
 
-static const NSUInteger kBPVWashersCount = 3;
+typedef NSArray *(^BPVNewWorkers)(Class class, NSUInteger count, id observer);
+
+static const NSUInteger kBPVWashersCount = 5;
+static const NSUInteger kBPVAccountantsCount = 3;
+static const NSUInteger kBPVDirectorsCount = 1;
 static const NSString *kBPVWasherName = @"Washer";
 
 @interface BPVComplex ()
-@property (nonatomic, retain) BPVDirector       *director;
-@property (nonatomic, retain) BPVAccountant     *accountant;
-@property (nonatomic, retain) NSMutableArray    *washers;
-@property (nonatomic, retain) BPVQueue          *carsQueue;
-@property (nonatomic, retain) BPVQueue          *freeWashersQueue;
+@property (nonatomic, retain) BPVWorkersDispatcher *washersDispatcher;
+@property (nonatomic, retain) BPVWorkersDispatcher *accountansDispatcher;
+@property (nonatomic, retain) BPVWorkersDispatcher *directorsDispatcher;
 
 - (void)initInfrastructure;
-- (void)initWorkers;
-- (void)initQueues;
+- (void)initDipatchersWithProcessors;
 
 - (void)addWasher:(id)washer;
 - (void)removeWasher:(id)washer;
@@ -49,11 +49,9 @@ static const NSString *kBPVWasherName = @"Washer";
 
 - (void)dealloc {
     [self removeWorkersObservers];
-    self.director = nil;
-    self.accountant = nil;
-    self.washers = nil;
-    self.carsQueue = nil;
-    self.freeWashersQueue = nil;
+    self.washersDispatcher = nil;
+    self.accountansDispatcher = nil;
+    self.directorsDispatcher = nil;
         
     [super dealloc];
 }
@@ -66,56 +64,45 @@ static const NSString *kBPVWasherName = @"Washer";
 }
 
 - (void)initInfrastructure {
-    [self initWorkers];
-    [self initQueues];
+    [self initDipatchersWithProcessors];
 }
 
-- (void)initWorkers {
-    self.washers = [NSMutableArray array];
-    BPVDirector *director = [BPVDirector object];
-    self.director = director;
-    BPVAccountant *accountant = [BPVAccountant object];
-    self.accountant = accountant;
-    [accountant addObserver:director];
-    
-    __block NSUInteger iterator = 0;
-    NSArray *washerObservers = @[accountant, self];
-    id newWashers = ^id {
-        BPVWasher *washer = [BPVWasher object];
-        [washer addObservers:washerObservers];
-        iterator++;
-        washer.name = [NSString stringWithFormat:@"%@%lu", kBPVWasherName, (unsigned long)iterator];
-        
-        return washer;
+- (void)initDipatchersWithProcessors {
+    BPVNewWorkers workers = ^NSArray *(Class class, NSUInteger count, id observer) {
+        return [[NSArray arrayWithObjectsCount:count usingBlock:^id {
+            BPVWorker *worker = [class object];
+            [worker addObservers:@[self, observer]];
+             
+             return worker;
+              }] autorelease];
     };
     
-    self.washers = [NSArray arrayWithObjectsCount:kBPVWashersCount usingBlock:newWashers];
-}
-
-- (void)initQueues {
-    BPVQueue *freeWashersQueue = [BPVQueue object];
-    self.freeWashersQueue = freeWashersQueue;
-    [freeWashersQueue enqueueObjects:self.washers];
-    self.carsQueue = [BPVQueue object];
+    self.washersDispatcher = [BPVWorkersDispatcher dispatcherWithProcessors:workers([BPVWasher class],
+                                                                                    kBPVWashersCount,
+                                                                                    self.accountansDispatcher)];
+    
+    self.accountansDispatcher = [BPVWorkersDispatcher dispatcherWithProcessors:workers([BPVAccountant class],
+                                                                                       kBPVAccountantsCount,
+                                                                                       self.directorsDispatcher)];
+    
+    self.directorsDispatcher = [BPVWorkersDispatcher dispatcherWithProcessors:workers([BPVDirector class],
+                                                                                      kBPVDirectorsCount,
+                                                                                      nil)];
 }
 
 #pragma mark -
 #pragma mark Public Implementation
 
-- (void)washCar:(BPVCar *)car {
+- (void)washCar:(id)car {
     if (car) {
-        BPVWasher *washer = [self.freeWashersQueue dequeueObject];
-        if (washer) {
-            [washer processObject:car];
-        } else {
-            [self.carsQueue enqueueObject:car];
-        }
+        [self.washersDispatcher processObject:car];
     }
 }
 
 #pragma mark -
 #pragma mark Private Implementation
 
+/*
 - (void)removeWorkersObservers {
     BPVAccountant *accountant = self.accountant;
     [accountant removeObserver:self.director];
@@ -126,23 +113,6 @@ static const NSString *kBPVWasherName = @"Washer";
     }
 }
 
-- (void)addWasher:(id)washer {
-    @synchronized (self) {
-        if (washer) {
-            [self.washers addObject:washer];
-        }
-    }
-}
-
-- (void)removeWasher:(id)washer {
-    @synchronized (self) {
-        [self.washers removeObject:washer];
-    }
-}
-
-#pragma mark -
-#pragma mark BPVWorkersObserver
-
 - (void)workerDidBecomeFree:(BPVWorker *)worker {
     BPVCar *car = [self.carsQueue dequeueObject];
     if (car) {
@@ -151,5 +121,7 @@ static const NSString *kBPVWasherName = @"Washer";
         [self.freeWashersQueue enqueueObject:worker];
     }
 }
+
+*/
 
 @end

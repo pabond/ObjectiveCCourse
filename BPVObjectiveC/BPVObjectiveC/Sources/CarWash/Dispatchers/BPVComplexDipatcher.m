@@ -14,6 +14,8 @@
 #import "NSObject+BPVExtensions.h"
 #import "NSArray+BPVExtensions.h"
 
+static const NSUInteger kBPVCarsCount = 40;
+
 @interface BPVComplexDipatcher ()
 @property (nonatomic, retain) BPVComplex *complex;
 
@@ -41,10 +43,12 @@
 #pragma mark Public implementations
 
 - (void)washCars {
-    NSArray *cars = [NSArray arrayWithObjectsCount:40 usingBlock:^id() {    return [BPVCar object]; }];
-    for (BPVCar *car in cars) {
-        [self.complex washCar:car];
+    BPVComplex *complex = self.complex;
+    for (NSUInteger count = 0; count < kBPVCarsCount; count++) {
+        [complex washCar:[BPVCar object]];
     }
+    
+    NSLog(@"%lu cars added pushed to wash", (unsigned long)kBPVCarsCount);
 }
 
 
