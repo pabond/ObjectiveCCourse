@@ -10,12 +10,17 @@
 
 @interface BPVObservableObject : NSObject
 @property (nonatomic, assign)   NSUInteger  state;
-@property (nonatomic, readonly) NSSet       *observerSet;
+@property (nonatomic, readonly) NSSet       *observersSet;
 
 - (void)addObserver:(id)observer;
+- (void)addObservers:(NSArray *)observers;
 - (void)removeObserver:(NSObject *)observer;
+- (void)removeObservers:(NSArray *)observers;
 - (BOOL)containsObserver:(id)object;
 
 - (SEL)selectorForState:(NSUInteger)state;
+
+- (void)notifyOfState:(NSUInteger)state withObject:(id)object;
+- (void)setState:(NSUInteger)state withObject:(id)object;
 
 @end

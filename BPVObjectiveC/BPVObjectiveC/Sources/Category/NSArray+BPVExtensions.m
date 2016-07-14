@@ -8,6 +8,8 @@
 
 #import "NSArray+BPVExtensions.h"
 
+#import "NSObject+BPVExtensions.h"
+
 @implementation NSArray (BPVExtensions)
 
 - (NSArray *)filteredUsingBlock:(BPVArrayFiltredUsingBlock)block {
@@ -20,6 +22,16 @@
     }];
     
     return [self filteredArrayUsingPredicate:predicate];
+}
+
++ (NSMutableArray *)arrayWithObjectsCount:(NSUInteger)count usingBlock:(id(^)())block {
+    NSMutableArray *array = [NSMutableArray object];
+    
+    for (NSUInteger index = 0; index < count; index++) {
+        [array addObject:block()];
+    }
+    
+    return array;
 }
 
 @end

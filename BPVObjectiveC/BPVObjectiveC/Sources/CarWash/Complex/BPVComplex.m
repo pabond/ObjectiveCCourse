@@ -8,7 +8,6 @@
 
 #import "BPVComplex.h"
 
-#import "BPVCarWashRoom.h"
 #import "BPVWorker.h"
 #import "BPVDirector.h"
 #import "BPVAccountant.h"
@@ -17,32 +16,29 @@
 
 #import "BPVQueue.h"
 
+#import "BPVObservableObject.h"
+
 #import "NSObject+BPVExtensions.h"
 #import "NSArray+BPVExtensions.h"
 
-static const NSUInteger kBPVWashRoomsCount  = 20;
-static const NSUInteger kBPVWashersCount  = 20;
+static const NSUInteger kBPVWashersCount = 3;
+static const NSString *kBPVWasherName = @"Washer";
 
 @interface BPVComplex ()
-@property (nonatomic, retain) BPVBuilding   *carWashBuilding;
-@property (nonatomic, retain) BPVBuilding   *adminBuilding;
-@property (nonatomic, retain) BPVQueue      *queue;
+@property (nonatomic, retain) BPVDirector       *director;
+@property (nonatomic, retain) BPVAccountant     *accountant;
+@property (nonatomic, retain) NSMutableArray    *washers;
+@property (nonatomic, retain) BPVQueue          *carsQueue;
+@property (nonatomic, retain) BPVQueue          *freeWashersQueue;
 
 - (void)initInfrastructure;
-- (void)initRooms;
 - (void)initWorkers;
+- (void)initQueues;
 
-- (id)freeWasher;
-- (id)freeAccountant;
-- (id)freeDirector;
+- (void)addWasher:(id)washer;
+- (void)removeWasher:(id)washer;
 
-- (id)reservedFreeWorkerWithClass:(Class)class;
-- (BPVBuilding *)buildingForWorkerWithClass:(Class)class;
-
-- (BPVCarWashRoom *)freeCarWashRoom;
-
-- (void)removeWorkersDelegates;
-- (NSArray *)allWorkers;
+- (void)removeWorkersObservers;
 
 @end
 
@@ -52,9 +48,12 @@ static const NSUInteger kBPVWashersCount  = 20;
 #pragma mark Deallocation / Initialisation
 
 - (void)dealloc {
-    self.adminBuilding = nil;
-    self.carWashBuilding = nil;
-    self.queue = nil;
+    [self removeWorkersObservers];
+    self.director = nil;
+    self.accountant = nil;
+    self.washers = nil;
+    self.carsQueue = nil;
+    self.freeWashersQueue = nil;
         
     [super dealloc];
 }
@@ -67,107 +66,90 @@ static const NSUInteger kBPVWashersCount  = 20;
 }
 
 - (void)initInfrastructure {
-    self.queue = [BPVQueue object];
-    self.adminBuilding = [BPVBuilding object];
-    self.carWashBuilding = [BPVBuilding object];
-    
-    [self initRooms];
     [self initWorkers];
-}
-
-- (void)initRooms {
-    [self.adminBuilding addRoom:[BPVAdminRoom object]];
-    for (NSUInteger iterator = 0; kBPVWashRoomsCount > iterator ; iterator++) {
-        [self.carWashBuilding addRoom:[BPVCarWashRoom object]];
-    }
+    [self initQueues];
 }
 
 - (void)initWorkers {
-    BPVAdminRoom *adminRoom = [[self.adminBuilding rooms] firstObject];
+    self.washers = [NSMutableArray array];
     BPVDirector *director = [BPVDirector object];
+    self.director = director;
     BPVAccountant *accountant = [BPVAccountant object];
+    self.accountant = accountant;
+    [accountant addObserver:director];
     
-    accountant.delegate = director;
-    
-    [adminRoom addWorker:accountant];
-    [adminRoom addWorker:director];
-    
-    BPVCarWashRoom *carWashRoom = [[self.carWashBuilding rooms] firstObject];
-    for (NSUInteger iterator = 0; kBPVWashersCount > iterator; iterator++) {
+    __block NSUInteger iterator = 0;
+    NSArray *washerObservers = @[accountant, self];
+    id newWashers = ^id {
         BPVWasher *washer = [BPVWasher object];
-        [carWashRoom addWorker:washer];
-        washer.delegate = accountant;
-    }
+        [washer addObservers:washerObservers];
+        iterator++;
+        washer.name = [NSString stringWithFormat:@"%@%lu", kBPVWasherName, (unsigned long)iterator];
+        
+        return washer;
+    };
+    
+    self.washers = [NSArray arrayWithObjectsCount:kBPVWashersCount usingBlock:newWashers];
+}
+
+- (void)initQueues {
+    BPVQueue *freeWashersQueue = [BPVQueue object];
+    self.freeWashersQueue = freeWashersQueue;
+    [freeWashersQueue enqueueObjects:self.washers];
+    self.carsQueue = [BPVQueue object];
 }
 
 #pragma mark -
 #pragma mark Public Implementation
 
-- (void)washCar:(BPVCar *)carToWash {
-    BPVQueue *carsQueue = self.queue;
-    [carsQueue enqueueObject:carToWash];
-
-    BPVCar *car = nil;
-    while ((car = [carsQueue dequeueObject])) {
-        
-        BPVWasher *washer = [self freeWasher];
-            
-        BPVCarWashRoom *washRoom = [self freeCarWashRoom];
-        washRoom.car = car;
-        
-        [washer processObject:car];
-        washRoom.car = nil;
-    }
-    
-    [self removeWorkersDelegates];
-}
-
-- (void)removeWorkersDelegates {
-    for (BPVWorker *worker in [self allWorkers]) {
-        worker.delegate = nil;
+- (void)washCar:(BPVCar *)car {
+    if (car) {
+        BPVWasher *washer = [self.freeWashersQueue dequeueObject];
+        if (washer) {
+            [washer processObject:car];
+        } else {
+            [self.carsQueue enqueueObject:car];
+        }
     }
 }
 
-- (NSArray *)allWorkers {
-    NSMutableArray *workers = [NSMutableArray array];
-    [workers addObjectsFromArray:[self.adminBuilding workersWithClass:[BPVAccountant class]]];
-    [workers addObjectsFromArray:[self.adminBuilding workersWithClass:[BPVDirector class]]];
-    [workers addObjectsFromArray:[self.carWashBuilding workersWithClass:[BPVWasher class]]];
-    
-    return [[workers copy] autorelease];
+#pragma mark -
+#pragma mark Private Implementation
+
+- (void)removeWorkersObservers {
+    BPVAccountant *accountant = self.accountant;
+    [accountant removeObserver:self.director];
+   
+    NSArray *washerObservers = @[accountant, self];
+    for (BPVWorker *worker in self.washers) {
+        [worker removeObservers:washerObservers];
+    }
 }
 
-- (id)freeWasher {
-    return [self reservedFreeWorkerWithClass:[BPVWasher class]];
+- (void)addWasher:(id)washer {
+    @synchronized (self) {
+        if (washer) {
+            [self.washers addObject:washer];
+        }
+    }
 }
 
-- (id)freeAccountant {
-    return [self reservedFreeWorkerWithClass:[BPVAccountant class]];
+- (void)removeWasher:(id)washer {
+    @synchronized (self) {
+        [self.washers removeObject:washer];
+    }
 }
 
-- (id)freeDirector {
-    return [self reservedFreeWorkerWithClass:[BPVDirector class]];
-}
+#pragma mark -
+#pragma mark BPVWorkersObserver
 
-- (id)reservedFreeWorkerWithClass:(Class)class {
-    NSArray *workers = [[self buildingForWorkerWithClass:class] workersWithClass:class];
-    workers = [workers filteredUsingBlock:^BOOL(BPVWorker *worker) { return !worker.busy; }];
-    BPVWorker *freeWorker = [workers firstObject];
-    
-    freeWorker.busy = YES;
-    
-    return freeWorker;
-}
-
-- (BPVBuilding *)buildingForWorkerWithClass:(Class)class {
-    return [class isSubclassOfClass:[BPVWasher class]] ? self.carWashBuilding : self.adminBuilding;
-}
-
-- (BPVCarWashRoom *)freeCarWashRoom {
-    NSArray *rooms = [self.carWashBuilding roomsWithClass:[BPVCarWashRoom class]];
-    rooms = [rooms filteredUsingBlock:^BOOL(BPVCarWashRoom *room) { return !room.car; }];
-    
-    return [rooms firstObject];
+- (void)workerDidBecomeFree:(BPVWorker *)worker {
+    BPVCar *car = [self.carsQueue dequeueObject];
+    if (car) {
+        [worker processObject:car];
+    } else {
+        [self.freeWashersQueue enqueueObject:worker];
+    }
 }
 
 @end

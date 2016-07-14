@@ -92,16 +92,6 @@
 - (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state
                                   objects:(id[])buffer
                                     count:(NSUInteger)length
-    /*
-     typedef struct {
-     unsigned long state;
-     id __unsafe_unretained __nullable * __nullable itemsPtr;
-     unsigned long * __nullable mutationsPtr;
-     unsigned long extra[5];
-     } NSFastEnumerationState;
-     
-     @protocol NSFastEnumeration
-     */
 {
     NSUInteger stackCount = state->extra[1] + length;
     NSUInteger count = self.count;

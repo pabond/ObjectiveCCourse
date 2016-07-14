@@ -8,17 +8,37 @@
 
 #import <Foundation/Foundation.h>
 
-#import "BPVWorkersDelegate.h"
+#import "BPVObservableObject.h"
+#import "BPVQueue.h"
+
 #import "BPVMoneyFlow.h"
 
-@interface BPVWorker : NSObject <BPVMoneyFlow>
+typedef NS_ENUM(uint8_t, BPVWorkerState) {
+    BPVWorkerStateFree,
+    BPVWorkerStateBusy,
+    BPVWorkerStateReadyForProcessing
+};
+
+@protocol BPVWorkersObserver <NSObject>
+
+@optional
+- (void)workerDidBecomeReadyForProcessing:(id)worker;
+- (void)workerDidBecomeFree:(id)worker;
+- (void)workerDidBecomeBusy:(id)worker;
+
+@end
+
+@interface BPVWorker : BPVObservableObject <BPVMoneyFlow, BPVWorkersObserver>
 @property (nonatomic, assign)   NSUInteger  experience;
 @property (nonatomic, assign)   NSUInteger  salary;
-@property (nonatomic, assign)   BOOL        busy;
-
-@property (nonatomic, assign)   id<BPVWorkersDelegate>  delegate;
+@property (nonatomic, readonly) BPVQueue    *queue;
 
 - (void)processObject:(id)object;
 - (void)performWorkWithObject:(id)object;
+
+// do not lounch these methods directly. Moved to heder for reordering or launching in chlid classes
+- (void)finishProcessing;
+- (void)finishProcessingObject:(id)object;
+- (void)startProcessingObject:(id)object;
 
 @end

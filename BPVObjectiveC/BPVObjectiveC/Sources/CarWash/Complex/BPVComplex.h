@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-#import "BPVBuilding.h"
+#import "BPVWorker.h"
 
-@interface BPVComplex : NSObject
+@interface BPVComplex : NSObject <BPVWorkersObserver>
 
 - (void)washCar:(id)car;
 

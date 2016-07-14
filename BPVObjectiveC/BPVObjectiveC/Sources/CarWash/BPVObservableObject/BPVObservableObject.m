@@ -8,8 +8,10 @@
 
 #import "BPVObservableObject.h"
 
+#import "BPVAssingReference.h"
+
 @interface BPVObservableObject ()
-@property (nonatomic, retain) NSMutableSet    *mutableObserverSet;
+@property (nonatomic, retain) NSHashTable     *observersTable;
 
 - (void)notifyOfStateChangeWithSelector:(SEL)selector;
 - (void)notifyOfStateChangeWithSelector:(SEL)selector object:(id)object;
@@ -18,13 +20,13 @@
 
 @implementation BPVObservableObject
 
-@dynamic observerSet;
+@dynamic observersSet;
 
 #pragma mark -
 #pragma mark Initialisations / Deallocations
 
 - (void)dealloc {
-    self.mutableObserverSet = nil;
+    self.observersTable = nil;
     
     [super dealloc];
 }
@@ -32,60 +34,96 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.mutableObserverSet = [NSMutableSet set];
+        self.observersTable = [NSHashTable weakObjectsHashTable];
     }
     
     return self;
 }
 
 #pragma mark -
-#pragma mark - Accessors
+#pragma mark Accessors
 
-- (NSSet *)observerSet {
-    return [[[self mutableObserverSet] copy] autorelease];
+- (NSSet *)observersSet {
+    @synchronized (self) {
+        return self.observersTable.setRepresentation;
+    }
 }
 
 #pragma mark -
-#pragma mark - Public implementations
+#pragma mark Public implementations
 
 - (void)addObserver:(id)observer {
-    [self.mutableObserverSet addObject:observer];
+    @synchronized (self) {
+        if (observer) {
+            [self.observersTable addObject:observer];
+        }
+    }
 }
 
 - (void)removeObserver:(NSObject *)observer {
-    [self.mutableObserverSet removeObject:observer];
+    @synchronized (self) {
+        [self.observersTable removeObject:observer];
+    }
+}
+
+- (void)addObservers:(NSArray *)observers {
+    for (id observer in observers) {
+        [self addObserver:observer];
+    }
+}
+
+- (void)removeObservers:(NSArray *)observers {
+    for (id observer in observers) {
+        [self removeObserver:observer];
+    }
 }
 
 - (BOOL)containsObserver:(id)object {
-    return [self.mutableObserverSet containsObject:object];
+    @synchronized (self) {
+        return [self.observersTable containsObject:object];
+    }
 }
 
 - (void)setState:(NSUInteger)state {
-    if (state != _state) {
-        _state = state;
-        
-        [self notifyOfStateChangeWithSelector:[self selectorForState:state]];
+    @synchronized (self) {
+        [self setState:state withObject:nil];
+    }
+}
+
+- (void)setState:(NSUInteger)state withObject:(id)object {
+    @synchronized (self) {
+        if (_state != state) {
+            _state = state;
+          
+            [self notifyOfStateChangeWithSelector:[self selectorForState:state] object:object];
+        }
+    }
+}
+
+- (void)notifyOfState:(NSUInteger)state withObject:(id)object {
+    @synchronized (self) {
+        [self notifyOfStateChangeWithSelector:[object selectorForState:state] object:object];
     }
 }
 
 #pragma mark - 
-#pragma mark - Private implementations
+#pragma mark Private implementations
 
 - (SEL)selectorForState:(NSUInteger)state {
-    [self doesNotRecognizeSelector:_cmd];
-    
-    return nil;
+    return NULL;
 }
 
 - (void)notifyOfStateChangeWithSelector:(SEL)selector {
-    [self notifyOfStateChangeWithSelector:selector object:self];
+    [self notifyOfStateChangeWithSelector:selector object:nil];
 }
 
 - (void)notifyOfStateChangeWithSelector:(SEL)selector object:(id)object {
-    NSMutableSet *observerSet = self.mutableObserverSet;
-    for (id observer in observerSet) {
-        if ([observerSet respondsToSelector:selector]) {
-            [observer performSelector:selector withObject:object];
+    @synchronized (self) {
+        NSHashTable *observers = self.observersTable;
+        for (id observer in observers) {
+            if ([observer respondsToSelector:selector]) {
+                [observer performSelector:selector withObject:self withObject:object];
+            }
         }
     }
 }
