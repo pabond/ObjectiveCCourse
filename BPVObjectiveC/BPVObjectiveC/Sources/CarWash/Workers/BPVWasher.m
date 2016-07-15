@@ -27,8 +27,7 @@ static NSUInteger counter = 0;
 #pragma mark Public implementations
 
 - (void)washCar:(BPVCar *)car {
-    NSLog(@"Washer washing car");
-    NSLog(@"Car washed!");
+    NSLog(@"%@ washing car", self.name);
 }
 
 - (void)performWorkWithObject:(id)object {

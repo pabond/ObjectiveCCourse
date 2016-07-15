@@ -9,7 +9,6 @@
 #import "BPVWorkersDispatcher.h"
 
 #import "BPVQueue.h"
-#import "BPVWorker.h"
 
 #import "NSObject+BPVExtensions.h"
 
@@ -125,11 +124,13 @@
 #pragma mark BPVWorkersObserver methods
 
 - (void)workerDidBecomeFree:(BPVWorker *)processor {
-    id object = [processor.queue dequeueObject];
-    if (object) {
-        [processor processObject:object];
-    } else {
-        [self.freeProcessors enqueueObject:processor];
+    if ([self containsProcessor:processor]) {
+        id object = [self.objectsToProcess dequeueObject];
+        if (object) {
+            [processor processObject:object];
+        } else {
+            [self.freeProcessors enqueueObject:processor];
+        }
     }
 }
 

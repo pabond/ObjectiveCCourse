@@ -77,12 +77,12 @@ static NSString   *kBPVDirectorName     = @"Director";
 }
 
 - (void)initProcessors {
-    __block NSUInteger iterator = 1;
+    __block NSUInteger iterator = 0;
     BPVWorkersFactory workersFactory = ^NSArray *(Class class, NSUInteger count, id observers, NSString *name) {
         return [NSArray arrayWithObjectsCount:count block:^ {
             BPVWorker *worker = [class object];
             [worker addObservers:observers];
-            worker.name = [NSString stringWithFormat:@"name%lu", (unsigned long)iterator++];
+            worker.name = [NSString stringWithFormat:@"%@%lu", name, (unsigned long)iterator++];
             
             return worker;
         }];
