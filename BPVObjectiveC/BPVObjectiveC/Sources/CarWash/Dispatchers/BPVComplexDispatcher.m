@@ -15,6 +15,7 @@
 #import "NSArray+BPVExtensions.h"
 
 static const NSUInteger kBPVCarsCount = 40;
+static const uint8_t kBPVInterval = 5;
 
 @interface BPVComplexDispatcher ()
 @property (nonatomic, retain) BPVComplex *complex;
@@ -36,6 +37,7 @@ static const NSUInteger kBPVCarsCount = 40;
 #pragma mark Initializations / Deallocations
 
 - (void)dealloc {
+    [self.timer invalidate];
     self.complex = nil;
     
     [super dealloc];
@@ -58,6 +60,17 @@ static const NSUInteger kBPVCarsCount = 40;
     }
     
     NSLog(@"%lu cars added pushed to wash", (unsigned long)kBPVCarsCount);
+}
+
+#pragma mark -
+#pragma mark Private implementations
+
+- (void)onTimer {
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:kBPVInterval
+                                                  target:self
+                                                selector:@selector(washCars)
+                                                userInfo:nil
+                                                 repeats:YES];
 }
 
 @end

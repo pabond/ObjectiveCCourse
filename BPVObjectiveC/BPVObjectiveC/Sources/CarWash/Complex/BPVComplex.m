@@ -77,7 +77,7 @@ static NSString   *kBPVDirectorName     = @"Director";
 }
 
 - (void)initProcessors {
-    __block NSUInteger iterator = 0;
+    __block NSUInteger iterator = 1;
     BPVWorkersFactory workersFactory = ^NSArray *(Class class, NSUInteger count, id observers, NSString *name) {
         return [NSArray arrayWithObjectsCount:count block:^ {
             BPVWorker *worker = [class object];
@@ -87,11 +87,16 @@ static NSString   *kBPVDirectorName     = @"Director";
             return worker;
         }];
     };
-
+    
     BPVWorkersDispatcher *directorsDispatcher = self.directorsDispatcher;
-    [directorsDispatcher addProcessors:workersFactory([BPVDirector class], kBPVDirectorsCount, nil, kBPVDirectorName)];
+    [directorsDispatcher addProcessors:workersFactory([BPVDirector class],
+                                                      kBPVDirectorsCount,
+                                                      @[directorsDispatcher],
+                                                      kBPVDirectorName)];
+    
     [directorsDispatcher addFreeProcessorsQueue];
     
+    iterator = 1;
     BPVWorkersDispatcher *accountansDispatcher = self.accountansDispatcher;
     [accountansDispatcher addProcessors:workersFactory([BPVAccountant class],
                                                        kBPVAccountantsCount,
@@ -100,6 +105,7 @@ static NSString   *kBPVDirectorName     = @"Director";
     
     [accountansDispatcher addFreeProcessorsQueue];
     
+    iterator = 1;
     BPVWorkersDispatcher *washersDispatcher = self.washersDispatcher;
     [washersDispatcher addProcessors:workersFactory([BPVWasher class],
                                                     kBPVWashersCount,

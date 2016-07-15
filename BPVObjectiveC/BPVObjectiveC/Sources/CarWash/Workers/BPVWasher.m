@@ -15,15 +15,6 @@ static NSUInteger counter = 0;
 @implementation BPVWasher
 
 #pragma mark -
-#pragma mark Initalistations / Deallocations
-
-- (void)dealloc {
-    self.name = nil;
-    
-    [super dealloc];
-}
-
-#pragma mark -
 #pragma mark Public implementations
 
 - (void)washCar:(BPVCar *)car {

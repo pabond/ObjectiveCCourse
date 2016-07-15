@@ -20,16 +20,26 @@
 @implementation BPVWorker
 
 #pragma mark -
+#pragma mark Initalistations / Deallocations
+
+- (void)dealloc {
+    self.name = nil;
+    
+    [super dealloc];
+}
+
+#pragma mark -
 #pragma mark Public implementations
 
 - (void)processObject:(id)object {
     @synchronized (self) {
+        self.state = BPVWorkerStateBusy;
         [self performSelectorInBackground:@selector(startProcessingObject:) withObject:object];
     }
 }
 
 - (void)startProcessingObject:(id)object {
-    NSLog(@"%@ start processing object %@ in background", self.name, object);
+    NSLog(@"%@ start processing object in background", self.name);
     [self performWorkWithObject:object];
     [self performSelectorOnMainThread:@selector(finishProcessingOnMainThreadWithObject:)
                            withObject:object

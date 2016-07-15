@@ -9,8 +9,10 @@
 #import <Foundation/Foundation.h>
 
 @interface BPVComplexDispatcher : NSObject
+@property (nonatomic, assign) NSTimer *timer;
 
 + (instancetype)disptcherWithComplex:(id)complex;
 - (void)washCars;
+- (void)onTimer;
 
 @end

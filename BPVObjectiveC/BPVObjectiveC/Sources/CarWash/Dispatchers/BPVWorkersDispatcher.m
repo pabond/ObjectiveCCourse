@@ -124,12 +124,14 @@
 #pragma mark BPVWorkersObserver methods
 
 - (void)workerDidBecomeFree:(BPVWorker *)processor {
-    if ([self containsProcessor:processor]) {
-        id object = [self.objectsToProcess dequeueObject];
-        if (object) {
-            [processor processObject:object];
-        } else {
-            [self.freeProcessors enqueueObject:processor];
+    @synchronized (self.mutableProcessors) {
+        if ([self containsProcessor:processor]) {
+            id object = [self.objectsToProcess dequeueObject];
+            if (object) {
+                [processor processObject:object];
+            } else {
+                [self.freeProcessors enqueueObject:processor];
+            }
         }
     }
 }
