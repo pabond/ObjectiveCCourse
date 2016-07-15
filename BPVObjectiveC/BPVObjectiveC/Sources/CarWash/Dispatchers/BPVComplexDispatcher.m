@@ -62,9 +62,6 @@ static const uint8_t kBPVInterval = 5;
     NSLog(@"%lu cars added pushed to wash", (unsigned long)kBPVCarsCount);
 }
 
-#pragma mark -
-#pragma mark Private implementations
-
 - (void)onTimer {
     self.timer = [NSTimer scheduledTimerWithTimeInterval:kBPVInterval
                                                   target:self
