@@ -15,7 +15,7 @@
 @property (nonatomic, readonly) BPVQueue    *objectsToProcess;
 @property (nonatomic, readonly) BPVQueue    *freeProcessors;
 
-+ (instancetype)dispatcherWithProcessors:(NSArray *)processors
++ (instancetype)dispatcherWithProcessors:(NSArray *)processors;
 
 - (void)addProcessor:(id)processor;
 - (void)removeProcessor:(id)processor;

@@ -90,7 +90,7 @@
     }
     
     BPVQueue *queue = self.queue;
-    if (queue.objectsCount) {
+    if (queue.count) {
         [self performSelectorInBackground:@selector(startProcessingObject:) withObject:[queue dequeueObject]];
     } else {
         @synchronized (self) {

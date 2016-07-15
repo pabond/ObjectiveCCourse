@@ -32,6 +32,7 @@ typedef NS_ENUM(uint8_t, BPVWorkerState) {
 @property (nonatomic, assign)   NSUInteger  experience;
 @property (nonatomic, assign)   NSUInteger  salary;
 @property (nonatomic, readonly) BPVQueue    *queue;
+@property (nonatomic, copy)     NSString    *name;
 
 - (void)processObject:(id)object;
 - (void)performWorkWithObject:(id)object;

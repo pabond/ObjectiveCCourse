@@ -20,12 +20,15 @@
 #import "NSObject+BPVExtensions.h"
 #import "NSArray+BPVExtensions.h"
 
-typedef NSArray *(^BPVNewWorkers)(Class class, NSUInteger count, id observer);
+typedef NSArray *(^BPVWorkersFactory)(Class class, NSUInteger count, id observer, NSString *name);
 
-static const NSUInteger kBPVWashersCount = 5;
-static const NSUInteger kBPVAccountantsCount = 3;
-static const NSUInteger kBPVDirectorsCount = 1;
-static const NSString *kBPVWasherName = @"Washer";
+static const NSUInteger kBPVWashersCount        = 5;
+static const NSUInteger kBPVAccountantsCount    = 3;
+static const NSUInteger kBPVDirectorsCount      = 1;
+
+static NSString   *kBPVWasherName       = @"Washer";
+static NSString   *kBPVAccountantName   = @"Accountant";
+static NSString   *kBPVDirectorName     = @"Director";
 
 @interface BPVComplex ()
 @property (nonatomic, retain) BPVWorkersDispatcher *washersDispatcher;
@@ -35,10 +38,7 @@ static const NSString *kBPVWasherName = @"Washer";
 - (void)initInfrastructure;
 - (void)initDipatchersWithProcessors;
 
-- (void)addWasher:(id)washer;
-- (void)removeWasher:(id)washer;
-
-- (void)removeWorkersObservers;
+- (void)removeProcessorsObservers;
 
 @end
 
@@ -48,7 +48,8 @@ static const NSString *kBPVWasherName = @"Washer";
 #pragma mark Deallocation / Initialisation
 
 - (void)dealloc {
-    [self removeWorkersObservers];
+    [self removeProcessorsObservers];
+    
     self.washersDispatcher = nil;
     self.accountansDispatcher = nil;
     self.directorsDispatcher = nil;
@@ -68,26 +69,32 @@ static const NSString *kBPVWasherName = @"Washer";
 }
 
 - (void)initDipatchersWithProcessors {
-    BPVNewWorkers workers = ^NSArray *(Class class, NSUInteger count, id observer) {
-        return [[NSArray arrayWithObjectsCount:count usingBlock:^id {
+    __block NSUInteger iterator = 1;
+    BPVWorkersFactory workersFactory = ^NSArray *(Class class, NSUInteger count, id observer, NSString *name) {
+        return [NSArray arrayWithObjectsCount:count block:^ {
             BPVWorker *worker = [class object];
             [worker addObservers:@[self, observer]];
-             
-             return worker;
-              }] autorelease];
+            worker.name = [NSString stringWithFormat:@"name%lu", (unsigned long)iterator++];
+            
+            return worker;
+                }];
     };
     
-    self.washersDispatcher = [BPVWorkersDispatcher dispatcherWithProcessors:workers([BPVWasher class],
-                                                                                    kBPVWashersCount,
-                                                                                    self.accountansDispatcher)];
     
-    self.accountansDispatcher = [BPVWorkersDispatcher dispatcherWithProcessors:workers([BPVAccountant class],
-                                                                                       kBPVAccountantsCount,
-                                                                                       self.directorsDispatcher)];
+    self.directorsDispatcher = [BPVWorkersDispatcher dispatcherWithProcessors:workersFactory([BPVDirector class],
+                                                                                             kBPVDirectorsCount,
+                                                                                             nil,
+                                                                                             kBPVDirectorName)];
     
-    self.directorsDispatcher = [BPVWorkersDispatcher dispatcherWithProcessors:workers([BPVDirector class],
-                                                                                      kBPVDirectorsCount,
-                                                                                      nil)];
+    self.accountansDispatcher = [BPVWorkersDispatcher dispatcherWithProcessors:workersFactory([BPVAccountant class],
+                                                                                              kBPVAccountantsCount,
+                                                                                              self.directorsDispatcher,
+                                                                                              kBPVAccountantName)];
+    
+    self.washersDispatcher = [BPVWorkersDispatcher dispatcherWithProcessors:workersFactory([BPVWasher class],
+                                                                                           kBPVWashersCount,
+                                                                                           self.accountansDispatcher,
+                                                                                           kBPVWasherName)];
 }
 
 #pragma mark -
@@ -102,26 +109,21 @@ static const NSString *kBPVWasherName = @"Washer";
 #pragma mark -
 #pragma mark Private Implementation
 
-/*
-- (void)removeWorkersObservers {
-    BPVAccountant *accountant = self.accountant;
-    [accountant removeObserver:self.director];
-   
-    NSArray *washerObservers = @[accountant, self];
-    for (BPVWorker *worker in self.washers) {
-        [worker removeObservers:washerObservers];
-    }
-}
 
-- (void)workerDidBecomeFree:(BPVWorker *)worker {
-    BPVCar *car = [self.carsQueue dequeueObject];
-    if (car) {
-        [worker processObject:car];
-    } else {
-        [self.freeWashersQueue enqueueObject:worker];
-    }
+- (void)removeProcessorsObservers {
+    void (^BPVRemoveObservers)(id collection, id observers) = ^(id collection, id observers) {
+        for (BPVWorker *processor in collection) {
+            [processor removeObservers:observers];
+        }
+    };
+    
+    BPVWorkersDispatcher *directorsDispatcher = self.directorsDispatcher;
+    BPVWorkersDispatcher *accountansDispatcher = self.accountansDispatcher;
+    BPVWorkersDispatcher *washersDispatcher = self.washersDispatcher;
+    
+    BPVRemoveObservers(directorsDispatcher.processors, @[directorsDispatcher]);
+    BPVRemoveObservers(accountansDispatcher.processors, @[accountansDispatcher, directorsDispatcher]);
+    BPVRemoveObservers(washersDispatcher.processors, @[washersDispatcher, accountansDispatcher]);
 }
-
-*/
 
 @end

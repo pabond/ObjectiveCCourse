@@ -1,5 +1,5 @@
 //
-//  BPVComplexDipatcher.h
+//  BPVComplexDispatcher.h
 //  BPVObjectiveC
 //
 //  Created by Bondar Pavel on 7/14/16.
@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BPVComplexDipatcher : NSObject
+@interface BPVComplexDispatcher : NSObject
 
++ (instancetype)disptcherWithComplex:(id)complex;
 - (void)washCars;
 
 @end

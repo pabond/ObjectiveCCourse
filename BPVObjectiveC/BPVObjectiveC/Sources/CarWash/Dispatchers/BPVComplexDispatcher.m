@@ -1,12 +1,12 @@
 //
-//  BPVComplexDipatcher.m
+//  BPVComplexDispatcher.m
 //  BPVObjectiveC
 //
 //  Created by Bondar Pavel on 7/14/16.
 //  Copyright © 2016 Pavel Bondar. All rights reserved.
 //
 
-#import "BPVComplexDipatcher.h"
+#import "BPVComplexDispatcher.h"
 
 #import "BPVComplex.h"
 #import "BPVCar.h"
@@ -16,12 +16,21 @@
 
 static const NSUInteger kBPVCarsCount = 40;
 
-@interface BPVComplexDipatcher ()
+@interface BPVComplexDispatcher ()
 @property (nonatomic, retain) BPVComplex *complex;
+
+- (instancetype)initWithComplex:(BPVComplex *)complex;
 
 @end
 
-@implementation BPVComplexDipatcher
+@implementation BPVComplexDispatcher
+
+#pragma mark -
+#pragma mark Class methods
+
++ (instancetype)disptcherWithComplex:(BPVComplex *)complex {
+    return [[[self alloc] initWithComplex:complex] autorelease];
+}
 
 #pragma mark -
 #pragma mark Initializations / Deallocations
@@ -32,9 +41,9 @@ static const NSUInteger kBPVCarsCount = 40;
     [super dealloc];
 }
 
-- (instancetype)init {
+- (instancetype)initWithComplex:(BPVComplex *)complex {
     self = [super init];
-    self.complex = [BPVComplex object];
+    self.complex = complex;
     
     return self;
 }
@@ -50,6 +59,5 @@ static const NSUInteger kBPVCarsCount = 40;
     
     NSLog(@"%lu cars added pushed to wash", (unsigned long)kBPVCarsCount);
 }
-
 
 @end

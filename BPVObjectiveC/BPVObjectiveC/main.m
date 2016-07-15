@@ -8,13 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-#import "BPVComplexDipatcher.h"
+#import "BPVComplexDispatcher.h"
+#import "BPVComplex.h"
 
 #import "NSObject+BPVExtensions.h"
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
-        BPVComplexDipatcher *complexDispatcher = [BPVComplexDipatcher object];
+        BPVComplexDispatcher *complexDispatcher = [BPVComplexDispatcher disptcherWithComplex:[BPVComplex object]];
         [complexDispatcher washCars];
         
         [[NSRunLoop mainRunLoop] run];
