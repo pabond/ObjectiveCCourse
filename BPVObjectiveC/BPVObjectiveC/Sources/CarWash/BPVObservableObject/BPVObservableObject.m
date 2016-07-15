@@ -8,13 +8,12 @@
 
 #import "BPVObservableObject.h"
 
-#import "BPVAssingReference.h"
+#import "BPVWorker.h"
 
 @interface BPVObservableObject ()
 @property (nonatomic, retain) NSHashTable     *observersTable;
 
-- (void)notifyOfStateChangeWithSelector:(SEL)selector;
-- (void)notifyOfStateChangeWithSelector:(SEL)selector object:(id)object;
+- (void)notifyOfStateWithSelector:(SEL)selector object:(id)object;
 
 @end
 
@@ -95,14 +94,20 @@
         if (_state != state) {
             _state = state;
           
-            [self notifyOfStateChangeWithSelector:[self selectorForState:state] object:object];
+            [self notifyOfState:state withObject:object];
         }
+    }
+}
+
+- (void)notifyOfState:(NSUInteger)state {
+    @synchronized (self) {
+        [self notifyOfState:state withObject:nil];
     }
 }
 
 - (void)notifyOfState:(NSUInteger)state withObject:(id)object {
     @synchronized (self) {
-        [self notifyOfStateChangeWithSelector:[object selectorForState:state] object:object];
+        [self notifyOfStateWithSelector:[self selectorForState:state] object:object];
     }
 }
 
@@ -113,11 +118,7 @@
     return NULL;
 }
 
-- (void)notifyOfStateChangeWithSelector:(SEL)selector {
-    [self notifyOfStateChangeWithSelector:selector object:nil];
-}
-
-- (void)notifyOfStateChangeWithSelector:(SEL)selector object:(id)object {
+- (void)notifyOfStateWithSelector:(SEL)selector object:(id)object {
     @synchronized (self) {
         NSHashTable *observers = self.observersTable;
         for (id observer in observers) {

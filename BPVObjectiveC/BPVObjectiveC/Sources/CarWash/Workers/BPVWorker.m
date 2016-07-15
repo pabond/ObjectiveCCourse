@@ -79,6 +79,7 @@
 - (void)startProcessingObject:(id)object {
     NSLog(@"Worker %@ start processing object %@ in background", self, object);
     [self performWorkWithObject:object];
+    
     [self performSelectorOnMainThread:@selector(finishProcessingOnMainThreadWithObject:)
                            withObject:object
                         waitUntilDone:NO];
@@ -89,17 +90,25 @@
         [self finishProcessingObject:object];
     }
     
-    BPVQueue *queue = self.queue;
-    if (queue.objectsCount) {
-        [self performSelectorInBackground:@selector(startProcessingObject:) withObject:[queue dequeueObject]];
-    } else {
-        @synchronized (self) {
-            [self finishProcessing];
-        }
+    @synchronized (self) {
+        id object = nil;
+        if ((object = [self.queue dequeueObject])) {
+            [self performSelectorInBackground:@selector(startProcessingObject:) withObject:object];
+            return;
+         }
+        
+        [self finishProcessing];
     }
 }
 
 - (void)finishProcessingObject:(BPVWorker *)worker {    //change object state
+    id object = nil;
+    if (worker.state == BPVWorkerStateReadyForProcessing && (object = [worker.queue dequeueObject])) {
+        worker.state = BPVWorkerStateBusy;
+        [self performSelectorInBackground:@selector(startProcessingObject:) withObject:object];
+        return;
+    }
+    
     NSLog(@"Worker become free");
     worker.state = BPVWorkerStateFree;
 }

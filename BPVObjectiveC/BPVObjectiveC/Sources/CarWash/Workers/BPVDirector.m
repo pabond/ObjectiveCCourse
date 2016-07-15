@@ -27,7 +27,7 @@
 }
 
 - (void)finishProcessing {
-    [super finishProcessingObject:self];
+    self.state = BPVWorkerStateFree;
 }
 
 @end

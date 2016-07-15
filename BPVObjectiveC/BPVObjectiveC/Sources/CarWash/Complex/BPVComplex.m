@@ -80,16 +80,13 @@ static const NSString *kBPVWasherName = @"Washer";
     
     __block NSUInteger iterator = 0;
     NSArray *washerObservers = @[accountant, self];
-    id newWashers = ^id {
+    self.washers = [NSMutableArray arrayWithObjectsCount:kBPVWashersCount block:^{
         BPVWasher *washer = [BPVWasher object];
         [washer addObservers:washerObservers];
-        iterator++;
-        washer.name = [NSString stringWithFormat:@"%@%lu", kBPVWasherName, (unsigned long)iterator];
+        washer.name = [NSString stringWithFormat:@"%@%lu", kBPVWasherName, (unsigned long)iterator++];
         
         return washer;
-    };
-    
-    self.washers = [NSArray arrayWithObjectsCount:kBPVWashersCount usingBlock:newWashers];
+    }];
 }
 
 - (void)initQueues {
