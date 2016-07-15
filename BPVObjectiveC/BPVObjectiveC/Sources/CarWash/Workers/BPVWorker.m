@@ -67,12 +67,7 @@
 
 - (void)processObject:(id)object {
     @synchronized (self) {
-        if (self.state == BPVWorkerStateFree) {
-            self.state = BPVWorkerStateBusy;
-            [self performSelectorInBackground:@selector(startProcessingObject:) withObject:object];
-        } else {
-            [self.queue enqueueObject:object];
-        }
+        [self performSelectorInBackground:@selector(startProcessingObject:) withObject:object];
     }
 }
 
@@ -89,13 +84,8 @@
         [self finishProcessingObject:object];
     }
     
-    BPVQueue *queue = self.queue;
-    if (queue.count) {
-        [self performSelectorInBackground:@selector(startProcessingObject:) withObject:[queue dequeueObject]];
-    } else {
-        @synchronized (self) {
-            [self finishProcessing];
-        }
+    @synchronized (self) {
+        [self finishProcessing];
     }
 }
 

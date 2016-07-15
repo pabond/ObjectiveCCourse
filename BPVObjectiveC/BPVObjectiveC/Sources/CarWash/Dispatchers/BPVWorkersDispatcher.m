@@ -18,6 +18,8 @@
 @property (nonatomic, retain) BPVQueue          *objectsToProcess;
 @property (nonatomic, retain) BPVQueue          *freeProcessors;
 
+- (BOOL)containsProcessor:(id)processor;
+
 @end
 
 @implementation BPVWorkersDispatcher
@@ -113,6 +115,13 @@
 }
 
 #pragma mark -
+#pragma mark Private implementations
+
+- (BOOL)containsProcessor:(id)processor {
+    return [self.processors containsObject:processor];
+}
+
+#pragma mark -
 #pragma mark BPVWorkersObserver methods
 
 - (void)workerDidBecomeFree:(BPVWorker *)processor {
@@ -121,6 +130,12 @@
         [processor processObject:object];
     } else {
         [self.freeProcessors enqueueObject:processor];
+    }
+}
+
+- (void)workerDidBecomeReadyForProcessing:(id)object {
+    if (![self containsProcessor:object]) {
+        [self processObject:object];
     }
 }
 
