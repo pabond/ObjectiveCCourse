@@ -20,7 +20,7 @@
 #import "NSObject+BPVExtensions.h"
 #import "NSArray+BPVExtensions.h"
 
-typedef NSArray *(^BPVWorkersFactory)(Class class, NSUInteger count, id observer, NSString *name);
+typedef NSArray *(^BPVWorkersFactory)(Class class, NSUInteger count, id observers, NSString *name);
 
 static const NSUInteger kBPVWashersCount        = 5;
 static const NSUInteger kBPVAccountantsCount    = 3;
@@ -36,7 +36,8 @@ static NSString   *kBPVDirectorName     = @"Director";
 @property (nonatomic, retain) BPVWorkersDispatcher *directorsDispatcher;
 
 - (void)initInfrastructure;
-- (void)initDipatchersWithProcessors;
+- (void)initDipatchers;
+- (void)initProcessors;
 
 - (void)removeProcessorsObservers;
 
@@ -65,36 +66,47 @@ static NSString   *kBPVDirectorName     = @"Director";
 }
 
 - (void)initInfrastructure {
-    [self initDipatchersWithProcessors];
+    [self initDipatchers];
+    [self initProcessors];
 }
 
-- (void)initDipatchersWithProcessors {
+- (void)initDipatchers {
+    self.directorsDispatcher = [BPVWorkersDispatcher object];
+    self.accountansDispatcher = [BPVWorkersDispatcher object];
+    self.washersDispatcher = [BPVWorkersDispatcher object];
+}
+
+- (void)initProcessors {
     __block NSUInteger iterator = 1;
-    BPVWorkersFactory workersFactory = ^NSArray *(Class class, NSUInteger count, id observer, NSString *name) {
+    BPVWorkersFactory workersFactory = ^NSArray *(Class class, NSUInteger count, id observers, NSString *name) {
         return [NSArray arrayWithObjectsCount:count block:^ {
             BPVWorker *worker = [class object];
-            [worker addObservers:@[self, observer]];
+            [worker addObservers:observers];
             worker.name = [NSString stringWithFormat:@"name%lu", (unsigned long)iterator++];
             
             return worker;
-                }];
+        }];
     };
+
+    BPVWorkersDispatcher *directorsDispatcher = self.directorsDispatcher;
+    [directorsDispatcher addProcessors:workersFactory([BPVDirector class], kBPVDirectorsCount, nil, kBPVDirectorName)];
+    [directorsDispatcher addFreeProcessorsQueue];
     
+    BPVWorkersDispatcher *accountansDispatcher = self.accountansDispatcher;
+    [accountansDispatcher addProcessors:workersFactory([BPVAccountant class],
+                                                       kBPVAccountantsCount,
+                                                       @[accountansDispatcher, directorsDispatcher],
+                                                       kBPVAccountantName)];
     
-    self.directorsDispatcher = [BPVWorkersDispatcher dispatcherWithProcessors:workersFactory([BPVDirector class],
-                                                                                             kBPVDirectorsCount,
-                                                                                             nil,
-                                                                                             kBPVDirectorName)];
+    [accountansDispatcher addFreeProcessorsQueue];
     
-    self.accountansDispatcher = [BPVWorkersDispatcher dispatcherWithProcessors:workersFactory([BPVAccountant class],
-                                                                                              kBPVAccountantsCount,
-                                                                                              self.directorsDispatcher,
-                                                                                              kBPVAccountantName)];
-    
-    self.washersDispatcher = [BPVWorkersDispatcher dispatcherWithProcessors:workersFactory([BPVWasher class],
-                                                                                           kBPVWashersCount,
-                                                                                           self.accountansDispatcher,
-                                                                                           kBPVWasherName)];
+    BPVWorkersDispatcher *washersDispatcher = self.washersDispatcher;
+    [washersDispatcher addProcessors:workersFactory([BPVWasher class],
+                                                    kBPVWashersCount,
+                                                    @[accountansDispatcher, washersDispatcher],
+                                                    kBPVWasherName)];
+
+    [washersDispatcher addFreeProcessorsQueue];
 }
 
 #pragma mark -

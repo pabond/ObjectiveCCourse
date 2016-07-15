@@ -110,15 +110,6 @@
 }
 
 #pragma mark -
-#pragma mark BPVWorkersObserver
-
-- (void)workerDidBecomeReadyForProcessing:(id)object {
-    @synchronized (self) {
-        [self processObject:object];
-    }
-}
-
-#pragma mark -
 #pragma mark Owerloaded parent method
 
 - (SEL)selectorForState:(NSUInteger)state {

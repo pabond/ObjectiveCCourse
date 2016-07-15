@@ -18,20 +18,11 @@
 @property (nonatomic, retain) BPVQueue          *objectsToProcess;
 @property (nonatomic, retain) BPVQueue          *freeProcessors;
 
-- (instancetype)initWithProcessors:(NSArray *)objects;
-
 @end
 
 @implementation BPVWorkersDispatcher
 
 @dynamic processors;
-
-#pragma mark -
-#pragma mark Class methods
-
-+ (instancetype)dispatcherWithProcessors:(NSArray *)processors {
-    return [[[self alloc] initWithProcessors:processors] autorelease];
-}
 
 #pragma mark -
 #pragma mark Initializations / Deallocations
@@ -44,15 +35,12 @@
     [super dealloc];
 }
 
-- (instancetype)initWithProcessors:(NSArray *)objects {
+- (instancetype)init {
     self = [super init];
     
     self.objectsToProcess = [BPVQueue object];
-    self.mutableProcessors = [[objects mutableCopy] autorelease];
-    
-    BPVQueue *freeProcessors = [BPVQueue object];
-    self.freeProcessors = freeProcessors;
-    [freeProcessors enqueueObjects:objects];
+    self.mutableProcessors = [NSMutableArray array];
+    self.freeProcessors = [BPVQueue object];
     
     return self;
 }
@@ -85,7 +73,7 @@
         return;
     }
     
-    @synchronized (self.processors) {
+    @synchronized (self.mutableProcessors) {
         [self.mutableProcessors addObject:processor];
     }
 }
@@ -95,7 +83,7 @@
         return;
     }
     
-    @synchronized (self.processors) {
+    @synchronized (self.mutableProcessors) {
         [self.mutableProcessors removeObject:processor];
     }
 }
@@ -105,7 +93,7 @@
         return;
     }
     
-    @synchronized (self.processors) {
+    @synchronized (self.mutableProcessors) {
         [self.mutableProcessors addObjectsFromArray:processors];
     }
 }
@@ -115,13 +103,17 @@
         return;
     }
     
-    @synchronized (self.processors) {
+    @synchronized (self.mutableProcessors) {
         [self.mutableProcessors removeObjectsInArray:processors];
     }
 }
 
+- (void)addFreeProcessorsQueue {
+    [self.freeProcessors enqueueObjects:self.processors];
+}
+
 #pragma mark -
-#pragma mark BPVWorkersObserver
+#pragma mark BPVWorkersObserver methods
 
 - (void)workerDidBecomeFree:(BPVWorker *)processor {
     id object = [processor.queue dequeueObject];
