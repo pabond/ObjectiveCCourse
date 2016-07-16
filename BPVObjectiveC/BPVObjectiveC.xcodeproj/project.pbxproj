@@ -47,15 +47,15 @@
 		2DE716DC1D2272B600562950 /* BPVObservableObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE716DA1D2272B600562950 /* BPVObservableObject.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2DE716DE1D227D9000562950 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2D7E0FC01D20461C00620461 /* Info.plist */; };
 		2DE716E21D22C0CD00562950 /* BPVReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE716E11D22C0CD00562950 /* BPVReference.m */; };
-		2DE716E31D22C0CD00562950 /* BPVReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE716E11D22C0CD00562950 /* BPVReference.m */; };
+		2DE716E31D22C0CD00562950 /* BPVReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE716E11D22C0CD00562950 /* BPVReference.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2DE716E61D22C0F000562950 /* BPVAssingReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE716E51D22C0F000562950 /* BPVAssingReference.m */; };
-		2DE716E71D22C0F000562950 /* BPVAssingReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE716E51D22C0F000562950 /* BPVAssingReference.m */; };
+		2DE716E71D22C0F000562950 /* BPVAssingReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE716E51D22C0F000562950 /* BPVAssingReference.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2DE716EA1D22C10000562950 /* BPVCopyReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE716E91D22C10000562950 /* BPVCopyReference.m */; };
-		2DE716EB1D22C10000562950 /* BPVCopyReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE716E91D22C10000562950 /* BPVCopyReference.m */; };
+		2DE716EB1D22C10000562950 /* BPVCopyReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE716E91D22C10000562950 /* BPVCopyReference.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2DE716EE1D22C13100562950 /* BPVRetainReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE716ED1D22C13100562950 /* BPVRetainReference.m */; };
-		2DE716EF1D22C13100562950 /* BPVRetainReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE716ED1D22C13100562950 /* BPVRetainReference.m */; };
+		2DE716EF1D22C13100562950 /* BPVRetainReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE716ED1D22C13100562950 /* BPVRetainReference.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2DEFC4411D37B1DF0025C7B9 /* BPVWorkersDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DEFC4401D37B1DF0025C7B9 /* BPVWorkersDispatcher.m */; };
-		2DEFC4421D37B1DF0025C7B9 /* BPVWorkersDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DEFC4401D37B1DF0025C7B9 /* BPVWorkersDispatcher.m */; };
+		2DEFC4421D37B1DF0025C7B9 /* BPVWorkersDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DEFC4401D37B1DF0025C7B9 /* BPVWorkersDispatcher.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2DEFC4491D38E4880025C7B9 /* BPVComplexDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DEFC4481D38E4880025C7B9 /* BPVComplexDispatcher.m */; };
 		9C6DF33F32A0D137E49399EC /* libPods-ObjectiveCTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EEAF618C12477490D1782A7 /* libPods-ObjectiveCTests.a */; };
 /* End PBXBuildFile section */

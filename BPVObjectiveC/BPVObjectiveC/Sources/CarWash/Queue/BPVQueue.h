@@ -16,6 +16,5 @@
 - (id)dequeueObject;
 
 - (void)enqueueObjects:(NSArray *)objects;
-- (NSUInteger)count;
 
 @end
