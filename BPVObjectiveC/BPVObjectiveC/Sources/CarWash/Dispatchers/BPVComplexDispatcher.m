@@ -20,14 +20,18 @@ static const uint8_t kBPVInterval = 5;
 @interface BPVComplexDispatcher ()
 @property (nonatomic, retain) BPVComplex    *complex;
 @property (nonatomic, assign) NSTimer       *timer;
+@property (nonatomic, assign, getter=isRunning) BOOL running;
 
 - (instancetype)initWithComplex:(BPVComplex *)complex;
+
+- (void)offTimer;
+- (void)onTimer;
 
 @end
 
 @implementation BPVComplexDispatcher
 
-@dynamic timerOn;
+@dynamic running;
 
 #pragma mark -
 #pragma mark Class methods
@@ -63,7 +67,12 @@ static const uint8_t kBPVInterval = 5;
     }
 }
 
-- (BOOL)isTimerOn {
+- (void)setRunning:(BOOL)running {
+    SEL selector = running ? @selector(onTimer) : @selector(offTimer);
+    [self performSelectorOnMainThread:selector withObject:nil waitUntilDone:NO];
+}
+
+- (BOOL)isRunning {
     return nil != self.timer;
 }
 
