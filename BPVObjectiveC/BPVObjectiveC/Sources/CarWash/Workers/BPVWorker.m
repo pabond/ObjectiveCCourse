@@ -12,6 +12,9 @@
 
 @interface BPVWorker ()
 @property (nonatomic, assign) NSUInteger    money;
+@property (nonatomic, copy)   NSString      *name;
+
+- (instancetype)initProcessorWithName:name;
 
 - (void)finishProcessingOnMainThreadWithObject:(id)object;
 
@@ -20,12 +23,27 @@
 @implementation BPVWorker
 
 #pragma mark -
+#pragma mark Class methods
+
++ (instancetype)processorWithName:(NSString *)name {
+    return [[[self alloc] initProcessorWithName:name] autorelease];
+}
+
+#pragma mark -
 #pragma mark Initalistations / Deallocations
 
 - (void)dealloc {
     self.name = nil;
     
     [super dealloc];
+}
+
+- (instancetype)initProcessorWithName:name {
+    self = [super init];
+    
+    self.name = name;
+    
+    return self;
 }
 
 #pragma mark -

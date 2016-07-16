@@ -9,6 +9,7 @@
 #import "BPVWorkersDispatcher.h"
 
 #import "BPVQueue.h"
+#import "BPVWorker.h"
 
 #import "NSObject+BPVExtensions.h"
 
@@ -16,6 +17,8 @@
 @property (nonatomic, retain) NSMutableArray    *mutableProcessors;
 @property (nonatomic, retain) BPVQueue          *objectsToProcess;
 @property (nonatomic, retain) BPVQueue          *freeProcessors;
+
+- (instancetype)initWithProcessors:(NSArray *)objects;
 
 - (BOOL)containsProcessor:(id)processor;
 
@@ -26,22 +29,36 @@
 @dynamic processors;
 
 #pragma mark -
+#pragma mark Class methods
+
++ (instancetype)dispatcherWithProcessors:(NSArray *)processors {
+    return [[[self alloc] initWithProcessors:processors] autorelease];
+}
+
+#pragma mark -
 #pragma mark Initializations / Deallocations
 
 - (void)dealloc {
     self.objectsToProcess = nil;
-    self.mutableProcessors = nil;
     self.freeProcessors = nil;
+    
+    [self removeProcessors:self.processors];
+    self.mutableProcessors = nil;
     
     [super dealloc];
 }
 
-- (instancetype)init {
+- (instancetype)initWithProcessors:(NSArray *)processors {
     self = [super init];
     
     self.objectsToProcess = [BPVQueue object];
+    
     self.mutableProcessors = [NSMutableArray array];
-    self.freeProcessors = [BPVQueue object];
+    [self addProcessors:processors];
+    
+    BPVQueue *freeProcessors = [BPVQueue object];
+    self.freeProcessors = freeProcessors;
+    [freeProcessors enqueueObjects:processors];
     
     return self;
 }
@@ -50,8 +67,9 @@
 #pragma mark Accessors
 
 - (NSArray *)processors {
-    @synchronized (self.mutableProcessors) {
-        return [[self.mutableProcessors copy] autorelease];
+    NSMutableArray *mutableProcessors = self.mutableProcessors;
+    @synchronized (mutableProcessors) {
+        return [[mutableProcessors copy] autorelease];
     }
 }
 
@@ -74,8 +92,9 @@
         return;
     }
     
-    @synchronized (self.mutableProcessors) {
-        [self.mutableProcessors addObject:processor];
+    NSMutableArray *mutableProcessors = self.mutableProcessors;
+    @synchronized (mutableProcessors) {
+        [mutableProcessors addObject:processor];
     }
 }
 
@@ -84,8 +103,9 @@
         return;
     }
     
-    @synchronized (self.mutableProcessors) {
-        [self.mutableProcessors removeObject:processor];
+    NSMutableArray *mutableProcessors = self.mutableProcessors;
+    @synchronized (mutableProcessors) {
+        [mutableProcessors removeObject:processor];
     }
 }
 
@@ -93,9 +113,13 @@
     if (!processors) {
         return;
     }
-    
+
     @synchronized (self.mutableProcessors) {
-        [self.mutableProcessors addObjectsFromArray:processors];
+        for (BPVWorker *processor in processors) {
+            [processor addObserver:self];
+    
+            [self addProcessor:processor];
+        }
     }
 }
 
@@ -104,8 +128,10 @@
         return;
     }
     
-    @synchronized (self.mutableProcessors) {
-        [self.mutableProcessors removeObjectsInArray:processors];
+    for (BPVWorker *processor in processors) {
+        [processor removeObserver:self];
+        
+        [self removeProcessor:processor];
     }
 }
 

@@ -23,7 +23,7 @@
         [array addObject:block()];
     }
     
-    return array;
+    return [self arrayWithArray:array];
 }
 
 - (NSArray *)filteredUsingBlock:(BPVArrayFiltredUsingBlock)block {

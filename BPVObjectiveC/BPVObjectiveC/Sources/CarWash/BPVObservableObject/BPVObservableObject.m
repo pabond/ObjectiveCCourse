@@ -100,9 +100,7 @@
 }
 
 - (void)notifyOfState:(NSUInteger)state {
-    @synchronized (self) {
-        [self notifyOfState:state withObject:nil];
-    }
+    [self notifyOfState:state withObject:nil];
 }
 
 - (void)notifyOfState:(NSUInteger)state withObject:(id)object {
@@ -119,12 +117,10 @@
 }
 
 - (void)notifyOfStateWithSelector:(SEL)selector object:(id)object {
-    @synchronized (self) {
-        NSHashTable *observers = self.observersTable;
-        for (id observer in observers) {
-            if ([observer respondsToSelector:selector]) {
-                [observer performSelector:selector withObject:self withObject:object];
-            }
+    NSHashTable *observers = self.observersTable;
+    for (id observer in observers) {
+        if ([observer respondsToSelector:selector]) {
+            [observer performSelector:selector withObject:self withObject:object];
         }
     }
 }

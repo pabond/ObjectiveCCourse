@@ -8,18 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
-#import "BPVWorker.h"
-
-@interface BPVWorkersDispatcher : NSObject <BPVWorkersObserver>
+@interface BPVWorkersDispatcher : NSObject
 @property (nonatomic, readonly) NSArray     *processors;
+
++ (instancetype)dispatcherWithProcessors:(NSArray *)processors;
 
 - (void)addProcessor:(id)processor;
 - (void)removeProcessor:(id)processor;
 
 - (void)addProcessors:(NSArray *)processors;
 - (void)removeProcessors:(NSArray *)processors;
-
-- (void)addFreeProcessorsQueue;
 
 - (void)processObject:(id)object;
 

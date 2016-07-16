@@ -18,7 +18,8 @@ static const NSUInteger kBPVCarsCount = 40;
 static const uint8_t kBPVInterval = 5;
 
 @interface BPVComplexDispatcher ()
-@property (nonatomic, retain) BPVComplex *complex;
+@property (nonatomic, retain) BPVComplex    *complex;
+@property (nonatomic, assign) NSTimer       *timer;
 
 - (instancetype)initWithComplex:(BPVComplex *)complex;
 
