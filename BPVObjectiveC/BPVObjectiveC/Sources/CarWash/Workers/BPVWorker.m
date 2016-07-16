@@ -50,10 +50,8 @@
 #pragma mark Public implementations
 
 - (void)processObject:(id)object {
-    @synchronized (self) {
-        self.state = BPVWorkerStateBusy;
-        [self performSelectorInBackground:@selector(startProcessingObject:) withObject:object];
-    }
+    self.state = BPVWorkerStateBusy;
+    [self performSelectorInBackground:@selector(startProcessingObject:) withObject:object];
 }
 
 - (void)startProcessingObject:(id)object {
@@ -69,9 +67,7 @@
         [self finishProcessingObject:object];
     }
     
-    @synchronized (self) {
-        [self finishProcessing];
-    }
+    [self finishProcessing];
 }
 
 - (void)finishProcessingObject:(BPVWorker *)worker {    //change object state

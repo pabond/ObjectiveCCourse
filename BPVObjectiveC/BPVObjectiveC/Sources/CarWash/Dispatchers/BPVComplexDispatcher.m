@@ -27,6 +27,8 @@ static const uint8_t kBPVInterval = 5;
 
 @implementation BPVComplexDispatcher
 
+@dynamic timerOn;
+
 #pragma mark -
 #pragma mark Class methods
 
@@ -38,7 +40,6 @@ static const uint8_t kBPVInterval = 5;
 #pragma mark Initializations / Deallocations
 
 - (void)dealloc {
-    [self.timer invalidate];
     self.complex = nil;
     
     [super dealloc];
@@ -52,15 +53,34 @@ static const uint8_t kBPVInterval = 5;
 }
 
 #pragma mark -
+#pragma mark Accessors
+
+- (void)setTimer:(NSTimer *)timer {
+    if (_timer != timer) {
+        [self.timer invalidate];
+        
+        _timer = timer;
+    }
+}
+
+- (BOOL)isTimerOn {
+    return nil != self.timer;
+}
+
+#pragma mark -
 #pragma mark Public implementations
 
 - (void)washCars {
     BPVComplex *complex = self.complex;
     for (NSUInteger count = 0; count < kBPVCarsCount; count++) {
-        [complex washCar:[BPVCar object]];
+        [complex performSelectorInBackground:@selector(washCar:) withObject:[BPVCar object]];
     }
     
     NSLog(@"%lu cars added pushed to wash", (unsigned long)kBPVCarsCount);
+}
+
+- (void)offTimer {
+    self.timer = nil;
 }
 
 - (void)onTimer {

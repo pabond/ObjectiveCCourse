@@ -12,7 +12,7 @@ typedef BOOL(^BPVArrayFiltredUsingBlock)(id object);
 
 @interface NSArray (BPVExtensions)
 
-+ (instancetype)arrayWithObjectsCount:(NSUInteger)count block:(id(^)())block;
++ (instancetype)arrayOfObjectsWithCount:(NSUInteger)count block:(id(^)())block;
 
 - (NSArray *)filteredUsingBlock:(BPVArrayFiltredUsingBlock)block;
 

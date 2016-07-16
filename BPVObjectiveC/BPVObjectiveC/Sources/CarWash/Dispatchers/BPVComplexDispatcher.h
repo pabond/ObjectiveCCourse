@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface BPVComplexDispatcher : NSObject
+@property (nonatomic, readonly, getter=isTimerOn) BOOL timerOn;
 
 + (instancetype)disptcherWithComplex:(id)complex;
 - (void)washCars;
