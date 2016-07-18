@@ -18,8 +18,6 @@
 
 - (instancetype)initProcessorWithName:name;
 
-- (void)finishProcessingOnMainThreadWithObject:(id)object;
-
 @end
 
 @implementation BPVWorker
@@ -53,30 +51,14 @@
 
 - (void)processObject:(id)object {
     self.state = BPVWorkerStateBusy;
-    dispatch_async(dispatch_get_global_queue(BPVDispatchQueuePriorityTypeBackgroung, 0), ^{
+    BPVAsyncPerformBlockOnBackgroundQueue (^{
         [self performWorkWithObject:object];
-        dispatch_async(dispatch_get_main_queue(), ^{
+        BPVAsyncPerformBlockOnMainQueue(^{
             [self finishProcessingObject:object];
             [self finishProcessing];
         });
     });
 }
-
-//- (void)startProcessingObject:(id)object {
-//    NSLog(@"%@ start processing object in background", self.name);
-//    [self performWorkWithObject:object];
-//    [self performSelectorOnMainThread:@selector(finishProcessingOnMainThreadWithObject:)
-//                           withObject:object
-//                        waitUntilDone:NO];
-//}
-//
-//- (void)finishProcessingOnMainThreadWithObject:(id)object {
-//    @synchronized (object) {
-//        [self finishProcessingObject:object];
-//    }
-//    
-//    [self finishProcessing];
-//}
 
 - (void)finishProcessingObject:(BPVWorker *)worker {    //change object state
     NSLog(@"%@ become free", worker.name);

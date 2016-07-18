@@ -8,9 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void(^BPVBlock)();
+
 typedef enum {
     BPVDispatchQueuePriorityTypeHigh = DISPATCH_QUEUE_PRIORITY_HIGH,
     BPVDispatchQueuePriorityTypeDefault = DISPATCH_QUEUE_PRIORITY_DEFAULT,
     BPVDispatchQueuePriorityTypeLow = DISPATCH_QUEUE_PRIORITY_LOW,
     BPVDispatchQueuePriorityTypeBackgroung = DISPATCH_QUEUE_PRIORITY_BACKGROUND,
 } BPVDispatchQueuePriorityType;
+
+void BPVAsyncPerformBlockOnMainQueue(BPVBlock block);
+void BPVAsyncPerformBlockOnBackgroundQueue(BPVBlock block);
