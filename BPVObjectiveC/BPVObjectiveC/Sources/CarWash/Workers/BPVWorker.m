@@ -8,6 +8,8 @@
 
 #import "BPVWorker.h"
 
+#import "BPVGCD.h"
+
 #import "NSObject+BPVExtensions.h"
 
 @interface BPVWorker ()
@@ -51,24 +53,30 @@
 
 - (void)processObject:(id)object {
     self.state = BPVWorkerStateBusy;
-    [self performSelectorInBackground:@selector(startProcessingObject:) withObject:object];
+    dispatch_async(dispatch_get_global_queue(BPVDispatchQueuePriorityTypeBackgroung, 0), ^{
+        [self performWorkWithObject:object];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self finishProcessingObject:object];
+            [self finishProcessing];
+        });
+    });
 }
 
-- (void)startProcessingObject:(id)object {
-    NSLog(@"%@ start processing object in background", self.name);
-    [self performWorkWithObject:object];
-    [self performSelectorOnMainThread:@selector(finishProcessingOnMainThreadWithObject:)
-                           withObject:object
-                        waitUntilDone:NO];
-}
-
-- (void)finishProcessingOnMainThreadWithObject:(id)object {
-    @synchronized (object) {
-        [self finishProcessingObject:object];
-    }
-    
-    [self finishProcessing];
-}
+//- (void)startProcessingObject:(id)object {
+//    NSLog(@"%@ start processing object in background", self.name);
+//    [self performWorkWithObject:object];
+//    [self performSelectorOnMainThread:@selector(finishProcessingOnMainThreadWithObject:)
+//                           withObject:object
+//                        waitUntilDone:NO];
+//}
+//
+//- (void)finishProcessingOnMainThreadWithObject:(id)object {
+//    @synchronized (object) {
+//        [self finishProcessingObject:object];
+//    }
+//    
+//    [self finishProcessing];
+//}
 
 - (void)finishProcessingObject:(BPVWorker *)worker {    //change object state
     NSLog(@"%@ become free", worker.name);
