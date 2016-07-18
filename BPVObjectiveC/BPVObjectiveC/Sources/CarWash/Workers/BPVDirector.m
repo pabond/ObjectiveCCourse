@@ -13,21 +13,21 @@
 @implementation BPVDirector
 
 - (void)earnMoney {
-    NSLog(@"Director earns money. Now director receive %lu", (unsigned long)self.money);
+    NSLog(@"%@ earns money. Now director receive %lu", self.name, (unsigned long)self.money);
 }
 
 #pragma mark -
 #pragma mark Public implementations
 
-- (void)performWorkWithObject:(id)object {
+- (void)performWorkWithObject:(BPVWorker *)object {
     [self takeMoneyFromObject:object];
     [self earnMoney];
     
-    NSLog(@"Director processed accountant");
+    NSLog(@"%@ processed %@", self.name, object.name);
 }
 
 - (void)finishProcessing {
-    [super finishProcessingObject:self];
+    self.state = BPVWorkerStateFree;
 }
 
 @end

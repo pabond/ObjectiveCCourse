@@ -18,7 +18,7 @@
 @implementation BPVQueue
 
 @dynamic queue;
-@dynamic objectsCount;
+@dynamic count;
 
 #pragma mark -
 #pragma mark Deallocation / Initialisation
@@ -42,7 +42,7 @@
     }
 }
 
-- (NSUInteger)objectsCount {
+- (NSUInteger)count {
     @synchronized (self.mutableQueue) {
         return self.queue.count;
     }

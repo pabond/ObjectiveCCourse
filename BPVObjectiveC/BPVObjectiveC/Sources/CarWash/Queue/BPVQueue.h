@@ -9,13 +9,12 @@
 #import <Foundation/Foundation.h>
 
 @interface BPVQueue : NSObject
-@property (nonatomic, readonly) NSArray *queue;
-@property (nonatomic, readonly) NSUInteger objectsCount;
+@property (nonatomic, readonly) NSArray     *queue;
+@property (nonatomic, readonly) NSUInteger  count;
 
 - (void)enqueueObject:(id)object;
 - (id)dequeueObject;
 
 - (void)enqueueObjects:(NSArray *)objects;
-- (NSUInteger)objectsCount;
 
 @end

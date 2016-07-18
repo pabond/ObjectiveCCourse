@@ -11,17 +11,17 @@
 @implementation BPVAccountant
 
 - (void)countMoney {
-    NSLog(@"Accountant counting money");
+    NSLog(@"%@ counting money", self.name);
 }
 
 #pragma mark -
 #pragma mark BPVMoneyFlow
 
-- (void)performWorkWithObject:(id)object {
+- (void)performWorkWithObject:(BPVWorker *)object {
     [self takeMoneyFromObject:object];
     [self countMoney];
     
-    NSLog(@"Accountant take money from washer %@", object);
+    NSLog(@"%@ take money from %@", self.name, object.name);
 }
 
 @end

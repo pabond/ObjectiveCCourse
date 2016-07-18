@@ -8,21 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+#import "BPVComplexDispatcher.h"
 #import "BPVComplex.h"
-#import "BPVCar.h"
 
 #import "NSObject+BPVExtensions.h"
 
-static const NSUInteger kBPVCarsCount = 40;
-
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
-        BPVComplex *complex = [BPVComplex object];
-        for (NSUInteger count = 0; count < kBPVCarsCount; count++) {
-            [complex washCar:[BPVCar object]];
-        }
-        
-        NSLog(@"All %lu cars added to queue", (unsigned long)kBPVCarsCount);
+        BPVComplexDispatcher *complexDispatcher = [BPVComplexDispatcher disptcherWithComplex:[BPVComplex object]];
+        [complexDispatcher washCars];
+        [complexDispatcher setRunning:YES];
         
         [[NSRunLoop mainRunLoop] run];
     }
