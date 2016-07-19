@@ -59,6 +59,7 @@
 		2DEFC4491D38E4880025C7B9 /* BPVComplexDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DEFC4481D38E4880025C7B9 /* BPVComplexDispatcher.m */; };
 		2DEFC44D1D3CEE7E0025C7B9 /* BPVGCD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DEFC44C1D3CEE7E0025C7B9 /* BPVGCD.m */; };
 		2DEFC44E1D3CEE7E0025C7B9 /* BPVGCD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DEFC44C1D3CEE7E0025C7B9 /* BPVGCD.m */; };
+		2DEFC4511D3E22E20025C7B9 /* NSTimer+BPVExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DEFC4501D3E22E20025C7B9 /* NSTimer+BPVExtensions.m */; };
 		9C6DF33F32A0D137E49399EC /* libPods-ObjectiveCTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EEAF618C12477490D1782A7 /* libPods-ObjectiveCTests.a */; };
 /* End PBXBuildFile section */
 
@@ -132,6 +133,8 @@
 		2DEFC4481D38E4880025C7B9 /* BPVComplexDispatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPVComplexDispatcher.m; sourceTree = "<group>"; };
 		2DEFC44B1D3CEE7E0025C7B9 /* BPVGCD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPVGCD.h; sourceTree = "<group>"; };
 		2DEFC44C1D3CEE7E0025C7B9 /* BPVGCD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPVGCD.m; sourceTree = "<group>"; };
+		2DEFC44F1D3E22E20025C7B9 /* NSTimer+BPVExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+BPVExtensions.h"; sourceTree = "<group>"; };
+		2DEFC4501D3E22E20025C7B9 /* NSTimer+BPVExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+BPVExtensions.m"; sourceTree = "<group>"; };
 		49FF2E6285CB975692737E08 /* Pods-ObjectiveCTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ObjectiveCTests/Pods-ObjectiveCTests.debug.xcconfig"; sourceTree = "<group>"; };
 		58C5E08252656B7E6D831DCE /* Pods-ObjectiveCTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ObjectiveCTests/Pods-ObjectiveCTests.release.xcconfig"; sourceTree = "<group>"; };
 		5EEAF618C12477490D1782A7 /* libPods-ObjectiveCTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ObjectiveCTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -304,6 +307,8 @@
 				2D7E0FF31D20463100620461 /* NSArray+BPVExtensions.m */,
 				2D7E0FF41D20463100620461 /* NSObject+BPVExtensions.h */,
 				2D7E0FF51D20463100620461 /* NSObject+BPVExtensions.m */,
+				2DEFC44F1D3E22E20025C7B9 /* NSTimer+BPVExtensions.h */,
+				2DEFC4501D3E22E20025C7B9 /* NSTimer+BPVExtensions.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -556,6 +561,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D7E100E1D20463100620461 /* BPVCar.m in Sources */,
+				2DEFC4511D3E22E20025C7B9 /* NSTimer+BPVExtensions.m in Sources */,
 				2D7E10101D20463100620461 /* BPVComplex.m in Sources */,
 				2D7E101E1D20463100620461 /* BPVWorker.m in Sources */,
 				2D7E10021D20463100620461 /* BPVAlphabet.m in Sources */,

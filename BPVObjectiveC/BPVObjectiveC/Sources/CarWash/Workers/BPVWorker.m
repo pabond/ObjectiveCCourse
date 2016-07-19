@@ -51,9 +51,9 @@
 
 - (void)processObject:(id)object {
     self.state = BPVWorkerStateBusy;
-    BPVAsyncPerformBlockOnBackgroundQueue (^{
+    BPVPerformAsyncBlockOnBackgroundQueue (^{
         [self performWorkWithObject:object];
-        BPVAsyncPerformBlockOnMainQueue(^{
+        BPVPerformAsyncBlockOnMainQueue(^{
             [self finishProcessingObject:object];
             [self finishProcessing];
         });

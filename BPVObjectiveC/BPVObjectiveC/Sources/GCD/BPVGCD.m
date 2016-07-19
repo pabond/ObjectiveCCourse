@@ -19,7 +19,7 @@ void BPVPefromBlockWithQueueAndType(BPVBlockExecutionType type, dispatch_queue_t
 #pragma mark -
 #pragma mark Public implementations
 
-void BPVAsyncPerformBlockOnMainQueue(BPVBlock block) {
+void BPVPerformAsyncBlockOnMainQueue(BPVBlock block) {
     BPVPerformBlockOnMainQueueWithTypeAndBlock(BPVBlockExecutionAsynchronous, block);
 }
 
@@ -27,7 +27,7 @@ void BPVPerformSyncBlockOnMainQueue(BPVBlock block) {
     BPVPerformBlockOnMainQueueWithTypeAndBlock(BPVBlockExecutionSynchronous, block);
 }
 
-void BPVAsyncPerformBlockOnBackgroundQueue(BPVBlock block) {
+void BPVPerformAsyncBlockOnBackgroundQueue(BPVBlock block) {
     BPVPefromBlockWithQueueAndType(BPVBlockExecutionAsynchronous,
                                    BPVDisptchQueueWithPriorityType(BPVDispatchQueuePriorityBackground),
                                    block);
