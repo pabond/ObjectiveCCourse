@@ -17,7 +17,7 @@ int main(int argc, const char * argv[]) {
     @autoreleasepool {
         BPVComplexDispatcher *complexDispatcher = [BPVComplexDispatcher disptcherWithComplex:[BPVComplex object]];
         [complexDispatcher washCars];
-        [complexDispatcher setRunning:YES];
+        complexDispatcher.running = YES;
         
         [[NSRunLoop mainRunLoop] run];
     }

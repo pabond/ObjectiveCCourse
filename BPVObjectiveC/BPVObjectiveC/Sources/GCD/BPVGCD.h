@@ -31,3 +31,5 @@ void BPVPerformSyncBlockOnBackgroundQueue(BPVBlock block);
 
 void BPVPerformAsyncBlockOnLowQueue(BPVBlock block);
 void BPVPerformSyncBlockOnLowQueue(BPVBlock block);
+
+dispatch_queue_t BPVDisptchQueueWithPriorityType(BPVDispatchQueuePriorityType type);

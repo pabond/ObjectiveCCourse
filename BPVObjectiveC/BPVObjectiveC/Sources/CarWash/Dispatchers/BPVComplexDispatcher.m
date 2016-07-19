@@ -11,11 +11,15 @@
 #import "BPVComplex.h"
 #import "BPVCar.h"
 
+#import "BPVGCD.h"
+
 #import "NSObject+BPVExtensions.h"
 #import "NSArray+BPVExtensions.h"
+#import "NSTimer+BPVExtensions.h"
 
-static const NSUInteger kBPVCarsCount   = 40;
-static const uint8_t    kBPVInterval    = 5;
+static const NSUInteger kBPVCarsCount           = 40;
+static const uint8_t    kBPVInterval            = 5;
+static const size_t     kBPVIterationsCount     = 10;
 
 @interface BPVComplexDispatcher ()
 @property (nonatomic, retain) BPVComplex    *complex;
@@ -93,11 +97,19 @@ static const uint8_t    kBPVInterval    = 5;
 }
 
 - (void)startTimer {
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:kBPVInterval
-                                                  target:self
-                                                selector:@selector(washCars)
-                                                userInfo:nil
-                                                 repeats:YES];
+    dispatch_apply(kBPVIterationsCount, BPVDisptchQueueWithPriorityType(BPVDispatchQueuePriorityBackground), ^(size_t count) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kBPVInterval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self washCars];
+        });
+    });
+    
+    self.running = NO;
 }
+    
+    
+//    self.timer = [NSTimer timerWithTimeInterval:kBPVInterval repeats:YES block:^{
+//        [self washCars];
+//    }];
+
 
 @end

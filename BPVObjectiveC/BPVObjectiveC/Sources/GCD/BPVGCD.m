@@ -12,7 +12,6 @@
 #pragma mark Privat declarations
 
 void BPVPerformBlockOnMainQueueWithTypeAndBlock(BPVBlockExecutionType type, BPVBlock block);
-dispatch_queue_t BPVDisptchQueueWithPriorityType(BPVDispatchQueuePriorityType type);
 
 void BPVPefromBlockWithQueueAndType(BPVBlockExecutionType type, dispatch_queue_t queue, BPVBlock block);
 
@@ -51,15 +50,15 @@ void BPVPerformSyncBlockOnLowQueue(BPVBlock block) {
                                    block);
 }
 
+dispatch_queue_t BPVDisptchQueueWithPriorityType(BPVDispatchQueuePriorityType type) {
+    return dispatch_get_global_queue(type, 0);
+}
+
 #pragma mark -
 #pragma mark Privat implementations
 
 void BPVPerformBlockOnMainQueueWithTypeAndBlock(BPVBlockExecutionType type, BPVBlock block) {
      BPVPefromBlockWithQueueAndType(type, dispatch_get_main_queue(), block);
-}
-
-dispatch_queue_t BPVDisptchQueueWithPriorityType(BPVDispatchQueuePriorityType type) {
-    return dispatch_get_global_queue(type, 0);
 }
 
 void BPVPefromBlockWithQueueAndType(BPVBlockExecutionType type, dispatch_queue_t queue, BPVBlock block) {

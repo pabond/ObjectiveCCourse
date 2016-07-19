@@ -8,6 +8,27 @@
 
 #import "NSTimer+BPVExtensions.h"
 
+#import "NSObject+BPVExtensions.h"
+
+typedef void (^BPVBlock)(void);
+
+
 @implementation NSTimer (BPVExtensions)
+
+#pragma mark -
+#pragma mark Public implementations
+
+//+ (instancetype)timerWithTimeInterval:(NSTimeInterval)interval repeats:(BOOL)repeats block:(void(^)())block {
+//    id object = [NSObject object];
+//    
+//    return [self scheduledTimerWithTimeInterval:interval
+//                                         target:object
+//                                       selector:@selector()
+//                                       userInfo:nil
+//                                        repeats:repeats];
+//}
+
+#pragma mark -
+#pragma mark Private implementations
 
 @end
