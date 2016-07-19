@@ -10,6 +10,6 @@
 
 @interface NSTimer (BPVExtensions)
 
-+ (instancetype)timerWithTimeInterval:(NSTimeInterval)interval repeats:(BOOL)repeats block:(SEL(^)())block;
++ (instancetype)timerWithTimeInterval:(NSTimeInterval)interval repeats:(BOOL)repeats block:((^)())block;
 
 @end
