@@ -12,7 +12,7 @@
 
 @implementation NSArray (BPVExtensions)
 
-+ (instancetype)arrayOfObjectsWithCount:(NSUInteger)count block:(id(^)())block {
++ (instancetype)arrayWithObjectsFactoryWithCount:(NSUInteger)count block:(id(^)())block {
     if (!block) {
         return nil;
     }

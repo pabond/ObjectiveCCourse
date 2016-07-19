@@ -11,11 +11,23 @@
 typedef void(^BPVBlock)();
 
 typedef enum {
-    BPVDispatchQueuePriorityTypeHigh = DISPATCH_QUEUE_PRIORITY_HIGH,
-    BPVDispatchQueuePriorityTypeDefault = DISPATCH_QUEUE_PRIORITY_DEFAULT,
-    BPVDispatchQueuePriorityTypeLow = DISPATCH_QUEUE_PRIORITY_LOW,
-    BPVDispatchQueuePriorityTypeBackgroung = DISPATCH_QUEUE_PRIORITY_BACKGROUND,
+    BPVDispatchQueuePriorityHigh        = DISPATCH_QUEUE_PRIORITY_HIGH,
+    BPVDispatchQueuePriorityDefault     = DISPATCH_QUEUE_PRIORITY_DEFAULT,
+    BPVDispatchQueuePriorityLow         = DISPATCH_QUEUE_PRIORITY_LOW,
+    BPVDispatchQueuePriorityBackground  = DISPATCH_QUEUE_PRIORITY_BACKGROUND,
 } BPVDispatchQueuePriorityType;
 
-void BPVAsyncPerformBlockOnMainQueue(BPVBlock block);
-void BPVAsyncPerformBlockOnBackgroundQueue(BPVBlock block);
+typedef enum {
+    BPVBlockExecutionSynchronous,
+    BPVBlockExecutionAsynchronous
+} BPVBlockExecutionType;
+
+
+void BPVPerformAsyncBlockOnMainQueue(BPVBlock block);
+void BPVPerformSyncBlockOnMainQueue(BPVBlock block);
+
+void BPVPerformAsyncBlockOnBackgroundQueue(BPVBlock block);
+void BPVPerformSyncBlockOnBackgroundQueue(BPVBlock block);
+
+void BPVPerformAsyncBlockOnLowQueue(BPVBlock block);
+void BPVPerformSyncBlockOnLowQueue(BPVBlock block);

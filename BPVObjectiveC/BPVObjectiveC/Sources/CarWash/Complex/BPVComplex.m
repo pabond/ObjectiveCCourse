@@ -71,7 +71,7 @@ static NSString   *kBPVDirectorName     = @"Director";
 - (void)initDipatchersWithProcessors {
     BPVWorkersFactory workersFactory = ^NSArray *(Class class, NSUInteger count, id observer, NSString *name) {
         __block NSUInteger iterator = 0;
-        return [NSArray arrayOfObjectsWithCount:count block:^ {
+        return [NSArray arrayWithObjectsFactoryWithCount:count block:^ {
             BPVWorker *worker = [class processorWithName:[NSString stringWithFormat:@"%@%lu",
                                                           name,
                                                           (unsigned long)++iterator]];

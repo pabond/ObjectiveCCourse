@@ -14,18 +14,17 @@
 #import "NSObject+BPVExtensions.h"
 #import "NSArray+BPVExtensions.h"
 
-static const NSUInteger kBPVCarsCount = 40;
-static const uint8_t kBPVInterval = 5;
+static const NSUInteger kBPVCarsCount   = 40;
+static const uint8_t    kBPVInterval    = 5;
 
 @interface BPVComplexDispatcher ()
 @property (nonatomic, retain) BPVComplex    *complex;
 @property (nonatomic, assign) NSTimer       *timer;
-@property (nonatomic, assign, getter=isRunning) BOOL running;
 
 - (instancetype)initWithComplex:(BPVComplex *)complex;
 
-- (void)offTimer;
-- (void)onTimer;
+- (void)stopTimer;
+- (void)startTimer;
 
 @end
 
@@ -44,6 +43,7 @@ static const uint8_t kBPVInterval = 5;
 #pragma mark Initializations / Deallocations
 
 - (void)dealloc {
+    self.timer = nil;
     self.complex = nil;
     
     [super dealloc];
@@ -61,14 +61,14 @@ static const uint8_t kBPVInterval = 5;
 
 - (void)setTimer:(NSTimer *)timer {
     if (_timer != timer) {
-        [self.timer invalidate];
+        [_timer invalidate];
         
         _timer = timer;
     }
 }
 
 - (void)setRunning:(BOOL)running {
-    SEL selector = running ? @selector(onTimer) : @selector(offTimer);
+    SEL selector = running ? @selector(startTimer) : @selector(stopTimer);
     [self performSelectorOnMainThread:selector withObject:nil waitUntilDone:NO];
 }
 
@@ -88,11 +88,11 @@ static const uint8_t kBPVInterval = 5;
     NSLog(@"%lu cars added pushed to wash", (unsigned long)kBPVCarsCount);
 }
 
-- (void)offTimer {
+- (void)stopTimer {
     self.timer = nil;
 }
 
-- (void)onTimer {
+- (void)startTimer {
     self.timer = [NSTimer scheduledTimerWithTimeInterval:kBPVInterval
                                                   target:self
                                                 selector:@selector(washCars)

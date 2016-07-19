@@ -205,12 +205,13 @@
 		2D7E0FC81D20463100620461 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				2DE716DF1D22C0B400562950 /* Reference */,
-				2D7E0FC91D20463100620461 /* Alphabet */,
 				2DEFC44A1D3CEE480025C7B9 /* GCD */,
 				2D7E0FD51D20463100620461 /* CarWash */,
 				2D7E0FF11D20463100620461 /* Category */,
+				2DE716D01D2168AA00562950 /* Protocols */,
+				2D7E0FC91D20463100620461 /* Alphabet */,
 				2D7E0FF61D20463100620461 /* Creature */,
+				2DE716DF1D22C0B400562950 /* Reference */,
 				2D7E0FFD1D20463100620461 /* Tests */,
 			);
 			path = Sources;
@@ -245,12 +246,11 @@
 			isa = PBXGroup;
 			children = (
 				2DE716D81D2272B600562950 /* BPVObservableObject */,
-				2DE716D01D2168AA00562950 /* Protocols */,
 				2D7E0FE01D20463100620461 /* Queue */,
-				2D7E0FDA1D20463100620461 /* Car */,
 				2DEFC43E1D37B1A20025C7B9 /* Dispatchers */,
 				2D7E0FDD1D20463100620461 /* Complex */,
 				2D7E0FE81D20463100620461 /* Workers */,
+				2D7E0FDA1D20463100620461 /* Car */,
 			);
 			path = CarWash;
 			sourceTree = "<group>";
@@ -350,7 +350,8 @@
 				2DE716D11D2168AA00562950 /* BPVMoneyFlow.h */,
 				2DE716D21D2168AA00562950 /* BPVWorkersDelegate.h */,
 			);
-			path = Protocols;
+			name = Protocols;
+			path = CarWash/Protocols;
 			sourceTree = "<group>";
 		};
 		2DE716D81D2272B600562950 /* BPVObservableObject */ = {
