@@ -18,15 +18,21 @@ typedef void (^BPVBlock)(void);
 #pragma mark -
 #pragma mark Public implementations
 
-//+ (instancetype)timerWithTimeInterval:(NSTimeInterval)interval repeats:(BOOL)repeats block:(void(^)())block {
-//    id object = [NSObject object];
-//    
-//    return [self scheduledTimerWithTimeInterval:interval
-//                                         target:object
-//                                       selector:@selector()
-//                                       userInfo:nil
-//                                        repeats:repeats];
-//}
++ (instancetype)timerWithTimeInterval:(NSTimeInterval)interval repeats:(BOOL)repeats block:(SEL(^)())block {
+    if (!block) {
+        return nil;
+    }
+    
+    id object = [NSObject object];
+    SEL selectr = block();
+    
+    NSTimer *timer =[self scheduledTimerWithTimeInterval:interval
+                                                  target:object
+                                                selector:@selector(selectr)
+                                                userInfo:nil
+                                                 repeats:repeats];
+    return timer;
+}
 
 #pragma mark -
 #pragma mark Private implementations
