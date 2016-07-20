@@ -11,21 +11,24 @@
 #import "BPVComplex.h"
 #import "BPVCar.h"
 
+#import "BPVGCD.h"
+
 #import "NSObject+BPVExtensions.h"
 #import "NSArray+BPVExtensions.h"
+#import "NSTimer+BPVExtensions.h"
 
-static const NSUInteger kBPVCarsCount = 40;
-static const uint8_t kBPVInterval = 5;
+static const NSUInteger kBPVCarsCount           = 40;
+static const uint8_t    kBPVInterval            = 5;
+static const size_t     kBPVIterationsCount     = 10;
 
 @interface BPVComplexDispatcher ()
 @property (nonatomic, retain) BPVComplex    *complex;
 @property (nonatomic, assign) NSTimer       *timer;
-@property (nonatomic, assign, getter=isRunning) BOOL running;
 
 - (instancetype)initWithComplex:(BPVComplex *)complex;
 
-- (void)offTimer;
-- (void)onTimer;
+- (void)stopTimer;
+- (void)startTimer;
 
 @end
 
@@ -44,6 +47,7 @@ static const uint8_t kBPVInterval = 5;
 #pragma mark Initializations / Deallocations
 
 - (void)dealloc {
+    self.timer = nil;
     self.complex = nil;
     
     [super dealloc];
@@ -61,14 +65,14 @@ static const uint8_t kBPVInterval = 5;
 
 - (void)setTimer:(NSTimer *)timer {
     if (_timer != timer) {
-        [self.timer invalidate];
+        [_timer invalidate];
         
         _timer = timer;
     }
 }
 
 - (void)setRunning:(BOOL)running {
-    SEL selector = running ? @selector(onTimer) : @selector(offTimer);
+    SEL selector = running ? @selector(startTimer) : @selector(stopTimer);
     [self performSelectorOnMainThread:selector withObject:nil waitUntilDone:NO];
 }
 
@@ -88,16 +92,16 @@ static const uint8_t kBPVInterval = 5;
     NSLog(@"%lu cars added pushed to wash", (unsigned long)kBPVCarsCount);
 }
 
-- (void)offTimer {
+- (void)stopTimer {
     self.timer = nil;
 }
 
-- (void)onTimer {
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:kBPVInterval
-                                                  target:self
-                                                selector:@selector(washCars)
-                                                userInfo:nil
-                                                 repeats:YES];
+- (void)startTimer {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kBPVInterval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self washCars];
+        [self startTimer];
+    });
+//    self.timer = [NSTimer timerWithTimeInterval:kBPVInterval repeats:YES block:^(void){ [self washCars]; }];
 }
 
 @end

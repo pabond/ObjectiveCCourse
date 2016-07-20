@@ -41,6 +41,5 @@ typedef NS_ENUM(uint8_t, BPVWorkerState) {
 // do not lounch these methods directly. Moved to heder for reordering or launching in chlid classes
 - (void)finishProcessing;
 - (void)finishProcessingObject:(id)object;
-- (void)startProcessingObject:(id)object;
 
 @end

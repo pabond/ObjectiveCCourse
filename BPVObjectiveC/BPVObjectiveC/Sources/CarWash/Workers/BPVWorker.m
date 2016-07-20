@@ -8,6 +8,8 @@
 
 #import "BPVWorker.h"
 
+#import "BPVGCD.h"
+
 #import "NSObject+BPVExtensions.h"
 
 @interface BPVWorker ()
@@ -15,8 +17,6 @@
 @property (nonatomic, copy)   NSString      *name;
 
 - (instancetype)initProcessorWithName:name;
-
-- (void)finishProcessingOnMainThreadWithObject:(id)object;
 
 @end
 
@@ -51,23 +51,13 @@
 
 - (void)processObject:(id)object {
     self.state = BPVWorkerStateBusy;
-    [self performSelectorInBackground:@selector(startProcessingObject:) withObject:object];
-}
-
-- (void)startProcessingObject:(id)object {
-    NSLog(@"%@ start processing object in background", self.name);
-    [self performWorkWithObject:object];
-    [self performSelectorOnMainThread:@selector(finishProcessingOnMainThreadWithObject:)
-                           withObject:object
-                        waitUntilDone:NO];
-}
-
-- (void)finishProcessingOnMainThreadWithObject:(id)object {
-    @synchronized (object) {
-        [self finishProcessingObject:object];
-    }
-    
-    [self finishProcessing];
+    BPVPerformAsyncBlockOnBackgroundQueue (^{
+        [self performWorkWithObject:object];
+        BPVPerformAsyncBlockOnMainQueue(^{
+            [self finishProcessingObject:object];
+            [self finishProcessing];
+        });
+    });
 }
 
 - (void)finishProcessingObject:(BPVWorker *)worker {    //change object state
