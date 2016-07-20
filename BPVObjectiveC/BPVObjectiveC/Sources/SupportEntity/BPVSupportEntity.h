@@ -8,16 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-#import "BPVComplexDispatcher.h"
 
 typedef void(^BPVSupportingBlock)(void);
 
 @interface BPVSupportEntity : NSObject
 @property (nonatomic, copy)     BPVSupportingBlock      block;
-@property (nonatomic, retain)   BPVComplexDispatcher    *object;
 
-+ (instancetype)objectWithBlock:(void(^)())block object:(BPVComplexDispatcher *)object;
++ (instancetype)objectWithBlock:(void(^)())block;
 
-- (void)performBlock;
+- (void)startTimer:(NSTimer *)timer;
 
 @end

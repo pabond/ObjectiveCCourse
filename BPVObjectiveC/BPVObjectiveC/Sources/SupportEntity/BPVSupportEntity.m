@@ -10,7 +10,7 @@
 
 @interface BPVSupportEntity ()
 
-- (instancetype)initWithBlock:(void(^)())block object:(BPVComplexDispatcher *)object;
+- (instancetype)initWithBlock:(void(^)())block;
 
 @end
 
@@ -19,8 +19,8 @@
 #pragma mark -
 #pragma mark Class methods
 
-+ (instancetype)objectWithBlock:(void(^)())block object:(BPVComplexDispatcher *)object; {
-    return [[[self alloc] initWithBlock:block object:object] autorelease];
++ (instancetype)objectWithBlock:(void(^)())block {
+    return [[[self alloc] initWithBlock:block] autorelease];
 }
 
 #pragma mark -
@@ -28,15 +28,13 @@
 
 - (void)dealloc {
     self.block = nil;
-    self.object = nil;
     
     [super dealloc];
 }
 
-- (instancetype)initWithBlock:(void(^)())block object:(BPVComplexDispatcher *)object {
+- (instancetype)initWithBlock:(void(^)())block {
     self = [super init];
     self.block = block;
-    self.object = object;
     
     return self;
 }
@@ -45,8 +43,10 @@
 #pragma mark -
 #pragma mark Public implementations
 
-- (void)performBlock {
-    self.block();
+- (void)startTimer:(NSTimer *)timer {
+    BPVSupportingBlock block = self.block;
+    
+    block();
 }
 
 @end

@@ -8,6 +8,8 @@
 
 #import "NSTimer+BPVExtensions.h"
 
+#import "BPVSupportEntity.h"
+
 #import "NSObject+BPVExtensions.h"
 
 typedef void (^BPVBlock)(void);
@@ -18,17 +20,17 @@ typedef void (^BPVBlock)(void);
 #pragma mark -
 #pragma mark Public implementations
 
-+ (instancetype)timerWithTimeInterval:(NSTimeInterval)interval repeats:(BOOL)repeats block:((^)())block {
++ (instancetype)timerWithTimeInterval:(NSTimeInterval)interval repeats:(BOOL)repeats block:(void(^)())block {
     if (!block) {
         return nil;
     }
     
-    id object = [NSObject object];
+    id object = [BPVSupportEntity objectWithBlock:block];
 
     
     NSTimer *timer =[self scheduledTimerWithTimeInterval:interval
                                                   target:object
-                                                selector:@selector()
+                                                selector:@selector(startTimer:)
                                                 userInfo:nil
                                                  repeats:repeats];
     return timer;

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D3F419D1D3F5D2600A38A7B /* BPVSupportEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D3F419C1D3F5D2600A38A7B /* BPVSupportEntity.m */; };
+		2D3F419E1D3F5D2600A38A7B /* BPVSupportEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D3F419C1D3F5D2600A38A7B /* BPVSupportEntity.m */; };
 		2D575B8A1D20489E00C347D5 /* BPVAlphabetSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D575B891D20489E00C347D5 /* BPVAlphabetSpec.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2D7E10001D20463100620461 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0FC71D20463100620461 /* main.m */; };
 		2D7E10021D20463100620461 /* BPVAlphabet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E0FCB1D20463100620461 /* BPVAlphabet.m */; };
@@ -76,6 +78,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2D3F419B1D3F5D2600A38A7B /* BPVSupportEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPVSupportEntity.h; sourceTree = "<group>"; };
+		2D3F419C1D3F5D2600A38A7B /* BPVSupportEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPVSupportEntity.m; sourceTree = "<group>"; };
 		2D575B891D20489E00C347D5 /* BPVAlphabetSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPVAlphabetSpec.m; sourceTree = "<group>"; };
 		2D7E0DFD1D0ACB1600620461 /* BPVObjectiveC */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BPVObjectiveC; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D7E0F531D2043E200620461 /* ObjectiveCTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ObjectiveCTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -159,6 +163,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2D3F419A1D3F5D2600A38A7B /* SupportEntity */ = {
+			isa = PBXGroup;
+			children = (
+				2D3F419B1D3F5D2600A38A7B /* BPVSupportEntity.h */,
+				2D3F419C1D3F5D2600A38A7B /* BPVSupportEntity.m */,
+			);
+			name = SupportEntity;
+			path = BPVObjectiveC/Sources/SupportEntity;
+			sourceTree = SOURCE_ROOT;
+		};
 		2D575B881D20489E00C347D5 /* Specs */ = {
 			isa = PBXGroup;
 			children = (
@@ -252,6 +266,7 @@
 				2D7E0FE01D20463100620461 /* Queue */,
 				2DEFC43E1D37B1A20025C7B9 /* Dispatchers */,
 				2D7E0FDD1D20463100620461 /* Complex */,
+				2D3F419A1D3F5D2600A38A7B /* SupportEntity */,
 				2D7E0FE81D20463100620461 /* Workers */,
 				2D7E0FDA1D20463100620461 /* Car */,
 			);
@@ -579,6 +594,7 @@
 				2DEFC4411D37B1DF0025C7B9 /* BPVWorkersDispatcher.m in Sources */,
 				2D7E10061D20463100620461 /* BPVClusterAlphabet.m in Sources */,
 				2D7E10261D20463100620461 /* BPVCreatureFemale.m in Sources */,
+				2D3F419D1D3F5D2600A38A7B /* BPVSupportEntity.m in Sources */,
 				2D7E10281D20463100620461 /* BPVCreatureMale.m in Sources */,
 				2DE716EA1D22C10000562950 /* BPVCopyReference.m in Sources */,
 				2D7E10121D20463100620461 /* BPVQueue.m in Sources */,
@@ -619,6 +635,7 @@
 				2D575B8A1D20489E00C347D5 /* BPVAlphabetSpec.m in Sources */,
 				2DE716CC1D204E1600562950 /* NSString+BPVExtensions.m in Sources */,
 				2D7E100B1D20463100620461 /* BPVStringsAlphabet.m in Sources */,
+				2D3F419E1D3F5D2600A38A7B /* BPVSupportEntity.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

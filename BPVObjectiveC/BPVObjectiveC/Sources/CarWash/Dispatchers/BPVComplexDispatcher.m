@@ -97,10 +97,9 @@ static const size_t     kBPVIterationsCount     = 10;
 }
 
 - (void)startTimer {
-    self.timer = [NSTimer timerWithTimeInterval:kBPVInterval repeats:YES block:^SEL(void){
-        return @selector(washCars);
-    }];
+    self.timer = [NSTimer timerWithTimeInterval:kBPVInterval repeats:YES block:^(void){ [self washCars]; }];
 }
+
 //    dispatch_apply(kBPVIterationsCount, BPVDisptchQueueWithPriorityType(BPVDispatchQueuePriorityBackground), ^(size_t count) {
 //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kBPVInterval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //            [self washCars];
