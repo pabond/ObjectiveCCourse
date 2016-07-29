@@ -10,7 +10,7 @@
 
 @interface BPVSupportEntity ()
 
-- (instancetype)initWithBlock:(void(^)())block;
+- (instancetype)initWithBlock:(BPVSupportingBlock)block;
 
 @end
 
@@ -19,7 +19,7 @@
 #pragma mark -
 #pragma mark Class methods
 
-+ (instancetype)objectWithBlock:(void(^)())block {
++ (instancetype)objectWithBlock:(BPVSupportingBlock)block {
     return [[[self alloc] initWithBlock:block] autorelease];
 }
 
@@ -32,7 +32,7 @@
     [super dealloc];
 }
 
-- (instancetype)initWithBlock:(void(^)())block {
+- (instancetype)initWithBlock:(BPVSupportingBlock)block {
     self = [super init];
     self.block = block;
     
@@ -43,7 +43,7 @@
 #pragma mark -
 #pragma mark Public implementations
 
-- (void)startTimer:(NSTimer *)timer {
+- (void)onTimer:(NSTimer *)timer {
     BPVSupportingBlock block = self.block;
     
     block();

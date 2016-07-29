@@ -8,14 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-
 typedef void(^BPVSupportingBlock)(void);
 
 @interface BPVSupportEntity : NSObject
 @property (nonatomic, copy)     BPVSupportingBlock      block;
 
-+ (instancetype)objectWithBlock:(void(^)())block;
++ (instancetype)objectWithBlock:(BPVSupportingBlock)block;
 
-- (void)startTimer:(NSTimer *)timer;
+- (void)onTimer:(NSTimer *)timer;
 
 @end

@@ -19,7 +19,6 @@
 
 static const NSUInteger kBPVCarsCount           = 40;
 static const uint8_t    kBPVInterval            = 5;
-static const size_t     kBPVIterationsCount     = 10;
 
 @interface BPVComplexDispatcher ()
 @property (nonatomic, retain) BPVComplex    *complex;
